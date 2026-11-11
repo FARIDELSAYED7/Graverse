@@ -33,7 +33,7 @@ export default function ArticlePage({ params }: PageProps) {
       <div className="container-content pt-8">
         <Link
           href="/academy/articles"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#152238] underline-offset-4 hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#14213B] underline-offset-4 hover:underline"
         >
           <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
           All explainers
@@ -41,24 +41,24 @@ export default function ArticlePage({ params }: PageProps) {
       </div>
       <article className="container-content mt-5 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
         <div className="max-w-2xl">
-          <p className="flex flex-wrap items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+          <p className="flex flex-wrap items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
             {article.topics.join(" · ")}
-            <span className="inline-flex items-center gap-1 text-[#6B7280]">
+            <span className="inline-flex items-center gap-1 text-[#5F6B83]">
               <Clock aria-hidden="true" className="h-3 w-3" />
               {article.readingMinutes} min read
             </span>
           </p>
-          <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#152238] sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#14213B] sm:text-4xl">
             {article.title}
           </h1>
-          <p className="mt-3 border-l-4 border-[#FF6B5A]/50 pl-4 text-lg leading-relaxed text-[#4B5563]">
+          <p className="mt-3 border-l-4 border-[#9C4321]/50 pl-4 text-lg leading-relaxed text-[#4B5563]">
             {article.dek}
           </p>
 
           <div className="mt-8 space-y-8">
             {article.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-xl font-semibold text-[#152238] sm:text-2xl">
+                <h2 className="text-xl font-semibold text-[#14213B] sm:text-2xl">
                   {section.heading}
                 </h2>
                 <div className="mt-2 space-y-3">
@@ -72,7 +72,7 @@ export default function ArticlePage({ params }: PageProps) {
             ))}
           </div>
 
-          <p className="mt-8 rounded-xl border border-[#152238]/10 bg-white/70 p-4 text-xs leading-relaxed text-[#5A6472]">
+          <p className="mt-8 rounded-xl border border-[#14213B]/10 bg-white/70 p-4 text-xs leading-relaxed text-[#5A6472]">
             Last verified {article.lastVerified}. This explainer reuses facts from the
             linked artifact and destination records. It does not introduce new
             measurements.
@@ -82,7 +82,7 @@ export default function ArticlePage({ params }: PageProps) {
         <aside className="space-y-6">
           {bodies.length > 0 ? (
             <div className="academy-card rounded-2xl p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 Destinations
               </h2>
               <ul className="mt-2 space-y-1.5 text-sm">
@@ -90,7 +90,7 @@ export default function ArticlePage({ params }: PageProps) {
                   <li key={body!.id}>
                     <Link
                       href={`/explorer/bodies/${body!.id}`}
-                      className="font-medium text-[#152238] underline-offset-4 hover:underline"
+                      className="font-medium text-[#14213B] underline-offset-4 hover:underline"
                     >
                       {body!.name}
                     </Link>
@@ -102,7 +102,7 @@ export default function ArticlePage({ params }: PageProps) {
 
           {artifacts.length > 0 ? (
             <div>
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 Referenced hardware
               </h2>
               <div className="mt-3 grid gap-3">

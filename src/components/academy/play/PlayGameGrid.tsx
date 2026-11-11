@@ -28,9 +28,7 @@ function PlayGameCard({ game }: { game: PlayGame }) {
     <article className="academy-card group flex flex-col overflow-hidden rounded-3xl">
       <div
         className="relative flex h-36 items-center justify-center overflow-hidden"
-        style={{
-          background: `radial-gradient(circle at 30% 20%, ${game.softAccent} 0%, #FFFDF7 58%, ${game.softAccent} 100%)`,
-        }}
+        style={{ background: game.softAccent }}
       >
         <div
           aria-hidden="true"
@@ -47,7 +45,7 @@ function PlayGameCard({ game }: { game: PlayGame }) {
           className="relative h-16 w-16 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"
           style={{ color: game.accent }}
         />
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#152238] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#FFF7EA]">
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#14213B] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#FFF8EC]">
           <Gamepad2 aria-hidden="true" className="h-3 w-3" />
           3D game
         </span>
@@ -60,17 +58,17 @@ function PlayGameCard({ game }: { game: PlayGame }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-semibold text-[#152238]">{game.title}</h3>
+        <h3 className="text-lg font-semibold text-[#14213B]">{game.title}</h3>
         <p className="mt-0.5 text-sm font-semibold" style={{ color: game.accent }}>
           {game.tagline}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-[#5A6472]">{game.description}</p>
 
         <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] font-semibold">
-          <span className="rounded-full bg-[#152238]/6 px-2 py-1 text-[#374151]">
+          <span className="rounded-full bg-[#14213B]/6 px-2 py-1 text-[#374151]">
             Ages {game.ages.join(", ")}
           </span>
-          <span className="rounded-full bg-[#152238]/6 px-2 py-1 text-[#374151]">
+          <span className="rounded-full bg-[#14213B]/6 px-2 py-1 text-[#374151]">
             {game.minutes} min
           </span>
           <span className="inline-flex items-center gap-1 rounded-full bg-[#FFC93C]/20 px-2 py-1 text-[#7C4A03]">

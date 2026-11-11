@@ -11,21 +11,21 @@ export const ageBandMeta: Record<
     short: "First explorers",
     description:
       "Short stories, big pictures and one idea at a time. Grown-ups can read along.",
-    accent: "#FF6B5A",
+    accent: "#9C4321",
   },
   "8-9": {
     label: "Ages 8–9",
     short: "Junior detectives",
     description:
       "Follow clues, compare machines and learn how missions are planned.",
-    accent: "#14B8A6",
+    accent: "#0F766E",
   },
   "10-12": {
     label: "Ages 10–12",
     short: "Mission engineers",
     description:
       "Dig into engineering trade-offs, mission status and real scientific data.",
-    accent: "#F5A524",
+    accent: "#8A5A00",
   },
 };
 

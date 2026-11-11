@@ -24,7 +24,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
     <section aria-labelledby="journey-steps-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="journey-steps-heading" className="text-xl font-semibold text-[#152238]">
+          <h2 id="journey-steps-heading" className="text-xl font-semibold text-[#14213B]">
             The route
           </h2>
           <p className="mt-1 text-sm text-[#5A6472]">
@@ -32,7 +32,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
             stored {mode === "local" ? "on this device" : "for this session"}.
           </p>
         </div>
-        <span className="rounded-full bg-[#152238]/5 px-3 py-1 font-mono text-sm text-[#152238]">
+        <span className="rounded-full bg-[#14213B]/5 px-3 py-1 font-mono text-sm text-[#14213B]">
           {percent}%
         </span>
       </div>
@@ -43,7 +43,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label="Journey progress"
-        className="mt-3 h-2 overflow-hidden rounded-full bg-[#152238]/10"
+        className="mt-3 h-2 overflow-hidden rounded-full bg-[#14213B]/10"
       >
         <div
           className="h-full rounded-full transition-[width]"
@@ -63,15 +63,15 @@ export function JourneySteps({ journey }: { journey: Journey }) {
                 aria-hidden="true"
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
                   done
-                    ? "bg-[#14B8A6] text-white"
-                    : "bg-[#152238]/8 text-[#152238]"
+                    ? "bg-[#0F766E] text-white"
+                    : "bg-[#14213B]/8 text-[#14213B]"
                 }`}
               >
                 {done ? <Check className="h-4 w-4" /> : index + 1}
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                     {kindLabel[step.kind]}
                   </span>
                   {done ? (
@@ -82,7 +82,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
                 </div>
                 <Link
                   href={step.href}
-                  className="mt-0.5 block text-base font-semibold text-[#152238] underline-offset-4 hover:underline"
+                  className="mt-0.5 block text-base font-semibold text-[#14213B] underline-offset-4 hover:underline"
                 >
                   {step.title}
                 </Link>
@@ -99,8 +99,8 @@ export function JourneySteps({ journey }: { journey: Journey }) {
                 aria-pressed={done}
                 className={`inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-xs font-semibold transition-colors ${
                   done
-                    ? "cursor-default bg-[#14B8A6]/12 text-[#0F766E]"
-                    : "border border-[#152238]/20 text-[#152238] hover:bg-[#152238] hover:text-[#FFF7EA]"
+                    ? "cursor-default bg-[#0F766E]/12 text-[#0F766E]"
+                    : "border border-[#14213B]/20 text-[#14213B] hover:bg-[#14213B] hover:text-[#FFF8EC]"
                 }`}
               >
                 {done ? (

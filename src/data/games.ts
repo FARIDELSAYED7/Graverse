@@ -19,8 +19,7 @@ export const playGames: PlayGame[] = [
     id: "rocket",
     title: "Rocket Workshop",
     tagline: "Build it, paint it, launch it.",
-    description:
-      "Choose a nose, body, fins and engine, then send your rocket skyward. Change one part at a time and watch the model change.",
+    description: "Pick the parts, then send your toy rocket skyward.",
     ages: ["5-7", "8-9"],
     minutes: 4,
     accent: "#B4432A",
@@ -43,12 +42,11 @@ export const playGames: PlayGame[] = [
     id: "moon",
     title: "Moon Phase Mission",
     tagline: "Move the Moon. Match the phase.",
-    description:
-      "Slide the Moon around Earth, watch what you would see from your window, and match each target phase.",
+    description: "Slide the Moon around Earth until the phase matches.",
     ages: ["5-7", "8-9", "10-12"],
     minutes: 5,
-    accent: "#6A4BD8",
-    softAccent: "#EAE4FF",
+    accent: "#3E5C8A",
+    softAccent: "#E4ECF7",
     badge: {
       id: "badge-play-moon",
       name: "Moon Watcher",
@@ -67,8 +65,7 @@ export const playGames: PlayGame[] = [
     id: "rover",
     title: "Rover Quest",
     tagline: "Collect three samples. Get home.",
-    description:
-      "Drive a toy rover across a rocky patch of Mars, pick up three samples and return to the landing pad.",
+    description: "Drive the toy rover out, grab three samples and return.",
     ages: ["8-9", "10-12"],
     minutes: 6,
     accent: "#0F766E",

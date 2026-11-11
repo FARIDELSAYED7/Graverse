@@ -9,11 +9,10 @@ export function SiteFooter() {
       <div className="brand-rule absolute inset-x-0 top-0" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-70"
+        className="pointer-events-none absolute inset-0 opacity-60"
       >
-        <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.14),transparent_66%)] blur-2xl" />
-        <div className="absolute left-1/3 -top-16 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.16),transparent_66%)] blur-2xl" />
-        <div className="absolute -right-20 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(244,114,208,0.12),transparent_68%)] blur-2xl" />
+        <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.12),transparent_66%)] blur-2xl" />
+        <div className="absolute -right-20 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(43,108,145,0.16),transparent_68%)] blur-2xl" />
       </div>
       <div className="container-content relative py-12">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">

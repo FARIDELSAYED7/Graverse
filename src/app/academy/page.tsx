@@ -10,7 +10,6 @@ import {
   GraduationCap,
   Library,
   Sparkles,
-  Star,
   Telescope,
 } from "lucide-react";
 import { ArticleCard } from "@/components/academy/ArticleCard";
@@ -31,165 +30,152 @@ export const metadata: Metadata = {
     "Guided space learning for ages 5–12: four journeys, twelve lessons, quizzes, three 3D playground games, a scripted robot guide and local progress. Every lesson links to source-backed museum records.",
 };
 
-export default function AcademyPage() {
-  const featuredJourneys = journeys;
-  const featuredLessons = lessons.filter((lesson) =>
-    ["what-is-an-artifact", "reading-a-mission-timeline", "why-mars-is-red", "how-we-know-what-we-know"].includes(
-      lesson.id
-    )
-  );
-  const featuredArticles = articles.slice(0, 3);
+const featuredLessons = lessons.filter((lesson) =>
+  [
+    "what-is-an-artifact",
+    "reading-a-mission-timeline",
+    "why-mars-is-red",
+    "how-we-know-what-we-know",
+  ].includes(lesson.id)
+);
 
+export default function AcademyPage() {
   return (
     <div className="pb-16">
-      <section className="relative overflow-hidden border-b border-[#152238]/10">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_78%_-10%,rgba(255,107,90,0.22),transparent_55%),radial-gradient(ellipse_at_8%_18%,rgba(20,184,166,0.18),transparent_50%),radial-gradient(ellipse_at_52%_110%,rgba(255,201,60,0.28),transparent_58%)]"
-        />
-        <div className="container-content relative grid gap-10 pb-14 pt-12 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pb-20">
+      <section className="border-b border-[#14213B]/10">
+        <div className="container-content grid gap-8 pb-10 pt-10 sm:pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pb-12">
           <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[#FF6B5A]/30 bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
+            <p className="inline-flex items-center gap-2 rounded-full border border-[#9C4321]/30 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
               <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
               Space Academy · ages 5–12
             </p>
-            <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-[#152238] sm:text-5xl lg:text-6xl">
-              Big ideas about{" "}
-              <span className="text-[#FF6B5A]">real space machines.</span>
+            <h1 className="mt-4 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-[#14213B] sm:text-5xl lg:text-6xl">
+              Learn space by{" "}
+              <span className="text-accent">playing.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-[#4B5563] sm:text-lg">
-              Play first, then read. Build a toy rocket, match Moon phases or drive
-              a rover, then follow the same idea into a short lesson linked to a real
-              NASA artifact in the museum.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-[#46536B] sm:text-lg">
+              Build a rocket, match Moon phases or drive a rover. Then read the
+              short lesson behind it.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/academy/play"
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#7C5CE5] px-6 text-sm font-semibold text-white shadow-[0_12px_28px_-16px_rgba(124,92,229,0.9)] transition-transform hover:-translate-y-0.5"
+                className="btn-primary inline-flex h-12 items-center gap-2 rounded-full px-6 text-sm font-semibold transition-transform hover:-translate-y-0.5"
               >
                 <Gamepad2 aria-hidden="true" className="h-4 w-4" />
                 Play in 3D
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
               <Link
-                href="#journeys"
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#152238] px-6 text-sm font-semibold text-[#FFF7EA] transition-transform hover:-translate-y-0.5"
-              >
-                Start a journey
-                <ArrowRight aria-hidden="true" className="h-4 w-4" />
-              </Link>
-              <Link
                 href="/academy/lessons"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-[#152238]/20 bg-white/70 px-6 text-sm font-semibold text-[#152238] hover:bg-white"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#14213B] px-6 text-sm font-semibold text-[#FFF8EC] transition-transform hover:-translate-y-0.5"
               >
                 <BookOpen aria-hidden="true" className="h-4 w-4" />
                 Browse lessons
               </Link>
-              <Link
-                href="/academy/robot-lab"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-[#152238]/20 bg-white/70 px-6 text-sm font-semibold text-[#152238] hover:bg-white"
-              >
-                <Bot aria-hidden="true" className="h-4 w-4" />
-                Robot lab
-              </Link>
             </div>
-            <p className="mt-4 text-xs text-[#6B7280]">
-              Three 3D games · twelve lessons · four journeys · no account required ·
-              progress stays in your browser.
+            <p className="mt-3 text-xs text-[#5F6B83]">
+              3 games · 12 lessons · 4 journeys · no account needed
             </p>
           </div>
 
           <div className="academy-card relative overflow-hidden rounded-3xl p-5 sm:p-6">
-            <div
-              aria-hidden="true"
-              className="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-[#FFC93C]/35 blur-2xl"
-            />
-            <div className="relative flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
                   Your progress
                 </p>
-                <p className="mt-1 text-lg font-semibold text-[#152238]">
+                <p className="mt-1 text-lg font-semibold text-[#14213B]">
                   Saved on this device
                 </p>
               </div>
-              <GraduationCap aria-hidden="true" className="h-9 w-9 text-[#152238]/25" />
+              <GraduationCap aria-hidden="true" className="h-9 w-9 text-[#14213B]/20" />
             </div>
             <ProgressSnapshot />
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              <Link
-                href="/academy/progress"
-                className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#152238] px-3 text-xs font-semibold text-[#FFF7EA]"
-              >
-                View progress
-              </Link>
-              <Link
-                href="/academy/glossary"
-                className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full border border-[#152238]/15 px-3 text-xs font-semibold text-[#152238] hover:bg-[#152238]/5"
-              >
-                Word lab
-              </Link>
-            </div>
+            <Link
+              href="/academy/progress"
+              className="mt-5 inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-[#14213B] px-3 text-xs font-semibold text-[#FFF8EC]"
+            >
+              View my progress
+            </Link>
           </div>
         </div>
+      </section>
+
+      <section className="container-content pt-10" aria-labelledby="play-heading">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
+              <Gamepad2 aria-hidden="true" className="h-3.5 w-3.5" />
+              Space Playground
+            </p>
+            <h2 id="play-heading" className="mt-1 text-2xl font-semibold text-[#14213B] sm:text-3xl">
+              Pick a game
+            </h2>
+          </div>
+          <Link
+            href="/academy/play"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213B] underline-offset-4 hover:underline"
+          >
+            Open the playground
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+        <PlayGameGrid games={playGames} />
       </section>
 
       <section className="container-content pt-12" aria-labelledby="ages-heading">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
               Choose a level
             </p>
-            <h2 id="ages-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
+            <h2 id="ages-heading" className="mt-1 text-2xl font-semibold text-[#14213B] sm:text-3xl">
               Three ages, three ways in
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-[#5A6472]">
-            The same verified records, written for different reading levels. Younger
-            explorers get shorter steps and more picture-led explanations.
-          </p>
         </div>
         <AgeBandMetaGrid bands={ageBands} meta={ageBandMeta} />
       </section>
 
-      <section id="journeys" className="container-content scroll-mt-24 pt-14" aria-labelledby="journeys-heading">
+      <section id="journeys" className="container-content scroll-mt-24 pt-12" aria-labelledby="journeys-heading">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
               Learning journeys
             </p>
-            <h2 id="journeys-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
+            <h2 id="journeys-heading" className="mt-1 text-2xl font-semibold text-[#14213B] sm:text-3xl">
               A route, not a pile of pages
             </h2>
           </div>
           <Link
             href="/academy/journeys"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213B] underline-offset-4 hover:underline"
           >
             All journeys
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
-          {featuredJourneys.map((journey) => (
+          {journeys.map((journey) => (
             <JourneyCard key={journey.id} journey={journey} />
           ))}
         </div>
       </section>
 
-      <section className="container-content pt-14" aria-labelledby="lessons-heading">
+      <section className="container-content pt-12" aria-labelledby="lessons-heading">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9C4321]">
               Lesson library
             </p>
-            <h2 id="lessons-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
+            <h2 id="lessons-heading" className="mt-1 text-2xl font-semibold text-[#14213B] sm:text-3xl">
               Start anywhere
             </h2>
           </div>
           <Link
             href="/academy/lessons"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#14213B] underline-offset-4 hover:underline"
           >
             All {lessons.length} lessons
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -202,58 +188,25 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      <section className="container-content pt-14" aria-labelledby="play-heading">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5B3BC4]">
-              <Gamepad2 aria-hidden="true" className="h-3.5 w-3.5" />
-              Space Playground
-            </p>
-            <h2 id="play-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
-              Three 3D games to try
-            </h2>
-          </div>
-          <Link
-            href="/academy/play"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
-          >
-            Open the playground
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
-          </Link>
-        </div>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#5A6472]">
-          Build and launch a toy rocket, slide the Moon to match a phase, or drive a
-          rover out to collect samples. Each game saves a badge and links back to the
-          real mission record. Keyboard, touch and no-3D fallbacks are included.
-        </p>
-        <PlayGameGrid games={playGames} />
-      </section>
-
-      <section className="container-content pt-14" aria-labelledby="robot-heading">
-        <div className="rounded-3xl bg-[#152238] p-6 text-[#F4F7FC] sm:p-8">
+      <section className="container-content pt-12" aria-labelledby="robot-heading">
+        <div className="rounded-3xl bg-[#14213B] p-6 text-[#FFF8EC] sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="max-w-2xl">
-              <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FFC93C]">
+              <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F2B33D]">
                 <Bot aria-hidden="true" className="h-3.5 w-3.5" />
                 Robot lab
               </p>
               <h2 id="robot-heading" className="mt-2 text-2xl font-semibold sm:text-3xl">
-                Ask a scripted robot guide about any artifact
+                Ask a robot about a real machine
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[#C7D2E4]">
-                Thirty artifact guides, each built from the museum record. The robot
-                is not an AI and does not invent answers: it matches your question to
-                a fixed, source-linked answer. Every reply shows where it came from.
+              <p className="mt-2 text-sm leading-relaxed text-[#C9D3E3]">
+                The robot gives fixed answers from the museum record. It is not AI
+                and it will say when it does not know.
               </p>
-              <ul className="mt-4 grid gap-2 text-sm text-[#C7D2E4] sm:grid-cols-2">
-                {[
-                  "Works without a network or a model API",
-                  "Optional read-aloud with the browser voice",
-                  "Shows the artifact's mission and hardware status",
-                  "Answers only from the verified record",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 text-[#14B8A6]" />
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#C9D3E3]">
+                {["Works offline", "Can read aloud", "Shows its source"].map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <CheckCircle2 aria-hidden="true" className="h-3.5 w-3.5 text-[#5EEAD4]" />
                     {item}
                   </li>
                 ))}
@@ -261,7 +214,7 @@ export default function AcademyPage() {
             </div>
             <Link
               href="/academy/robot-lab"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#FFC93C] px-6 text-sm font-semibold text-[#152238] hover:bg-[#FFD966]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#F2B33D] px-6 text-sm font-semibold text-[#14213B] hover:bg-[#FBBF24]"
             >
               <Bot aria-hidden="true" className="h-4 w-4" />
               Open robot lab
@@ -270,81 +223,57 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      <section className="container-content pt-14" aria-labelledby="articles-heading">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#B4532A]">
-              Explainers
-            </p>
-            <h2 id="articles-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
-              The story behind the record
-            </h2>
-          </div>
-          <Link
-            href="/academy/articles"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
-          >
-            All articles
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+      <section className="container-content pt-12" aria-labelledby="more-heading">
+        <h2 id="more-heading" className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
+          More to explore
+        </h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <Link href="/academy/glossary" className="academy-card group rounded-2xl p-4">
+            <Library aria-hidden="true" className="h-5 w-5 text-[#0F766E]" />
+            <p className="mt-2 text-base font-semibold text-[#14213B]">Word lab</p>
+            <p className="mt-0.5 text-xs text-[#5F6B83]">40 space words, explained simply.</p>
+          </Link>
+          <Link href="/academy/articles" className="academy-card group rounded-2xl p-4">
+            <BookOpen aria-hidden="true" className="h-5 w-5 text-[#9C4321]" />
+            <p className="mt-2 text-base font-semibold text-[#14213B]">Explainers</p>
+            <p className="mt-0.5 text-xs text-[#5F6B83]">Short reads about real missions.</p>
+          </Link>
+          <Link href="/museum" className="academy-card group rounded-2xl p-4">
+            <Telescope aria-hidden="true" className="h-5 w-5 text-[#3E5C8A]" />
+            <p className="mt-2 text-base font-semibold text-[#14213B]">Museum</p>
+            <p className="mt-0.5 text-xs text-[#5F6B83]">Every artifact, source and fate.</p>
+          </Link>
+          <Link href="/explorer" className="academy-card group rounded-2xl p-4">
+            <Compass aria-hidden="true" className="h-5 w-5 text-[#8A5A00]" />
+            <p className="mt-2 text-base font-semibold text-[#14213B]">Explorer</p>
+            <p className="mt-0.5 text-xs text-[#5F6B83]">Timeline and solar system maps.</p>
           </Link>
         </div>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {featuredArticles.map((article) => (
+      </section>
+
+      <section className="container-content pt-10" aria-labelledby="articles-heading">
+        <h2 id="articles-heading" className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
+          Read next
+        </h2>
+        <div className="mt-3 grid gap-4 md:grid-cols-3">
+          {articles.slice(0, 3).map((article) => (
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>
       </section>
 
-      <section className="container-content pt-14">
-        <div className="grid gap-3 sm:grid-cols-3">
-          <Link href="/museum" className="academy-card group rounded-2xl p-5">
-            <Telescope aria-hidden="true" className="h-6 w-6 text-[#A78BFA]" />
-            <p className="mt-3 text-lg font-semibold text-[#152238]">Visit the museum</p>
-            <p className="mt-1 text-sm text-[#5A6472]">
-              The full artifact record, sources and fate for every object.
-            </p>
-          </Link>
-          <Link href="/explorer" className="academy-card group rounded-2xl p-5">
-            <Compass aria-hidden="true" className="h-6 w-6 text-[#43B9FF]" />
-            <p className="mt-3 text-lg font-semibold text-[#152238]">Open the explorer</p>
-            <p className="mt-1 text-sm text-[#5A6472]">
-              Filter the timeline or move through the solar system.
-            </p>
-          </Link>
-          <Link href="/academy/glossary" className="academy-card group rounded-2xl p-5">
-            <Library aria-hidden="true" className="h-6 w-6 text-[#14B8A6]" />
-            <p className="mt-3 text-lg font-semibold text-[#152238]">Use the word lab</p>
-            <p className="mt-1 text-sm text-[#5A6472]">
-              Forty plain-language definitions, from aphelion to telemetry.
-            </p>
-          </Link>
-        </div>
-      </section>
-
-      <section className="container-content pt-14" aria-label="Academy principles">
-        <div className="rounded-2xl border border-[#152238]/10 bg-white/70 p-5">
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
-            <Star aria-hidden="true" className="h-3.5 w-3.5" />
+      <section className="container-content pt-10" aria-label="Academy principles">
+        <details className="rounded-2xl border border-[#14213B]/10 bg-white p-5">
+          <summary className="flex items-center gap-2 text-sm font-semibold text-[#14213B]">
+            <Sparkles aria-hidden="true" className="h-4 w-4 text-[#9C4321]" />
             How the Academy works
-          </p>
-          <div className="mt-3 grid gap-4 text-sm leading-relaxed text-[#4B5563] md:grid-cols-3">
-            <p>
-              <strong className="text-[#152238]">Verified, not invented.</strong>{" "}
-              Lessons reuse the same source-linked records as the museum. They add
-              explanation, not new facts.
-            </p>
-            <p>
-              <strong className="text-[#152238]">Progress without accounts.</strong>{" "}
-              Lesson scores and journey steps stay in local storage and can be
-              exported, imported or reset.
-            </p>
-            <p>
-              <strong className="text-[#152238]">Honest about uncertainty.</strong>{" "}
-              Where the record is incomplete, the lesson says so instead of filling
-              the gap.
-            </p>
+          </summary>
+          <div className="mt-3 grid gap-3 text-sm leading-relaxed text-[#46536B] md:grid-cols-3">
+            <p>Lessons reuse the same source-linked records as the museum.</p>
+            <p>Progress stays in this browser. No account, no cloud.</p>
+            <p>When the evidence is incomplete, the lesson says so.</p>
           </div>
-        </div>
+        </details>
       </section>
     </div>
   );

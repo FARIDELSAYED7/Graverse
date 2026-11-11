@@ -10,8 +10,8 @@ import {
   Wrench,
 } from "lucide-react";
 import { AcademyArtifactCard } from "@/components/academy/AcademyArtifactCard";
+import { AcademySourceLinks } from "@/components/academy/play/AcademySourceLinks";
 import { LessonQuiz } from "@/components/academy/LessonQuiz";
-import { SourceList } from "@/components/ui/SourceList";
 import { getArtifactsByIds } from "@/data/artifacts";
 import { getLesson, lessons } from "@/data/lessons";
 import { getBody } from "@/data/space/bodies";
@@ -48,7 +48,7 @@ export default function LessonPage({ params }: PageProps) {
     <div className="pb-16">
       <div className="container-content pt-8">
         <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#6B7280]">
+          <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#5F6B83]">
             <li>
               <Link href="/academy" className="underline-offset-4 hover:underline">
                 Space Academy
@@ -61,7 +61,7 @@ export default function LessonPage({ params }: PageProps) {
               </Link>
             </li>
             <li aria-hidden="true">/</li>
-            <li className="text-[#152238]">{lesson.title}</li>
+            <li className="text-[#14213B]">{lesson.title}</li>
           </ol>
         </nav>
       </div>
@@ -76,28 +76,28 @@ export default function LessonPage({ params }: PageProps) {
               >
                 {band.label}
               </span>
-              <span className="rounded-full bg-[#152238]/6 px-2.5 py-1 text-[#374151]">
+              <span className="rounded-full bg-[#14213B]/6 px-2.5 py-1 text-[#374151]">
                 {lesson.minutes} min
               </span>
-              <span className="rounded-full bg-[#152238]/6 px-2.5 py-1 text-[#374151]">
+              <span className="rounded-full bg-[#14213B]/6 px-2.5 py-1 text-[#374151]">
                 {lesson.quiz.length} questions
               </span>
             </div>
-            <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#152238] sm:text-4xl">
+            <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#14213B] sm:text-4xl">
               {lesson.title}
             </h1>
             <p className="mt-3 text-base leading-relaxed text-[#4B5563]">
               {lesson.summary}
             </p>
 
-            <section className="academy-card mt-6 rounded-2xl p-5" aria-labelledby="objectives">
-              <h2 id="objectives" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+            <section className="academy-card mt-5 rounded-2xl p-5" aria-labelledby="objectives">
+              <h2 id="objectives" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 <Target aria-hidden="true" className="h-4 w-4" />
                 By the end you can
               </h2>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-2 space-y-1.5">
                 {lesson.objectives.map((objective) => (
-                  <li key={objective} className="flex items-start gap-2 text-sm leading-relaxed text-[#374151]">
+                  <li key={objective} className="flex items-start gap-2 text-sm leading-relaxed text-[#344054]">
                     <span
                       aria-hidden="true"
                       className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
@@ -109,21 +109,21 @@ export default function LessonPage({ params }: PageProps) {
               </ul>
             </section>
 
-            <div className="mt-8 space-y-8">
+            <div className="mt-8 space-y-7">
               {lesson.sections.map((section) => (
                 <section key={section.heading} aria-label={section.heading}>
-                  <h2 className="text-xl font-semibold text-[#152238] sm:text-2xl">
+                  <h2 className="text-xl font-semibold text-[#14213B] sm:text-2xl">
                     {section.heading}
                   </h2>
                   <div className="mt-2 space-y-3">
                     {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph} className="text-base leading-relaxed text-[#374151]">
+                      <p key={paragraph} className="text-base leading-relaxed text-[#344054]">
                         {paragraph}
                       </p>
                     ))}
                   </div>
                   {section.callout ? (
-                    <p className="mt-4 flex items-start gap-2 rounded-xl border-l-4 border-[#FFC93C] bg-[#FFC93C]/12 px-4 py-3 text-sm leading-relaxed text-[#6B4A05]">
+                    <p className="mt-4 flex items-start gap-2 rounded-xl border-l-4 border-[#F2B33D] bg-[#F2B33D]/12 px-4 py-3 text-sm leading-relaxed text-[#6B4A05]">
                       <Lightbulb aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
                       {section.callout}
                     </p>
@@ -132,24 +132,27 @@ export default function LessonPage({ params }: PageProps) {
               ))}
             </div>
 
-            <section className="mt-8" aria-labelledby="key-terms">
-              <h2 id="key-terms" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+            <details className="mt-8 rounded-2xl border border-[#14213B]/10 bg-white p-5">
+              <summary className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 <BookOpen aria-hidden="true" className="h-4 w-4" />
-                Key words
-              </h2>
+                Key words ({lesson.keyTerms.length})
+                <span className="disclosure-icon ml-auto text-lg font-normal text-[#5F6B83]">
+                  +
+                </span>
+              </summary>
               <dl className="mt-3 grid gap-2 sm:grid-cols-2">
                 {lesson.keyTerms.map((term) => (
-                  <div key={term.term} className="rounded-xl border border-[#152238]/10 bg-white/70 p-3">
-                    <dt className="text-sm font-semibold text-[#152238]">{term.term}</dt>
-                    <dd className="mt-0.5 text-xs leading-relaxed text-[#5A6472]">
+                  <div key={term.term} className="rounded-xl border border-[#14213B]/10 bg-[#FFF8EC] p-3">
+                    <dt className="text-sm font-semibold text-[#14213B]">{term.term}</dt>
+                    <dd className="mt-0.5 text-xs leading-relaxed text-[#46536B]">
                       {term.definition}
                     </dd>
                   </div>
                 ))}
               </dl>
-            </section>
+            </details>
 
-            <section className="mt-8 rounded-2xl bg-[#14B8A6]/10 p-5" aria-labelledby="try-it">
+            <section className="mt-6 rounded-2xl bg-[#0F766E]/10 p-5" aria-labelledby="try-it">
               <h2 id="try-it" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#0F766E]">
                 <Wrench aria-hidden="true" className="h-4 w-4" />
                 Try it
@@ -164,7 +167,7 @@ export default function LessonPage({ params }: PageProps) {
             <nav aria-label="Lesson navigation" className="mt-8 flex flex-wrap items-center justify-between gap-3">
               <Link
                 href="/academy/lessons"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#14213B] underline-offset-4 hover:underline"
               >
                 <ArrowLeft aria-hidden="true" className="h-4 w-4" />
                 All lessons
@@ -172,7 +175,7 @@ export default function LessonPage({ params }: PageProps) {
               {next ? (
                 <Link
                   href={`/academy/lessons/${next.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#152238] px-4 py-2 text-sm font-semibold text-[#FFF7EA]"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#14213B] px-4 py-2 text-sm font-semibold text-[#FFF8EC]"
                 >
                   Next: {next.title}
                   <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -184,7 +187,7 @@ export default function LessonPage({ params }: PageProps) {
           <aside className="space-y-6 lg:sticky lg:top-20">
             {bodies.length > 0 ? (
               <div className="academy-card rounded-2xl p-5">
-                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                   Destinations
                 </h2>
                 <ul className="mt-2 space-y-1.5 text-sm">
@@ -192,11 +195,11 @@ export default function LessonPage({ params }: PageProps) {
                     <li key={body!.id}>
                       <Link
                         href={`/explorer/bodies/${body!.id}`}
-                        className="font-medium text-[#152238] underline-offset-4 hover:underline"
+                        className="font-medium text-[#14213B] underline-offset-4 hover:underline"
                       >
                         {body!.name}
                       </Link>
-                      <span className="text-[#6B7280]"> — {body!.tagline}</span>
+                      <span className="text-[#5F6B83]"> — {body!.tagline}</span>
                     </li>
                   ))}
                 </ul>
@@ -205,7 +208,7 @@ export default function LessonPage({ params }: PageProps) {
 
             {artifacts.length > 0 ? (
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                   Real hardware in this lesson
                 </h2>
                 <div className="mt-3 grid gap-3">
@@ -217,7 +220,7 @@ export default function LessonPage({ params }: PageProps) {
             ) : null}
 
             <div className="academy-card rounded-2xl p-5">
-              <SourceList ids={lesson.sourceIds} compact />
+              <AcademySourceLinks ids={lesson.sourceIds} title="Sources" />
             </div>
           </aside>
         </div>

@@ -97,7 +97,7 @@ export function SiteHeader() {
                     {active ? (
                       <span
                         aria-hidden="true"
-                        className="absolute inset-x-3 -bottom-0.5 h-px bg-gradient-to-r from-brand-teal via-brand-violet to-brand-magenta"
+                        className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand-teal"
                       />
                     ) : null}
                   </Link>
@@ -199,7 +199,7 @@ export function SiteHeader() {
             </div>
             <button
               type="submit"
-              className="btn-gradient h-10 rounded-full px-4 text-sm font-semibold"
+              className="btn-primary h-10 rounded-full px-4 text-sm font-semibold"
             >
               Search
             </button>
@@ -264,7 +264,7 @@ export function SiteHeader() {
               </div>
               <button
                 type="submit"
-                className="btn-gradient h-10 rounded-full px-4 text-sm font-semibold"
+                className="btn-primary h-10 rounded-full px-4 text-sm font-semibold"
               >
                 Search
               </button>

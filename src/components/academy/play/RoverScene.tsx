@@ -62,7 +62,7 @@ function ToyRover({
       </mesh>
       <mesh position={[0.2, 0.7, -0.18]}>
         <cylinderGeometry args={[0.025, 0.025, 0.45, 8]} />
-        <meshStandardMaterial color="#6B7280" />
+        <meshStandardMaterial color="#5F6B83" />
       </mesh>
       <mesh position={[0.2, 0.93, -0.18]}>
         <boxGeometry args={[0.18, 0.08, 0.1]} />
@@ -171,7 +171,7 @@ export default function RoverScene({
         <mesh position={[0, 0.14, 0]}>
           <cylinderGeometry args={[0.46, 0.5, 0.12, 28]} />
           <meshStandardMaterial
-            color={won ? "#34D399" : "#14B8A6"}
+            color={won ? "#34D399" : "#0F766E"}
             emissive={won ? "#34D399" : "#0F766E"}
             emissiveIntensity={won ? 0.8 : 0.25}
             roughness={0.5}
@@ -183,7 +183,7 @@ export default function RoverScene({
         </mesh>
         <mesh position={[0.42, 0.83, 0]}>
           <boxGeometry args={[0.24, 0.16, 0.02]} />
-          <meshStandardMaterial color="#FF6B5A" />
+          <meshStandardMaterial color="#9C4321" />
         </mesh>
       </group>
 

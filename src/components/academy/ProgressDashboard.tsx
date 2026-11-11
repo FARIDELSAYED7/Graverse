@@ -48,14 +48,14 @@ export function ProgressDashboard() {
           { label: "Badges earned", value: summary.badges },
         ].map((item) => (
           <div key={item.label} className="academy-card rounded-2xl p-4">
-            <p className="font-mono text-3xl text-[#152238]">{item.value}</p>
+            <p className="font-mono text-3xl text-[#14213B]">{item.value}</p>
             <p className="mt-1 text-xs font-medium text-[#5A6472]">{item.label}</p>
           </div>
         ))}
       </div>
 
       <div className="academy-card rounded-2xl p-5">
-        <p className="flex items-center gap-2 text-sm font-semibold text-[#152238]">
+        <p className="flex items-center gap-2 text-sm font-semibold text-[#14213B]">
           <ShieldCheck aria-hidden="true" className="h-4 w-4 text-[#0F766E]" />
           Stored {mode === "local" ? "in this browser" : "for this session only"}
         </p>
@@ -69,14 +69,14 @@ export function ProgressDashboard() {
           <button
             type="button"
             onClick={download}
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-[#152238] px-4 text-xs font-semibold text-[#FFF7EA] hover:bg-[#24344f]"
+            className="inline-flex h-10 items-center gap-2 rounded-full bg-[#14213B] px-4 text-xs font-semibold text-[#FFF8EC] hover:bg-[#24344f]"
           >
             <Download aria-hidden="true" className="h-4 w-4" />
             Export progress
           </button>
           <label
             htmlFor={inputId}
-            className="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border border-[#152238]/20 px-4 text-xs font-semibold text-[#152238] hover:bg-[#152238]/5"
+            className="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border border-[#14213B]/20 px-4 text-xs font-semibold text-[#14213B] hover:bg-[#14213B]/5"
           >
             <Upload aria-hidden="true" className="h-4 w-4" />
             Import a file
@@ -130,7 +130,7 @@ export function ProgressDashboard() {
             role="status"
             className={`mt-3 rounded-lg px-3 py-2 text-xs font-medium ${
               message.tone === "ok"
-                ? "bg-[#14B8A6]/10 text-[#0F4F49]"
+                ? "bg-[#0F766E]/10 text-[#0F4F49]"
                 : "bg-[#FEE2E2] text-[#7F1D1D]"
             }`}
           >
@@ -140,7 +140,7 @@ export function ProgressDashboard() {
       </div>
 
       <div className="academy-card rounded-2xl p-5">
-        <h2 className="text-sm font-semibold text-[#152238]">Saved records</h2>
+        <h2 className="text-sm font-semibold text-[#14213B]">Saved records</h2>
         {Object.keys(state.lessons).length === 0 &&
         Object.keys(state.journeys).length === 0 &&
         Object.keys(state.games).length === 0 ? (
@@ -151,7 +151,7 @@ export function ProgressDashboard() {
         ) : (
           <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 Lessons
               </h3>
               <ul className="mt-2 space-y-1 text-sm text-[#374151]">
@@ -166,7 +166,7 @@ export function ProgressDashboard() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 Journeys
               </h3>
               <ul className="mt-2 space-y-1 text-sm text-[#374151]">
@@ -181,7 +181,7 @@ export function ProgressDashboard() {
               </ul>
             </div>
             <div>
-              <h3 className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+              <h3 className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
                 <Gamepad2 aria-hidden="true" className="h-3.5 w-3.5" />
                 Playground
               </h3>

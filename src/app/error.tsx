@@ -33,7 +33,7 @@ export default function Error({
         <button
           type="button"
           onClick={reset}
-          className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
+          className="btn-primary inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
         >
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
           Try again

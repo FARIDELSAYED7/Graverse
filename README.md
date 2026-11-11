@@ -25,6 +25,26 @@ collection. Where a value is not established, the interface says **Unknown**.
 
 ---
 
+## Visual identity
+
+One **warm archive** palette runs across all three experiences:
+
+| Token | Value | Use |
+| --- | --- | --- |
+| Ink navy | `#14213B` | Deep surfaces, primary text on cream |
+| Night ink | `#0B1222` | Home, Museum and Explorer backgrounds |
+| Cream paper | `#FFF8EC` | Academy background, text on dark |
+| Signal orange | `#9C4321` text / `#B4472A` button | Accents and calls to action |
+| Mission teal | `#5EEAD4` dark / `#0F766E` light | Links, rules and positive states |
+| Solar gold | `#F2B33D` | Badges, stars and highlights |
+
+Buttons and text use flat colour, never a gradient fill or clipped gradient text.
+Decorative single-hue washes add depth to dark surfaces without changing the
+identity. The Academy keeps the same palette on a light cream surface so younger
+readers get larger text, simpler sections and stronger contrast.
+
+---
+
 ## Stack
 
 | Layer | Version |

@@ -18,7 +18,7 @@ export function RoverMap({ rover }: { rover: RoverPoint }) {
       <div
         role="img"
         aria-label={`Top-down rover map. Rover at column ${rover.x + 1}, row ${rover.z + 1}. Base at column ${ROVER_BASE.x + 1}, row ${ROVER_BASE.z + 1}. Samples: ${sampleText}. Rocks block these cells: ${rockText}.`}
-        className="mx-auto grid w-full max-w-sm gap-0.5 rounded-2xl border border-[#152238]/10 bg-[#7A3418] p-2"
+        className="mx-auto grid w-full max-w-sm gap-0.5 rounded-2xl border border-[#14213B]/10 bg-[#7A3418] p-2"
         style={{ gridTemplateColumns: `repeat(${ROVER_GRID}, minmax(0, 1fr))` }}
       >
         {Array.from({ length: ROVER_GRID }).flatMap((_, z) =>
@@ -34,7 +34,7 @@ export function RoverMap({ rover }: { rover: RoverPoint }) {
                 key={`${x}-${z}`}
                 className={`relative flex aspect-square items-center justify-center rounded-[3px] ${
                   (x + z) % 2 === 0 ? "bg-[#C56A3F]" : "bg-[#B85C33]"
-                } ${isBase ? "ring-2 ring-inset ring-[#14B8A6]" : ""}`}
+                } ${isBase ? "ring-2 ring-inset ring-[#0F766E]" : ""}`}
               >
                 {rock ? (
                   <Mountain aria-hidden="true" className="h-4 w-4 text-[#4A2A1C]" />
@@ -44,8 +44,8 @@ export function RoverMap({ rover }: { rover: RoverPoint }) {
                   <Flag aria-hidden="true" className="h-4 w-4 text-[#0F766E]" />
                 ) : null}
                 {isRover ? (
-                  <span className="absolute inset-0 flex items-center justify-center rounded-[3px] bg-[#152238]/85">
-                    <Truck aria-hidden="true" className="h-4 w-4 text-[#FFF7EA]" />
+                  <span className="absolute inset-0 flex items-center justify-center rounded-[3px] bg-[#14213B]/85">
+                    <Truck aria-hidden="true" className="h-4 w-4 text-[#FFF8EC]" />
                   </span>
                 ) : null}
               </div>

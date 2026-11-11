@@ -233,19 +233,14 @@ export function RobotLab({
     <div
       data-robot-lab
       data-robot-id={robot.id}
-      className="relative overflow-hidden rounded-[1.6rem] border border-brand-cyan/20 bg-[linear-gradient(135deg,rgba(94,234,212,0.06),rgba(12,26,48,0.9)_38%,rgba(167,139,250,0.1)_72%,rgba(244,114,208,0.07))] p-3 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.95)] backdrop-blur sm:p-5"
+      className="academy-card relative overflow-hidden rounded-3xl p-3 sm:p-5"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_68%)]"
-      />
-
       <div className="relative">
         <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
           <div>
             <label
               htmlFor={selectId}
-              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted"
+              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5F6B83]"
             >
               Choose a robot guide · all {profiles.length} artifacts
             </label>
@@ -254,7 +249,7 @@ export function RobotLab({
               data-robot-select
               value={robot.id}
               onChange={(event) => setSelectedId(event.target.value)}
-              className="mt-1.5 h-11 w-full rounded-full border border-white/15 bg-bg-elevated px-4 text-sm font-medium text-text-primary transition-colors hover:border-brand-cyan/40 focus:border-brand-cyan/60 focus:outline-none"
+              className="mt-1.5 h-11 w-full rounded-full border border-[#14213B]/15 bg-white px-4 text-sm font-medium text-[#14213B] transition-colors hover:border-[#0F766E]/45 focus:border-[#0F766E] focus:outline-none"
             >
               {groups.map((group) => (
                 <optgroup key={group.id} label={group.label}>
@@ -270,15 +265,15 @@ export function RobotLab({
           <button
             type="button"
             onClick={pickRandom}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-brand-violet/35 bg-brand-violet/10 px-4 text-sm font-semibold text-brand-violet transition-colors hover:border-brand-violet/60 hover:bg-brand-violet/15 hover:text-white"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#9C4321]/30 bg-[#9C4321]/5 px-4 text-sm font-semibold text-[#9C4321] transition-colors hover:bg-[#9C4321]/10"
           >
             <Shuffle aria-hidden="true" className="h-4 w-4" />
             Surprise me
           </button>
         </div>
 
-        <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-          <span className="shrink-0 text-[11px] font-medium text-text-muted">
+        <div className="no-scrollbar mt-3 flex items-center gap-2 overflow-x-auto pb-1">
+          <span className="shrink-0 text-[11px] font-medium text-[#5F6B83]">
             Quick picks
           </span>
           {featured.map((profile) => (
@@ -290,8 +285,8 @@ export function RobotLab({
               className={cn(
                 "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors",
                 profile.id === robot.id
-                  ? "border-brand-cyan/50 bg-brand-cyan/15 text-white"
-                  : "border-white/12 bg-white/[0.03] text-text-secondary hover:border-white/30 hover:text-white"
+                  ? "border-[#0F766E] bg-[#0F766E]/10 text-[#14213B]"
+                  : "border-[#14213B]/12 bg-white text-[#46536B] hover:border-[#14213B]/30 hover:text-[#14213B]"
               )}
             >
               <span
@@ -305,7 +300,7 @@ export function RobotLab({
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[0.82fr_1.18fr]">
-          <aside className="flex min-w-0 flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5">
+          <aside className="flex min-w-0 flex-col rounded-2xl border border-[#14213B]/10 bg-[#FFF8EC] p-4 sm:p-5">
             <div className="flex items-center gap-3">
               <RobotAvatar
                 destinationGroup={robot.destinationGroup}
@@ -313,19 +308,19 @@ export function RobotLab({
                 size="lg"
               />
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-teal">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0F766E]">
                   Robot guide
                 </p>
-                <h3 className="mt-1 text-lg font-semibold leading-tight text-white">
+                <h3 className="mt-1 text-lg font-semibold leading-tight text-[#14213B]">
                   {robot.name}
                 </h3>
-                <p className="mt-1 text-xs text-text-secondary">
+                <p className="mt-1 text-xs text-[#46536B]">
                   {robot.hardwareTypeLabel} · {robot.destinationLabel}
                 </p>
               </div>
             </div>
 
-            <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl border border-white/10 bg-bg-elevated">
+            <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl border border-[#14213B]/10 bg-white">
               <ArtifactVisual
                 media={robot.media}
                 sizes="(min-width: 1024px) 28vw, 92vw"
@@ -333,40 +328,32 @@ export function RobotLab({
             </div>
 
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <StatusBadge
-                kind="mission"
-                status={robot.missionStatus}
-                compact
-              />
-              <StatusBadge
-                kind="hardware"
-                status={robot.hardwareStatus}
-                compact
-              />
+              <StatusBadge kind="mission" status={robot.missionStatus} compact />
+              <StatusBadge kind="hardware" status={robot.hardwareStatus} compact />
             </div>
 
             <dl className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
               <div>
-                <dt className="text-text-muted">Mission</dt>
-                <dd className="mt-0.5 font-medium text-text-secondary">
+                <dt className="text-[#5F6B83]">Mission</dt>
+                <dd className="mt-0.5 font-medium text-[#14213B]">
                   {robot.missionName}
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Program</dt>
-                <dd className="mt-0.5 font-medium text-text-secondary">
+                <dt className="text-[#5F6B83]">Program</dt>
+                <dd className="mt-0.5 font-medium text-[#14213B]">
                   {robot.programName}
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Launched</dt>
-                <dd className="mt-0.5 font-medium text-text-secondary">
+                <dt className="text-[#5F6B83]">Launched</dt>
+                <dd className="mt-0.5 font-medium text-[#14213B]">
                   {robot.launchLabel}
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Milestone year</dt>
-                <dd className="mt-0.5 font-mono font-medium tabular-nums text-text-secondary">
+                <dt className="text-[#5F6B83]">Milestone year</dt>
+                <dd className="mt-0.5 font-mono font-medium tabular-nums text-[#14213B]">
                   {robot.year}
                 </dd>
               </div>
@@ -374,21 +361,21 @@ export function RobotLab({
 
             <Link
               href={robot.href}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-bright transition-colors hover:text-white"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#9C4321] transition-colors hover:text-[#14213B]"
             >
               Open the full record
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </aside>
 
-          <div className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand-cyan/25 bg-[#040c19]/85">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+          <div className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-[#14213B]/12 bg-white">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#14213B]/10 px-4 py-3">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-teal opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-teal" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0F766E] opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0F766E]" />
                 </span>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-teal">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0F766E]">
                   Online · record linked
                 </p>
               </div>
@@ -402,8 +389,8 @@ export function RobotLab({
                     className={cn(
                       "inline-flex h-8 items-center gap-1.5 rounded-full border px-2.5 text-[11px] font-medium transition-colors",
                       voiceOn
-                        ? "border-brand-amber/45 bg-brand-amber/10 text-brand-amber"
-                        : "border-white/12 bg-white/[0.03] text-text-secondary hover:border-white/30 hover:text-white"
+                        ? "border-[#8A5A00]/40 bg-[#8A5A00]/10 text-[#8A5A00]"
+                        : "border-[#14213B]/12 bg-white text-[#46536B] hover:border-[#14213B]/30 hover:text-[#14213B]"
                     )}
                   >
                     {voiceOn ? (
@@ -418,7 +405,7 @@ export function RobotLab({
                   <button
                     type="button"
                     onClick={stopSpeech}
-                    className="inline-flex h-8 items-center gap-1.5 rounded-full border border-danger/35 bg-danger/10 px-2.5 text-[11px] font-medium text-[#FFB3B8] transition-colors hover:bg-danger/15"
+                    className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[#9C4321]/35 bg-[#9C4321]/8 px-2.5 text-[11px] font-medium text-[#9C4321] transition-colors hover:bg-[#9C4321]/12"
                   >
                     <Square aria-hidden="true" className="h-3 w-3" />
                     Stop
@@ -428,7 +415,7 @@ export function RobotLab({
                   type="button"
                   onClick={resetConversation}
                   aria-label="Start this conversation again"
-                  className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.03] px-2.5 text-[11px] font-medium text-text-secondary transition-colors hover:border-white/30 hover:text-white"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-full border border-[#14213B]/12 bg-white px-2.5 text-[11px] font-medium text-[#46536B] transition-colors hover:border-[#14213B]/30 hover:text-[#14213B]"
                 >
                   <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />
                   Reset
@@ -455,7 +442,7 @@ export function RobotLab({
                     >
                       <div className="max-w-[85%]">
                         <span className="sr-only">You said: </span>
-                        <div className="rounded-2xl rounded-tr-md border border-brand-cyan/30 bg-brand-cyan/10 px-3.5 py-2.5 text-sm leading-relaxed text-white">
+                        <div className="rounded-2xl rounded-tr-md border border-[#9C4321]/25 bg-[#9C4321]/8 px-3.5 py-2.5 text-sm leading-relaxed text-[#14213B]">
                           {message.text}
                         </div>
                       </div>
@@ -478,19 +465,16 @@ export function RobotLab({
                     />
                     <div className="max-w-[85%]">
                       <span className="sr-only">{robot.name} said: </span>
-                      <div className="rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.05] px-3.5 py-2.5 text-sm leading-relaxed text-text-secondary">
+                      <div className="rounded-2xl rounded-tl-md border border-[#14213B]/10 bg-[#FFF8EC] px-3.5 py-2.5 text-sm leading-relaxed text-[#46536B]">
                         <p className="whitespace-pre-line">{message.text}</p>
                         {message.intent === "record" ||
                         message.intent === "source" ? (
                           <Link
                             href={robot.href}
-                            className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-accent-bright hover:text-white"
+                            className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#9C4321] hover:text-[#14213B]"
                           >
                             Open {robot.name}&apos;s full record
-                            <ArrowRight
-                              aria-hidden="true"
-                              className="h-3 w-3"
-                            />
+                            <ArrowRight aria-hidden="true" className="h-3 w-3" />
                           </Link>
                         ) : null}
                       </div>
@@ -499,7 +483,7 @@ export function RobotLab({
                           type="button"
                           onClick={() => speak(message.text, true)}
                           aria-label="Hear this answer again"
-                          className="mt-1 inline-flex items-center gap-1 text-[10px] text-text-muted transition-colors hover:text-white"
+                          className="mt-1 inline-flex items-center gap-1 text-[10px] text-[#5F6B83] transition-colors hover:text-[#14213B]"
                         >
                           <Volume2 aria-hidden="true" className="h-3 w-3" />
                           Hear it
@@ -518,18 +502,15 @@ export function RobotLab({
                     size="xs"
                     className="mt-1"
                   />
-                  <div className="rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.04] px-3.5 py-3">
+                  <div className="rounded-2xl rounded-tl-md border border-[#14213B]/10 bg-[#FFF8EC] px-3.5 py-3">
                     <span className="sr-only">
                       {robot.name} is checking its record.
                     </span>
-                    <span
-                      aria-hidden="true"
-                      className="flex items-center gap-1"
-                    >
+                    <span aria-hidden="true" className="flex items-center gap-1">
                       {[0, 1, 2].map((dot) => (
                         <span
                           key={dot}
-                          className="h-1.5 w-1.5 animate-bounce rounded-full bg-brand-cyan"
+                          className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0F766E]"
                           style={{ animationDelay: `${dot * 120}ms` }}
                         />
                       ))}
@@ -539,7 +520,7 @@ export function RobotLab({
               ) : null}
             </div>
 
-            <div className="border-t border-white/10 px-3 py-3">
+            <div className="border-t border-[#14213B]/10 px-3 py-3">
               <div
                 role="group"
                 aria-label="Suggested questions"
@@ -552,12 +533,9 @@ export function RobotLab({
                     data-robot-chip={chip.intent}
                     disabled={typing}
                     onClick={() => ask(chip.label, chip.intent)}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-brand-cyan/50 hover:bg-white/[0.06] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#14213B]/12 bg-white px-3 py-1.5 text-xs font-medium text-[#46536B] transition-colors hover:border-[#0F766E]/50 hover:bg-[#0F766E]/5 hover:text-[#14213B] disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    <Sparkles
-                      aria-hidden="true"
-                      className="h-3 w-3 text-brand-amber"
-                    />
+                    <Sparkles aria-hidden="true" className="h-3 w-3 text-[#9C4321]" />
                     {chip.label}
                   </button>
                 ))}
@@ -575,13 +553,13 @@ export function RobotLab({
                   maxLength={180}
                   autoComplete="off"
                   placeholder={`Ask ${robot.name} a question…`}
-                  className="h-11 min-w-0 flex-1 rounded-full border border-white/12 bg-white/[0.04] px-4 text-sm text-white placeholder:text-text-muted transition-colors focus:border-brand-cyan/60 focus:outline-none"
+                  className="h-11 min-w-0 flex-1 rounded-full border border-[#14213B]/15 bg-white px-4 text-sm text-[#14213B] placeholder:text-[#5F6B83] transition-colors focus:border-[#0F766E] focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || typing}
                   aria-label={`Send your question to ${robot.name}`}
-                  className="btn-gradient inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+                  className="btn-primary inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <Send aria-hidden="true" className="h-4 w-4" />
                   <span className="hidden sm:inline">Send</span>
@@ -590,14 +568,11 @@ export function RobotLab({
 
               <p
                 data-robot-disclaimer
-                className="mt-2 flex items-start gap-1.5 text-[11px] leading-relaxed text-text-muted"
+                className="mt-2 flex items-start gap-1.5 text-[11px] leading-relaxed text-[#5F6B83]"
               >
-                <Info
-                  aria-hidden="true"
-                  className="mt-0.5 h-3 w-3 shrink-0"
-                />
-                Scripted from the artifact record. Not AI. If the record does
-                not cover a question, the robot says so.
+                <Info aria-hidden="true" className="mt-0.5 h-3 w-3 shrink-0" />
+                Scripted from the artifact record. Not AI. If the record does not
+                cover a question, the robot says so.
               </p>
             </div>
           </div>

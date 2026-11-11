@@ -129,7 +129,7 @@ export function JuniorQuiz({ questions }: JuniorQuizProps) {
             <button
               type="button"
               onClick={restart}
-              className="btn-gradient inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
+              className="btn-primary inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
             >
               <RotateCcw aria-hidden="true" className="h-4 w-4" />
               Play again
@@ -313,7 +313,7 @@ export function JuniorQuiz({ questions }: JuniorQuizProps) {
             type="button"
             onClick={next}
             disabled={!answered}
-            className="btn-gradient inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+            className="btn-primary inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isLast ? "See my score" : "Next question"}
             <ArrowRight aria-hidden="true" className="h-4 w-4" />

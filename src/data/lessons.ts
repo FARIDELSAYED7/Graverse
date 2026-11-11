@@ -82,7 +82,7 @@ export const lessons: Lesson[] = [
     ],
     bodyIds: ["moon", "mars"],
     sourceIds: ["SRC-NASA-MOON", "SRC-NASA-MARS-2020"],
-    accent: "#FF6B5A",
+    accent: "#9C4321",
   },
   {
     id: "our-neighbor-the-moon",
@@ -153,7 +153,7 @@ export const lessons: Lesson[] = [
     ],
     bodyIds: ["moon", "earth"],
     sourceIds: ["SRC-NASA-MOON", "SRC-RANGER-7", "SRC-SURVEYOR-1"],
-    accent: "#14B8A6",
+    accent: "#0F766E",
   },
   {
     id: "how-rockets-leave-earth",
@@ -290,7 +290,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["sojourner", "spirit", "opportunity", "curiosity", "perseverance", "ingenuity"],
     bodyIds: ["mars"],
     sourceIds: ["SRC-NASA-PATHFINDER", "SRC-NASA-MARS-2020"],
-    accent: "#F5A524",
+    accent: "#8A5A00",
   },
   {
     id: "reading-a-mission-timeline",
@@ -357,7 +357,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["voyager-1", "new-horizons", "ranger-7", "perseverance"],
     bodyIds: ["jupiter", "pluto", "moon", "mars"],
     sourceIds: ["SRC-NASA-VOYAGER", "SRC-NASA-NEW-HORIZONS", "SRC-RANGER-7"],
-    accent: "#14B8A6",
+    accent: "#0F766E",
   },
   {
     id: "landers-and-orbiters",
@@ -424,7 +424,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["viking-1-lander", "insight", "curiosity", "cassini", "lunar-prospector"],
     bodyIds: ["mars", "saturn", "moon"],
     sourceIds: ["SRC-NASA-VIKING", "SRC-NASA-CURIOSITY", "SRC-NASA-CASSINI-MISSION"],
-    accent: "#43B9FF",
+    accent: "#2F6FA8",
   },
   {
     id: "why-mars-is-red",
@@ -631,7 +631,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["apollo-11-lrrr", "voyager-1", "opportunity", "lcross", "ingenuity"],
     bodyIds: ["moon", "mars"],
     sourceIds: ["SRC-NASA-MOON", "SRC-NASA-VOYAGER", "SRC-NASA-OPPORTUNITY"],
-    accent: "#14B8A6",
+    accent: "#0F766E",
   },
   {
     id: "gravity-assists-and-the-grand-tour",
@@ -703,7 +703,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["voyager-1", "voyager-2", "pioneer-10", "pioneer-11", "cassini"],
     bodyIds: ["jupiter", "saturn", "uranus", "neptune"],
     sourceIds: ["SRC-NASA-VOYAGER", "SRC-NASA-SATURN", "SRC-NASA-JUPITER"],
-    accent: "#A78BFA",
+    accent: "#3F5E8C",
   },
   {
     id: "engineering-for-another-world",
@@ -771,7 +771,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["perseverance", "curiosity", "insight", "voyager-1", "cassini"],
     bodyIds: ["mars", "saturn", "jupiter"],
     sourceIds: ["SRC-NASA-MARS-2020", "SRC-NASA-CURIOSITY", "SRC-NASA-VOYAGER"],
-    accent: "#F5A524",
+    accent: "#8A5A00",
   },
   {
     id: "how-we-know-what-we-know",
@@ -843,7 +843,7 @@ export const lessons: Lesson[] = [
     artifactIds: ["apollo-11-lrrr", "perseverance", "voyager-1", "cassini"],
     bodyIds: ["moon", "mars", "earth"],
     sourceIds: ["SRC-NASA-MOON", "SRC-NASA-MARS-2020", "SRC-NASA-VOYAGER", "SRC-NASA-PLANETARY-FACTS"],
-    accent: "#FF6B5A",
+    accent: "#9C4321",
   },
 ];
 

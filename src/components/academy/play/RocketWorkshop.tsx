@@ -18,11 +18,11 @@ const RocketScene = dynamic(() => import("./RocketScene"), {
 });
 
 const colors = [
-  { name: "Coral", value: "#FF6B5A" },
-  { name: "Teal", value: "#14B8A6" },
+  { name: "Rust", value: "#9C4321" },
+  { name: "Teal", value: "#0F766E" },
   { name: "Sunshine", value: "#F5A524" },
-  { name: "Violet", value: "#7C5CE5" },
-  { name: "Rose", value: "#EF476F" },
+  { name: "Navy", value: "#3E5C8A" },
+  { name: "Rose", value: "#B4432A" },
   { name: "Sky", value: "#2B7FFF" },
 ];
 
@@ -31,9 +31,9 @@ const initialConfig: RocketConfig = {
   body: "tall",
   fins: 4,
   engine: "big",
-  bodyColor: "#FF6B5A",
-  noseColor: "#FFF7EA",
-  finColor: "#14B8A6",
+  bodyColor: "#9C4321",
+  noseColor: "#FFF8EC",
+  finColor: "#0F766E",
 };
 
 type Option<T extends string | number> = { value: T; label: string };
@@ -51,7 +51,7 @@ function OptionGroup<T extends string | number>({
 }) {
   return (
     <fieldset>
-      <legend className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B4532A]">
+      <legend className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#9C4321]">
         {legend}
       </legend>
       <div className="mt-2 flex flex-wrap gap-2">
@@ -65,8 +65,8 @@ function OptionGroup<T extends string | number>({
               onClick={() => onChange(option.value)}
               className={`h-11 rounded-full border px-4 text-sm font-semibold transition-colors ${
                 selected
-                  ? "border-[#152238] bg-[#152238] text-[#FFF7EA]"
-                  : "border-[#152238]/15 bg-white/70 text-[#152238] hover:bg-white"
+                  ? "border-[#14213B] bg-[#14213B] text-[#FFF8EC]"
+                  : "border-[#14213B]/15 bg-white/70 text-[#14213B] hover:bg-white"
               }`}
             >
               {option.label}
@@ -89,7 +89,7 @@ function ColorGroup({
 }) {
   return (
     <fieldset>
-      <legend className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B4532A]">
+      <legend className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#9C4321]">
         {legend}
       </legend>
       <div className="mt-2 flex flex-wrap gap-2">
@@ -103,7 +103,7 @@ function ColorGroup({
               aria-pressed={selected}
               onClick={() => onChange(color.value)}
               className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition-transform hover:scale-110 ${
-                selected ? "border-[#152238] scale-110" : "border-white"
+                selected ? "border-[#14213B] scale-110" : "border-white"
               }`}
               style={{ backgroundColor: color.value }}
             >
@@ -196,15 +196,15 @@ export function RocketWorkshop({ game }: { game: PlayGame }) {
       <div className="academy-card rounded-3xl p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#B4532A]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9C4321]">
               Build station
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-[#152238]">Make it yours</h2>
+            <h2 className="mt-1 text-xl font-semibold text-[#14213B]">Make it yours</h2>
           </div>
           <button
             type="button"
             onClick={surprise}
-            className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-[#152238]/15 px-3 text-xs font-semibold text-[#152238] hover:bg-[#152238]/5"
+            className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-[#14213B]/15 px-3 text-xs font-semibold text-[#14213B] hover:bg-[#14213B]/5"
           >
             <Shuffle aria-hidden="true" className="h-3.5 w-3.5" />
             Surprise me
@@ -265,8 +265,8 @@ export function RocketWorkshop({ game }: { game: PlayGame }) {
           />
         </div>
 
-        <div className="mt-5 rounded-2xl bg-[#152238]/5 p-3">
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-[#152238]">
+        <div className="mt-5 rounded-2xl bg-[#14213B]/5 p-3">
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-[#14213B]">
             <Rocket aria-hidden="true" className="h-3.5 w-3.5" />
             Your rocket
           </p>
@@ -286,7 +286,7 @@ export function RocketWorkshop({ game }: { game: PlayGame }) {
         <p role="status" aria-live="polite" className="mt-3 min-h-10 text-sm leading-relaxed text-[#0F4F49]">
           {message}
         </p>
-        <p className="text-[11px] text-[#6B7280]">
+        <p className="text-[11px] text-[#5F6B83]">
           Launches on this visit: {launches}. {game.controls}
         </p>
 

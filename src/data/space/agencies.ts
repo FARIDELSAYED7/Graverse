@@ -23,7 +23,7 @@ export const agencies: Agency[] = [
     ],
     notablePrograms: ["Apollo", "Voyager", "Mars Exploration Program", "Artemis"],
     website: "https://www.nasa.gov/",
-    accent: "#43B9FF",
+    accent: "#7DD3FC",
     sourceIds: ["SRC-NASA-AGENCY"],
   },
   {
@@ -156,7 +156,7 @@ export const agencies: Agency[] = [
     ],
     notablePrograms: ["Ariel", "Rosalind Franklin rover contributions", "SMILE"],
     website: "https://www.gov.uk/government/organisations/uk-space-agency",
-    accent: "#A78BFA",
+    accent: "#F2B33D",
     sourceIds: ["SRC-UKSA-AGENCY"],
   },
 ];

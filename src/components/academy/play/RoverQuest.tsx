@@ -152,7 +152,7 @@ export function RoverQuest({ game }: { game: PlayGame }) {
 
         <div className="mt-4 academy-card rounded-2xl p-4">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-semibold text-[#152238]">Map view</h2>
+            <h2 className="text-sm font-semibold text-[#14213B]">Map view</h2>
             <span className="text-[11px] font-medium text-[#5A6472]">
               Always available, with or without 3D
             </span>
@@ -170,7 +170,7 @@ export function RoverQuest({ game }: { game: PlayGame }) {
             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0F766E]">
               Rover quest
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-[#152238]">Drive the toy rover</h2>
+            <h2 className="mt-1 text-xl font-semibold text-[#14213B]">Drive the toy rover</h2>
           </div>
           <span className="inline-flex items-center gap-1 rounded-full bg-[#0F766E]/10 px-3 py-1 font-mono text-sm font-semibold text-[#0F766E]">
             <Gem aria-hidden="true" className="h-3.5 w-3.5" />
@@ -179,12 +179,12 @@ export function RoverQuest({ game }: { game: PlayGame }) {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-xl bg-[#152238]/5 p-3">
-            <p className="font-mono text-2xl leading-none text-[#152238]">{moves}</p>
+          <div className="rounded-xl bg-[#14213B]/5 p-3">
+            <p className="font-mono text-2xl leading-none text-[#14213B]">{moves}</p>
             <p className="mt-1 text-[10px] font-medium text-[#5A6472]">Moves</p>
           </div>
-          <div className="rounded-xl bg-[#152238]/5 p-3">
-            <p className="font-mono text-2xl leading-none text-[#152238]">{remaining}</p>
+          <div className="rounded-xl bg-[#14213B]/5 p-3">
+            <p className="font-mono text-2xl leading-none text-[#14213B]">{remaining}</p>
             <p className="mt-1 text-[10px] font-medium text-[#5A6472]">Samples left</p>
           </div>
         </div>
@@ -195,7 +195,7 @@ export function RoverQuest({ game }: { game: PlayGame }) {
           aria-describedby="rover-help"
           tabIndex={0}
           onKeyDown={onKeyDown}
-          className="mt-5 rounded-2xl border border-[#152238]/10 bg-white/60 p-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
+          className="mt-5 rounded-2xl border border-[#14213B]/10 bg-white/60 p-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0F766E]"
         >
           <div className="mx-auto grid w-fit grid-cols-3 grid-rows-3 gap-2">
             <span aria-hidden="true" />
@@ -255,7 +255,7 @@ export function RoverQuest({ game }: { game: PlayGame }) {
           <span className="inline-flex items-center gap-1 rounded-full bg-[#F5A524]/15 px-2 py-1 text-[#7C4A03]">
             <Gem aria-hidden="true" className="h-3 w-3" /> Gold = sample
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#152238]/8 px-2 py-1">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#14213B]/8 px-2 py-1">
             <Mountain aria-hidden="true" className="h-3 w-3" /> Grey = rock
           </span>
         </div>
@@ -265,7 +265,7 @@ export function RoverQuest({ game }: { game: PlayGame }) {
             <button
               type="button"
               onClick={reset}
-              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-[#152238]/20 px-5 text-sm font-semibold text-[#152238] hover:bg-[#152238]/5"
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full border border-[#14213B]/20 px-5 text-sm font-semibold text-[#14213B] hover:bg-[#14213B]/5"
             >
               <RotateCcw aria-hidden="true" className="h-4 w-4" />
               Play again
@@ -276,14 +276,14 @@ export function RoverQuest({ game }: { game: PlayGame }) {
           <button
             type="button"
             onClick={reset}
-            className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-full px-4 text-xs font-semibold text-[#5A6472] hover:text-[#152238]"
+            className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-full px-4 text-xs font-semibold text-[#5A6472] hover:text-[#14213B]"
           >
             <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />
             Start over
           </button>
         )}
 
-        <p className="mt-2 text-[11px] leading-relaxed text-[#6B7280]">{game.controls}</p>
+        <p className="mt-2 text-[11px] leading-relaxed text-[#5F6B83]">{game.controls}</p>
       </div>
     </div>
   );

@@ -13,18 +13,18 @@ export function ProgressSnapshot() {
   ];
   return (
     <div className="mt-4">
-      <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <dl className="grid grid-cols-4 gap-2">
         {items.map((item) => (
-          <div key={item.label} className="rounded-xl bg-[#152238]/5 p-3">
-            <item.icon aria-hidden="true" className="h-4 w-4 text-[#152238]/50" />
-            <dd className="mt-2 font-mono text-2xl leading-none text-[#152238]">
+          <div key={item.label} className="rounded-xl bg-[#14213B]/5 p-2.5">
+            <item.icon aria-hidden="true" className="h-4 w-4 text-[#14213B]/45" />
+            <dd className="mt-1.5 font-mono text-2xl leading-none text-[#14213B]">
               {item.value}
             </dd>
-            <dt className="mt-1 text-[10px] font-medium text-[#5A6472]">{item.label}</dt>
+            <dt className="mt-1 text-[10px] font-medium text-[#46536B]">{item.label}</dt>
           </div>
         ))}
       </dl>
-      <p className="mt-2 flex items-center gap-1.5 text-[10px] text-[#6B7280]">
+      <p className="mt-2 flex items-center gap-1.5 text-[10px] text-[#5F6B83]">
         <Sparkles aria-hidden="true" className="h-3 w-3" />
         {mode === "local"
           ? "Local progress active"

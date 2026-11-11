@@ -280,7 +280,7 @@ export function MuseumGallerySection({
               <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
                 <Link
                   href={`/museum/${selected.id}`}
-                  className="btn-gradient inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold"
+                  className="btn-primary inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold"
                 >
                   Open the full record
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4" />

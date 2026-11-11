@@ -64,10 +64,9 @@ export default function HomePage() {
           />
         </div>
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-1/2 top-[-22rem] h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(40,109,196,0.28),transparent_64%)] blur-2xl" />
-          <div className="absolute -left-24 top-24 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_66%)] blur-2xl" />
-          <div className="absolute right-[-10rem] top-20 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.22),transparent_65%)] blur-2xl" />
-          <div className="absolute -bottom-24 right-1/4 h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle,rgba(244,114,208,0.14),transparent_68%)] blur-2xl" />
+          <div className="absolute left-1/2 top-[-22rem] h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(43,90,148,0.3),transparent_64%)] blur-2xl" />
+          <div className="absolute -left-24 top-24 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.14),transparent_66%)] blur-2xl" />
+          <div className="absolute right-[-10rem] top-20 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(43,108,145,0.18),transparent_65%)] blur-2xl" />
         </div>
         <div className="horizon opacity-70" aria-hidden="true" />
 
@@ -79,7 +78,7 @@ export default function HomePage() {
             </p>
             <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
               Discover the machines that{" "}
-              <span className="text-gradient">shaped our understanding</span> of
+              <span className="text-accent">shaped our understanding</span> of
               space.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg">
@@ -111,7 +110,7 @@ export default function HomePage() {
               </div>
               <button
                 type="submit"
-                className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
+                className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
               >
                 Search the archive
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -134,7 +133,7 @@ export default function HomePage() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/explorer"
-                className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
+                className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
               >
                 Explore the timeline
                 <Compass aria-hidden="true" className="h-4 w-4" />
@@ -161,7 +160,7 @@ export default function HomePage() {
                 <dt className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
                   Destinations
                 </dt>
-                <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-violet">
+                <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-amber">
                   {destinationOrder.length}
                 </dd>
               </div>
@@ -169,7 +168,7 @@ export default function HomePage() {
                 <dt className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
                   Decades
                 </dt>
-                <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-magenta">
+                <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-teal">
                   {decadeCount}
                 </dd>
               </div>
@@ -180,13 +179,13 @@ export default function HomePage() {
             <SpaceCanvas />
             <div
               aria-hidden="true"
-              className="absolute -inset-8 rounded-[2rem] bg-[radial-gradient(circle_at_50%_40%,rgba(67,185,255,0.18),transparent_62%)]"
+              className="absolute -inset-8 rounded-[2rem] bg-[radial-gradient(circle_at_50%_40%,rgba(94,234,212,0.14),transparent_62%)]"
             />
             <div
               aria-hidden="true"
               className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 animate-[spin_60s_linear_infinite] rounded-[50%] border border-accent/10"
             />
-            <div className="relative overflow-hidden rounded-[1.6rem] border border-brand-violet/25 bg-bg-elevated/80 p-2 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.95),0_0_60px_-24px_rgba(167,139,250,0.5)] backdrop-blur">
+            <div className="relative overflow-hidden rounded-[1.6rem] border border-brand-teal/25 bg-bg-elevated/80 p-2 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.95)] backdrop-blur">
               <div className="relative aspect-[4/3.2] overflow-hidden rounded-[1.2rem]">
                 <ArtifactVisual
                   media={featured[0]?.media}
@@ -263,7 +262,7 @@ export default function HomePage() {
                   className="group relative flex h-full flex-col overflow-hidden rounded-2xl border p-5 transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
                   style={{
                     borderColor: `${experience.accent}40`,
-                    background: `linear-gradient(145deg, ${experience.accent}14, rgba(10, 20, 38, 0.72))`,
+                    background: "rgba(21, 32, 55, 0.9)",
                   }}
                 >
                   <span
@@ -421,14 +420,10 @@ export default function HomePage() {
       </section>
 
       <section className="container-content py-16 sm:py-20">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-brand-violet/20 bg-[linear-gradient(135deg,rgba(15,37,66,0.92),rgba(14,18,44,0.96)_55%,rgba(6,16,31,0.96))] p-6 sm:p-10">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-brand-teal/20 bg-surface p-6 sm:p-10">
           <div
             aria-hidden="true"
-            className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.22),transparent_65%)]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.14),transparent_66%)]"
+            className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(43,108,145,0.2),transparent_65%)]"
           />
           <div className="relative">
             <p className="eyebrow">How to explore</p>
@@ -458,8 +453,8 @@ export default function HomePage() {
                   body: "Search by name, mission, destination or hardware type. Every result leads to the same reusable museum record.",
                   href: "/search",
                   cta: "Search the archive",
-                  tone: "border-brand-violet/30 bg-brand-violet/10 text-brand-violet",
-                  edge: "via-brand-violet/60",
+                  tone: "border-brand-amber/30 bg-brand-amber/10 text-brand-amber",
+                  edge: "via-brand-amber/60",
                 },
                 {
                   icon: BookOpen,
@@ -468,8 +463,8 @@ export default function HomePage() {
                   body: "Each story separates mission status from hardware status, then shows the sources behind the facts.",
                   href: "/about",
                   cta: "How the data works",
-                  tone: "border-brand-magenta/30 bg-brand-magenta/10 text-brand-magenta",
-                  edge: "via-brand-magenta/60",
+                  tone: "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
+                  edge: "via-brand-teal/60",
                 },
               ].map((item) => {
                 const Icon = item.icon;
@@ -514,14 +509,10 @@ export default function HomePage() {
       </section>
 
       <section className="container-content py-16 sm:py-20">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-brand-amber/25 bg-[linear-gradient(125deg,rgba(251,191,36,0.1),rgba(167,139,250,0.14)_42%,rgba(244,114,208,0.12)_72%,rgba(94,234,212,0.1))] p-6 sm:p-10">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-brand-amber/25 bg-surface p-6 sm:p-10">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.2),transparent_68%)] blur-xl"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_68%)] blur-xl"
+            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(242,179,61,0.16),transparent_68%)] blur-xl"
           />
           <div className="relative grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
             <div>
@@ -531,7 +522,7 @@ Space Academy · Ages 5–12
               </p>
               <h2 className="mt-2 max-w-xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                 A kid-sized way into the{" "}
-                <span className="text-gradient">collection.</span>
+                <span className="text-accent">collection.</span>
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base">
                 Four guided journeys, twelve short lessons, quizzes, a glossary
@@ -541,7 +532,7 @@ Space Academy · Ages 5–12
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/academy"
-                  className="btn-gradient inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
+                  className="btn-primary inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
                 >
                   Open Space Academy
                   <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -608,15 +599,15 @@ Space Academy · Ages 5–12
       </section>
 
       <section className="container-content pb-6 pt-8">
-        <div className="relative flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl border border-brand-magenta/25 bg-[linear-gradient(120deg,rgba(94,234,212,0.08),rgba(167,139,250,0.1)_45%,rgba(244,114,208,0.09))] px-6 py-7 sm:flex-row sm:items-center">
+        <div className="relative flex flex-col items-start justify-between gap-6 overflow-hidden rounded-2xl border border-brand-teal/25 bg-surface px-6 py-7 sm:flex-row sm:items-center">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.16),transparent_68%)] blur-xl"
+            className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.12),transparent_68%)] blur-xl"
           />
           <div className="relative">
             <h2 className="text-xl font-semibold text-white">
               Some machines stopped working.{" "}
-              <span className="text-gradient">Their discoveries did not.</span>
+              <span className="text-accent">Their discoveries did not.</span>
             </h2>
             <p className="mt-1.5 max-w-2xl text-sm text-text-secondary">
               But not every machine has stopped. The collection includes active
@@ -625,7 +616,7 @@ Space Academy · Ages 5–12
           </div>
           <Link
             href="/explorer"
-            className="btn-gradient relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-5 text-sm font-semibold"
+            className="btn-primary relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-5 text-sm font-semibold"
           >
             Explore the timeline
             <ArrowRight aria-hidden="true" className="h-4 w-4" />

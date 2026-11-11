@@ -175,7 +175,7 @@ export default function ArtifactPage({ params }: PageProps) {
             </div>
 
             <h1 className="mt-4 text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              <span className="text-gradient">{artifact.name}</span>
+              <span className="text-accent">{artifact.name}</span>
             </h1>
             <p className="mt-2 text-sm text-text-secondary">
               Mission:{" "}
@@ -437,7 +437,7 @@ export default function ArtifactPage({ params }: PageProps) {
 
           <section id="fate" className="scroll-mt-24">
             <SectionLabel index="E" title="What happened to the hardware?" />
-            <div className="mt-4 rounded-2xl border border-accent/25 bg-[linear-gradient(135deg,rgba(67,185,255,0.1),rgba(8,18,35,0.55))] p-5">
+            <div className="mt-4 rounded-2xl border border-accent/25 bg-surface p-5">
               <div className="flex flex-wrap items-center gap-2">
                 <StatusBadge
                   kind="hardware"

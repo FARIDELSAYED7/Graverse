@@ -13,7 +13,7 @@ export const journeys: Journey[] = [
     minutes: 25,
     summary:
       "A gentle introduction to space hardware for the youngest explorers: one big idea per step, with pictures and a short quiz.",
-    accent: "#FF6B5A",
+    accent: "#9C4321",
     badge: {
       id: "badge-first-flight",
       name: "First Flight",
@@ -66,7 +66,7 @@ export const journeys: Journey[] = [
     minutes: 35,
     summary:
       "Read the surface like a detective: impact craters, experiment packages, rover tracks and the evidence each one left behind.",
-    accent: "#14B8A6",
+    accent: "#0F766E",
     badge: {
       id: "badge-moon-detectives",
       name: "Moon Detective",
@@ -126,7 +126,7 @@ export const journeys: Journey[] = [
     minutes: 45,
     summary:
       "An engineering-focused journey through power, landing systems, redundancy and the trade-offs behind real missions.",
-    accent: "#F5A524",
+    accent: "#8A5A00",
     badge: {
       id: "badge-mission-engineer",
       name: "Mission Engineer",
@@ -186,7 +186,7 @@ export const journeys: Journey[] = [
     minutes: 40,
     summary:
       "A cross-experience journey linking lunar samples, Mars geology, rover engineering and the Explorer's destination maps.",
-    accent: "#A78BFA",
+    accent: "#3F5E8C",
     badge: {
       id: "badge-rock-to-rover",
       name: "Rock to Rover",

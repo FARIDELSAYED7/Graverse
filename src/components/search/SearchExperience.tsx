@@ -114,7 +114,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
         <p className="eyebrow">Search everything</p>
         <h1 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
           One search across the{" "}
-          <span className="text-gradient">whole collection</span>
+          <span className="text-accent">whole collection</span>
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
           Artifacts, missions, destinations, deep-sky records, lessons,
@@ -168,7 +168,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
         </div>
         <button
           type="submit"
-          className="btn-gradient h-12 rounded-full px-6 text-sm font-semibold"
+          className="btn-primary h-12 rounded-full px-6 text-sm font-semibold"
         >
           Search
         </button>
@@ -341,7 +341,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
               <button
                 type="button"
                 onClick={clearAll}
-                className="btn-gradient rounded-full px-4 py-2 text-sm font-semibold"
+                className="btn-primary rounded-full px-4 py-2 text-sm font-semibold"
               >
                 Reset search
               </button>

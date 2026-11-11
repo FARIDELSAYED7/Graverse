@@ -284,7 +284,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                 className={cn(
                   "inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-medium transition-colors sm:text-sm lg:flex-none",
                   active
-                    ? "btn-gradient text-[#04101f] shadow-[0_0_24px_rgba(167,139,250,0.35)]"
+                    ? "btn-primary text-[#04101f] shadow-[0_0_24px_rgba(167,139,250,0.35)]"
                     : "text-text-secondary hover:bg-white/5 hover:text-white"
                 )}
               >
@@ -598,7 +598,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="btn-gradient rounded-full px-4 py-2 text-sm font-semibold"
+                    className="btn-primary rounded-full px-4 py-2 text-sm font-semibold"
                   >
                     Clear all filters
                   </button>
@@ -623,7 +623,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                     <button
                       type="button"
                       onClick={clearFilters}
-                      className="btn-gradient rounded-full px-4 py-2 text-sm font-semibold"
+                      className="btn-primary rounded-full px-4 py-2 text-sm font-semibold"
                     >
                       Clear all filters
                     </button>
@@ -785,7 +785,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                     <button
                       type="button"
                       onClick={clearFilters}
-                      className="btn-gradient rounded-full px-4 py-2 text-sm font-semibold"
+                      className="btn-primary rounded-full px-4 py-2 text-sm font-semibold"
                     >
                       Clear all filters
                     </button>

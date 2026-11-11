@@ -12,9 +12,9 @@ import { cn } from "@/lib/cn";
 import type { DestinationGroup, HardwareType } from "@/types/artifact";
 
 const accents: Record<DestinationGroup, string> = {
-  moon: "#8fc7ff",
-  mars: "#ff9d7a",
-  "deep-space": "#c3a6ff",
+  moon: "#3E5C8A",
+  mars: "#9C4321",
+  "deep-space": "#0F766E",
 };
 
 const hardwareIcons: Record<HardwareType, LucideIcon> = {
@@ -74,7 +74,7 @@ export function RobotAvatar({
     >
       <svg
         viewBox="0 0 120 132"
-        className="robot-avatar h-full w-full drop-shadow-[0_8px_24px_rgba(67,185,255,0.25)]"
+        className="robot-avatar h-full w-full drop-shadow-[0_8px_20px_rgba(20,33,59,0.18)]"
         fill="none"
       >
         <line
@@ -99,7 +99,7 @@ export function RobotAvatar({
           width="88"
           height="72"
           rx="24"
-          fill="#08172D"
+          fill="#FFFFFF"
           stroke="currentColor"
           strokeOpacity="0.55"
           strokeWidth="3"
@@ -110,7 +110,7 @@ export function RobotAvatar({
           width="70"
           height="44"
           rx="16"
-          fill="#040D1D"
+          fill="#F6EEDD"
           stroke="currentColor"
           strokeOpacity="0.35"
           strokeWidth="2"
@@ -170,7 +170,7 @@ export function RobotAvatar({
       </svg>
       <span
         className={cn(
-          "absolute -bottom-0.5 -right-0.5 flex items-center justify-center rounded-full border border-white/15 bg-bg-elevated text-white/85",
+          "absolute -bottom-0.5 -right-0.5 flex items-center justify-center rounded-full border border-[#14213B]/15 bg-white text-[#14213B]",
           size === "xs" || size === "sm" ? "h-4 w-4" : "h-6 w-6"
         )}
       >

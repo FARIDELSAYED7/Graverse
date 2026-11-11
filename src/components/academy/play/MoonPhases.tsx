@@ -111,7 +111,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
           <span className="rounded-full bg-[#2B7FFF]/12 px-2 py-1 text-[#1D4ED8]">
             Earth in the middle
           </span>
-          <span className="rounded-full bg-[#7C5CE5]/12 px-2 py-1 text-[#5B3BC4]">
+          <span className="rounded-full bg-[#9C4321]/12 px-2 py-1 text-[#9C4321]">
             Moon on its orbit
           </span>
         </div>
@@ -121,38 +121,38 @@ export function MoonPhases({ game }: { game: PlayGame }) {
       <div className="academy-card rounded-3xl p-5">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#7C5CE5]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9C4321]">
               Round {round + 1} of 3
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-[#152238]">
+            <h2 className="mt-1 text-xl font-semibold text-[#14213B]">
               Match this phase
             </h2>
           </div>
-          <span className="rounded-full bg-[#7C5CE5]/10 px-3 py-1 font-mono text-sm font-semibold text-[#5B3BC4]">
+          <span className="rounded-full bg-[#9C4321]/10 px-3 py-1 font-mono text-sm font-semibold text-[#9C4321]">
             {score} ★
           </span>
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl border border-[#7C5CE5]/20 bg-[#EAE4FF]/60 p-3 text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#5B3BC4]">
+          <div className="rounded-2xl border border-[#9C4321]/20 bg-[#E4ECF7]/60 p-3 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#9C4321]">
               Target
             </p>
             <div className="mt-2 flex justify-center">
               <MoonPhaseDisk phase={target} size={104} />
             </div>
-            <p className="mt-2 text-sm font-semibold text-[#152238]">
+            <p className="mt-2 text-sm font-semibold text-[#14213B]">
               {MOON_PHASES[target]}
             </p>
           </div>
-          <div className="rounded-2xl border border-[#152238]/10 bg-white/70 p-3 text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#B4532A]">
+          <div className="rounded-2xl border border-[#14213B]/10 bg-white/70 p-3 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#9C4321]">
               From Earth now
             </p>
             <div className="mt-2 flex justify-center">
               <MoonPhaseDisk phase={phase} size={104} />
             </div>
-            <p className="mt-2 text-sm font-semibold text-[#152238]">
+            <p className="mt-2 text-sm font-semibold text-[#14213B]">
               {MOON_PHASES[phase]}
             </p>
           </div>
@@ -161,7 +161,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
         <div className="mt-5">
           <label
             htmlFor="moon-phase-slider"
-            className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B4532A]"
+            className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#9C4321]"
           >
             Move the Moon
           </label>
@@ -170,7 +170,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
               type="button"
               onClick={() => move(-1)}
               aria-label="Move the Moon one step back"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#152238]/15 bg-white/70 text-[#152238] hover:bg-white"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#14213B]/15 bg-white/70 text-[#14213B] hover:bg-white"
             >
               <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             </button>
@@ -186,18 +186,18 @@ export function MoonPhases({ game }: { game: PlayGame }) {
                 setChecked(null);
               }}
               aria-valuetext={MOON_PHASES[phase]}
-              className="h-2 w-full cursor-pointer accent-[#7C5CE5]"
+              className="h-2 w-full cursor-pointer accent-[#B4472A]"
             />
             <button
               type="button"
               onClick={() => move(1)}
               aria-label="Move the Moon one step forward"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#152238]/15 bg-white/70 text-[#152238] hover:bg-white"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#14213B]/15 bg-white/70 text-[#14213B] hover:bg-white"
             >
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </button>
           </div>
-          <p className="mt-1 text-center text-xs text-[#6B7280]">
+          <p className="mt-1 text-center text-xs text-[#5F6B83]">
             {phase + 1} of 8 positions · {MOON_PHASES[phase]}
           </p>
         </div>
@@ -207,10 +207,10 @@ export function MoonPhases({ game }: { game: PlayGame }) {
           aria-live="polite"
           className={`mt-4 min-h-12 rounded-xl px-3 py-2 text-sm leading-relaxed ${
             checked === "correct"
-              ? "bg-[#14B8A6]/10 text-[#0F4F49]"
+              ? "bg-[#0F766E]/10 text-[#0F4F49]"
               : checked === "wrong"
                 ? "bg-[#FEE2E2] text-[#7F1D1D]"
-                : "bg-[#152238]/5 text-[#4B5563]"
+                : "bg-[#14213B]/5 text-[#4B5563]"
           }`}
         >
           {message}
@@ -221,7 +221,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
             <button
               type="button"
               onClick={restart}
-              className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-[#152238]/20 px-5 text-sm font-semibold text-[#152238] hover:bg-[#152238]/5"
+              className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-[#14213B]/20 px-5 text-sm font-semibold text-[#14213B] hover:bg-[#14213B]/5"
             >
               <RotateCcw aria-hidden="true" className="h-4 w-4" />
               Play again
@@ -232,7 +232,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
           <button
             type="button"
             onClick={next}
-            className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#7C5CE5] px-5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#B4472A] px-5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
           >
             <Check aria-hidden="true" className="h-4 w-4" />
             Next phase
@@ -241,14 +241,14 @@ export function MoonPhases({ game }: { game: PlayGame }) {
           <button
             type="button"
             onClick={check}
-            className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#7C5CE5] px-5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#B4472A] px-5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
           >
             <MoonStar aria-hidden="true" className="h-4 w-4" />
             Check the Moon
           </button>
         )}
 
-        <p className="mt-3 text-[11px] leading-relaxed text-[#6B7280]">{game.controls}</p>
+        <p className="mt-3 text-[11px] leading-relaxed text-[#5F6B83]">{game.controls}</p>
       </div>
     </div>
   );

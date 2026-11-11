@@ -67,7 +67,7 @@ export default function MissionPage({ params }: PageProps) {
             <StatusBadge kind="mission" status={mission.status} />
           </div>
           <h1 className="mt-4 text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            <span className="text-gradient">{mission.name}</span>
+            <span className="text-accent">{mission.name}</span>
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary">
             {mission.summary}

@@ -115,7 +115,7 @@ export default function AboutPage() {
           <p className="eyebrow">About GRAVERSE</p>
           <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight text-text-primary sm:text-5xl">
             A connected, source-linked way to explore{" "}
-            <span className="text-gradient">space heritage</span>
+            <span className="text-accent">space heritage</span>
           </h1>
           <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
             GRAVERSE is a hackathon project built for the NASA Space Apps
@@ -127,7 +127,7 @@ export default function AboutPage() {
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/explorer"
-              className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
+              className="btn-primary inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
             >
               Explore the timeline
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -530,7 +530,7 @@ export default function AboutPage() {
             </ul>
           </section>
 
-          <div className="relative overflow-hidden rounded-2xl border border-brand-teal/25 bg-[linear-gradient(120deg,rgba(94,234,212,0.08),rgba(167,139,250,0.09)_55%,rgba(244,114,208,0.06))] p-6">
+          <div className="relative overflow-hidden rounded-2xl border border-brand-teal/25 bg-surface p-6">
             <h2 className="text-lg font-semibold text-white">
               Start with a real record
             </h2>

@@ -59,7 +59,7 @@ export function MoonPhaseDisk({
           <stop offset="100%" stopColor="#E8DFC0" />
         </radialGradient>
       </defs>
-      <circle cx="60" cy="60" r="52" fill="none" stroke="#152238" strokeOpacity="0.12" />
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#14213B" strokeOpacity="0.12" />
       <circle cx="60" cy="60" r="50" fill="#26324A" />
       <path d={litPath} fill="url(#moon-surface)" />
       <g fill="#B8AD8E" opacity="0.45">

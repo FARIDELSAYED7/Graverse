@@ -21,9 +21,9 @@ export const experiences: ExperienceDefinition[] = [
     tagline: "Space school for curious minds",
     description:
       "Guided journeys, short lessons and quizzes for ages 5–12, linked to the real hardware in the museum.",
-    accent: "#FF6B5A",
-    surface: "#FFF7EA",
-    ink: "#152238",
+    accent: "#F08A6A",
+    surface: "#FFF8EC",
+    ink: "#14213B",
   },
   {
     id: "museum",
@@ -33,9 +33,9 @@ export const experiences: ExperienceDefinition[] = [
     tagline: "Cinematic stories of real hardware",
     description:
       "Thirty source-linked artifact records with mission, fate, engineering and provenance for each object.",
-    accent: "#A78BFA",
-    surface: "#0A1426",
-    ink: "#F4F7FC",
+    accent: "#F2B33D",
+    surface: "#111A2E",
+    ink: "#F7F2E7",
   },
   {
     id: "explorer",
@@ -45,9 +45,9 @@ export const experiences: ExperienceDefinition[] = [
     tagline: "The timeline and the solar system",
     description:
       "Filter the archive by time, destination and hardware, or move through a spatial map of the solar system.",
-    accent: "#43B9FF",
-    surface: "#050B18",
-    ink: "#F4F7FC",
+    accent: "#5EEAD4",
+    surface: "#0B1222",
+    ink: "#F7F2E7",
   },
 ];
 

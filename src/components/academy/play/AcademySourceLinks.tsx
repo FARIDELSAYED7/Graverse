@@ -20,16 +20,16 @@ export function AcademySourceLinks({
 
   return (
     <div className="academy-card rounded-2xl p-5">
-      <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+      <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
         {title}
       </h2>
       <ol className="mt-3 space-y-2">
         {records.map((source) => (
           <li
             key={source.id}
-            className="rounded-xl border border-[#152238]/10 bg-white/70 p-3"
+            className="rounded-xl border border-[#14213B]/10 bg-white/70 p-3"
           >
-            <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-[#6B7280]">
+            <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-[#5F6B83]">
               <span className="font-mono">{source.id}</span>
               <span aria-hidden="true">·</span>
               <span>{sourceTypeLabels[source.type]}</span>
@@ -53,7 +53,7 @@ export function AcademySourceLinks({
           </li>
         ))}
       </ol>
-      <p className="mt-3 text-[11px] leading-relaxed text-[#6B7280]">
+      <p className="mt-3 text-[11px] leading-relaxed text-[#5F6B83]">
         These citations belong to the real lesson and museum records. The game
         itself adds no new mission facts.
       </p>

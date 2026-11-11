@@ -16,11 +16,11 @@ export function AcademyArtifactCard({ artifact }: { artifact: Artifact }) {
         />
       </div>
       <div className="p-4">
-        <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+        <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9C4321]">
           <MapPin aria-hidden="true" className="h-3 w-3" />
           {artifact.destination} · {artifact.missionName}
         </p>
-        <h3 className="mt-1 text-base font-semibold text-[#152238]">
+        <h3 className="mt-1 text-base font-semibold text-[#14213B]">
           <Link
             href={`/museum/${artifact.id}`}
             className="underline-offset-4 hover:underline"
@@ -32,16 +32,16 @@ export function AcademyArtifactCard({ artifact }: { artifact: Artifact }) {
           {artifact.shortDescription}
         </p>
         <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] font-medium">
-          <span className="rounded-full bg-[#152238]/6 px-2 py-0.5 text-[#374151]">
+          <span className="rounded-full bg-[#14213B]/6 px-2 py-0.5 text-[#374151]">
             Mission: {missionStatusLabels[artifact.missionStatus]}
           </span>
-          <span className="rounded-full bg-[#152238]/6 px-2 py-0.5 text-[#374151]">
+          <span className="rounded-full bg-[#14213B]/6 px-2 py-0.5 text-[#374151]">
             Hardware: {hardwareStatusLabels[artifact.hardwareStatus]}
           </span>
         </div>
         <Link
           href={`/museum/${artifact.id}`}
-          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#152238] underline-offset-4 hover:underline"
+          className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#14213B] underline-offset-4 hover:underline"
         >
           Open the museum record
           <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />

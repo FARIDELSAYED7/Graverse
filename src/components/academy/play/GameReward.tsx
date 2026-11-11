@@ -20,12 +20,12 @@ export function GameReward({
         backgroundColor: game.softAccent,
       }}
     >
-      <p className="flex items-center gap-2 text-sm font-semibold text-[#152238]">
+      <p className="flex items-center gap-2 text-sm font-semibold text-[#14213B]">
         <Trophy aria-hidden="true" className="h-4 w-4" style={{ color: game.accent }} />
         {earned ? `Badge earned: ${game.badge.name}` : `Game complete: ${game.title}`}
         <span aria-label={`${stars} of 3 stars`} className="ml-auto font-mono text-xs">
           {"★".repeat(stars)}
-          <span className="text-[#152238]/25">{"★".repeat(3 - stars)}</span>
+          <span className="text-[#14213B]/25">{"★".repeat(3 - stars)}</span>
         </span>
       </p>
       <p className="mt-1 text-xs leading-relaxed text-[#4B5563]">{game.badge.description}</p>
@@ -40,7 +40,7 @@ export function GameReward({
         </Link>
         <Link
           href={`/academy/lessons/${game.lessonId}`}
-          className="inline-flex items-center gap-1 text-[#152238] underline-offset-4 hover:underline"
+          className="inline-flex items-center gap-1 text-[#14213B] underline-offset-4 hover:underline"
         >
           Read the real mission lesson
           <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />

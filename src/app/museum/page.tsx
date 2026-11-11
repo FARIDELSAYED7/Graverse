@@ -97,8 +97,7 @@ export default function MuseumPage() {
         </div>
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="absolute -left-24 top-0 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_66%)] blur-2xl" />
-          <div className="absolute left-1/2 top-[-10rem] h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.2),transparent_66%)] blur-2xl" />
-          <div className="absolute -right-20 top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(244,114,208,0.12),transparent_68%)] blur-2xl" />
+          <div className="absolute left-1/2 top-[-10rem] h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(43,108,145,0.2),transparent_66%)] blur-2xl" />
         </div>
         <div
           aria-hidden="true"
@@ -110,7 +109,7 @@ export default function MuseumPage() {
             <p className="eyebrow">The museum</p>
             <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight text-text-primary sm:text-5xl">
               The collection,{" "}
-              <span className="text-gradient">artifact by artifact</span>
+              <span className="text-accent">artifact by artifact</span>
             </h1>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
               Each record combines one object with one mission story: what it
@@ -121,7 +120,7 @@ export default function MuseumPage() {
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/explorer"
-                className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
+                className="btn-primary inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
               >
                 Open the timeline
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -143,7 +142,7 @@ export default function MuseumPage() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-brand-violet/40 hover:text-white"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-brand-teal/40 hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -154,7 +153,7 @@ export default function MuseumPage() {
           <div className="glass relative overflow-hidden rounded-2xl p-5">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.2),transparent_68%)]"
+              className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_68%)]"
             />
             <div className="relative flex items-center justify-between gap-4">
               <p className="text-sm font-semibold text-white">
@@ -232,10 +231,10 @@ export default function MuseumPage() {
       />
 
       <section className="container-content pb-6">
-        <div className="relative overflow-hidden rounded-2xl border border-brand-violet/20 bg-[linear-gradient(120deg,rgba(94,234,212,0.06),rgba(167,139,250,0.1)_48%,rgba(244,114,208,0.07))] p-5 sm:p-6">
+        <div className="relative overflow-hidden rounded-2xl border border-brand-teal/20 bg-surface p-5 sm:p-6">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.12),transparent_70%)]"
+            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.12),transparent_70%)]"
           />
           <div className="relative flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
@@ -272,10 +271,10 @@ export default function MuseumPage() {
       </section>
 
       <section className="container-content pb-6">
-        <div className="relative overflow-hidden rounded-2xl border border-brand-amber/25 bg-[linear-gradient(120deg,rgba(251,191,36,0.08),rgba(167,139,250,0.1)_48%,rgba(244,114,208,0.08))] p-5 sm:p-6">
+        <div className="relative overflow-hidden rounded-2xl border border-brand-amber/25 bg-surface p-5 sm:p-6">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.14),transparent_70%)]"
+            className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(242,179,61,0.14),transparent_70%)]"
           />
           <div className="relative flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
@@ -294,7 +293,7 @@ export default function MuseumPage() {
             </div>
             <Link
               href="/academy"
-              className="btn-gradient inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
+              className="btn-primary inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
             >
               Open Space Academy
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
