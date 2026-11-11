@@ -85,6 +85,17 @@ const en: Dictionary = {
     "Check the status of hardware, read an engineering explainer, follow a story, inspect the method, run an educational model or open your own saved records.",
   "home.openSurface": "Open",
 
+  "home.problemEyebrow": "The problem",
+  "home.problemTitle": "Space hardware records are scattered",
+  "home.problemBody":
+    "The story of one rover or lander is spread across technical mission pages, image libraries and archives. Answering what it was for, what it found, what happened to it and what proves it takes more than one site.",
+  "home.answerEyebrow": "What GRAVERSE adds",
+  "home.answerTitle": "One archive, three ways in",
+  "home.answerBody":
+    "Explorer moves through the records by time, destination or hardware type. Museum tells each machine's story with its sources attached. Academy teaches the same records in age bands. Every record keeps mission status and hardware status apart and names where its facts come from.",
+  "home.provenance":
+    "Records are normalized from public NASA mission pages, NASA/NSSDCA technical records and NASA image records. Every artifact page lists its sources and access dates.",
+
   "footer.description":
     "An interactive space heritage timeline and digital museum. Explore the hardware, missions and discoveries left across the Moon, Mars and beyond.",
   "footer.explorer": "Explorer",
@@ -200,6 +211,17 @@ const ar: Dictionary = {
   "home.moreDescription":
     "تحقق من حالة العتاد، واقرأ شرحاً هندسياً، وتابع قصة، وافحص المنهج، وشغّل نموذجاً تعليمياً، أو افتح سجلاتك المحفوظة.",
   "home.openSurface": "افتح",
+
+  "home.problemEyebrow": "المشكلة",
+  "home.problemTitle": "سجلات العتاد الفضائي مبعثرة",
+  "home.problemBody":
+    "قصة عربة أو مهبط واحد موزعة بين صفحات المهام التقنية ومكتبات الصور والأرشيف. والإجابة عن سبب الإرسال وما اكتشفه وما حدث له وما يثبته ذلك تحتاج أكثر من موقع واحد.",
+  "home.answerEyebrow": "ما يضيفه GRAVERSE",
+  "home.answerTitle": "أرشيف واحد، ثلاث طرق للدخول",
+  "home.answerBody":
+    "المستكشف يتنقل في السجلات بحسب الزمن أو الوجهة أو نوع العتاد. المتحف يروي قصة كل آلة ومعها مصادرها. الأكاديمية تعلّم السجلات نفسها بحسب الفئة العمرية. وكل سجل يفصل بين حالة المهمة وحالة العتاد ويذكر مصدر وقائعه.",
+  "home.provenance":
+    "تُطبَّع السجلات من صفحات مهام ناسا العامة وسجلات ناسا/NSSDCA التقنية وسجلات صور ناسا. وكل صفحة قطعة تسرد مصادرها وتواريخ الوصول إليها.",
 
   "footer.description":
     "خط زمني تفاعلي للتراث الفضائي ومتحف رقمي. استكشف العتاد والمهام والاكتشافات على القمر والمريخ وما وراءهما.",

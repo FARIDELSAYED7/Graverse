@@ -49,7 +49,7 @@ export function ProgressDashboard() {
         ].map((item) => (
           <div key={item.label} className="academy-card rounded-2xl p-4">
             <p className="font-mono text-3xl text-[#14213B]">{item.value}</p>
-            <p className="mt-1 text-xs font-medium text-[#5A6472]">{item.label}</p>
+            <p className="mt-1 text-xs font-medium text-[#46536B]">{item.label}</p>
           </div>
         ))}
       </div>
@@ -59,7 +59,7 @@ export function ProgressDashboard() {
           <ShieldCheck aria-hidden="true" className="h-4 w-4 text-[#0F766E]" />
           Stored {mode === "local" ? "in this browser" : "for this session only"}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-[#5A6472]">
+        <p className="mt-1 text-sm leading-relaxed text-[#46536B]">
           GRAVERSE does not use accounts, analytics or cloud sync. Progress stays in
           this browser&apos;s local storage. If storage is blocked, it lasts only for
           this session and the interface says so. No personal data is collected.
@@ -144,7 +144,7 @@ export function ProgressDashboard() {
         {Object.keys(state.lessons).length === 0 &&
         Object.keys(state.journeys).length === 0 &&
         Object.keys(state.games).length === 0 ? (
-          <p className="mt-2 text-sm text-[#5A6472]">
+          <p className="mt-2 text-sm text-[#46536B]">
             Nothing saved yet. Finish a lesson quiz, mark a journey step done or
             play a playground game.
           </p>

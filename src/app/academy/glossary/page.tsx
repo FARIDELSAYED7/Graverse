@@ -73,7 +73,7 @@ export default function GlossaryPage() {
                     className="academy-card scroll-mt-24 rounded-xl p-4"
                   >
                     <dt className="text-sm font-semibold text-[#14213B]">{entry.term}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-[#5A6472]">
+                    <dd className="mt-1 text-sm leading-relaxed text-[#46536B]">
                       {entry.definition}
                     </dd>
                   </div>

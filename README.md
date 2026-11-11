@@ -109,7 +109,9 @@ canonical site URL or a custom Chrome path.
 | `npm run validate` | zod + referential integrity + provenance validation of the whole dataset |
 | `npm run test:data` | Data, relation, search, provenance and progress tests (Node test runner) |
 | `npm run test:e2e` | Browser smoke, redirect and axe checks against a running server |
-| `npm run verify` | Full gate: typecheck → lint → validate → data tests → build → production server → smoke/axe |
+| `npm run test:journeys` | Drives the real interface: search, Explorer modes and filters, timeline preview, lesson quiz, progress export/reset, compare, favourites, simulations, Arabic RTL, mobile layout and the no-WebGL fallback |
+| `npm run test:links` | Crawls the site and confirms every internal link resolves |
+| `npm run verify` | Full gate: typecheck → lint → validate → data tests → build → production server → smoke/axe → journeys → link check |
 | `npm run perf` | Local LCP/CLS/transfer probe against a running production server |
 
 `verify` builds into `.next-prod` and serves on port `3100`, so it never
@@ -298,16 +300,20 @@ deployed environment.
   24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96
   sources, 581 directed relation edges.
 - Data tests: **21/21 passed**, including the interface dictionary checks.
-- Lint: **no errors**; one pre-existing `react-hooks/exhaustive-deps` warning in
-  `ExploreExperience.tsx`.
+- Lint: **no errors and no warnings**.
 - Typecheck: **passed**.
 - Production build: **passed** — 175 static pages generated.
 - Browser smoke: **47 routes checked, 0 failures**, including a real rover key
   move and a rocket launch that saves its badge.
 - Axe: **0 violations** (0 serious or critical) on 38 pages.
+- User journeys: **24/24 passed** — search, Explorer modes and filters, the
+  timeline preview, a lesson quiz, progress export/reset, comparison,
+  favourites, a simulation, the status board, the dataset endpoint, the Arabic
+  right-to-left layout, the phone layout and the no-WebGL fallback.
+- Internal links: **192/192 resolved** across 40 crawled pages.
 
 A local headless-Chrome probe of thirteen representative routes recorded **CLS 0**
-everywhere and LCP between **52 ms and 108 ms** on an unthrottled machine. Those
+everywhere and LCP between **56 ms and 96 ms** on an unthrottled machine. Those
 are local numbers, not Lighthouse or field data; the table and environment are in
 [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md).
 

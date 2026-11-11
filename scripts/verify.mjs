@@ -72,6 +72,14 @@ try {
   run("node", ["scripts/smoke.mjs"], {
     env: { ...env, BASE_URL },
   });
+  console.log("\nRunning user-journey checks…");
+  run("node", ["scripts/journeys.mjs"], {
+    env: { ...env, BASE_URL },
+  });
+  console.log("\nChecking internal link integrity…");
+  run("node", ["scripts/link-check.mjs"], {
+    env: { ...env, BASE_URL },
+  });
   console.log("\nVerification passed.");
 } finally {
   stopServer();

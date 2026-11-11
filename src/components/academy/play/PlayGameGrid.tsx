@@ -62,7 +62,7 @@ function PlayGameCard({ game }: { game: PlayGame }) {
         <p className="mt-0.5 text-sm font-semibold" style={{ color: game.accent }}>
           {game.tagline}
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-[#5A6472]">{game.description}</p>
+        <p className="mt-2 text-sm leading-relaxed text-[#46536B]">{game.description}</p>
 
         <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] font-semibold">
           <span className="rounded-full bg-[#14213B]/6 px-2 py-1 text-[#374151]">

@@ -51,7 +51,7 @@ export default function ArticlePage({ params }: PageProps) {
           <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#14213B] sm:text-4xl">
             {article.title}
           </h1>
-          <p className="mt-3 border-s-4 border-[#9C4321]/50 ps-4 text-lg leading-relaxed text-[#4B5563]">
+          <p className="mt-3 border-s-4 border-[#9C4321]/50 ps-4 text-lg leading-relaxed text-[#46536B]">
             {article.dek}
           </p>
 
@@ -72,7 +72,7 @@ export default function ArticlePage({ params }: PageProps) {
             ))}
           </div>
 
-          <p className="mt-8 rounded-xl border border-[#14213B]/10 bg-white/70 p-4 text-xs leading-relaxed text-[#5A6472]">
+          <p className="mt-8 rounded-xl border border-[#14213B]/10 bg-white/70 p-4 text-xs leading-relaxed text-[#46536B]">
             Last verified {article.lastVerified}. This explainer reuses facts from the
             linked artifact and destination records. It does not introduce new
             measurements.

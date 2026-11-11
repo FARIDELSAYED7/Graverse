@@ -31,7 +31,7 @@ export function ExperienceSwitcher({
             className={cn(
               "group relative overflow-hidden rounded-2xl border p-4 transition-transform hover:-translate-y-0.5",
               variant === "light"
-                ? "border-[#152238]/12 bg-white/80 hover:border-[#152238]/30"
+                ? "border-[#14213B]/12 bg-white/80 hover:border-[#14213B]/30"
                 : "border-white/10 bg-white/[0.04] hover:border-white/25"
             )}
           >
@@ -66,7 +66,7 @@ export function ExperienceSwitcher({
             <span
               className={cn(
                 "mt-3 block text-lg font-semibold",
-                variant === "light" ? "text-[#152238]" : "text-white"
+                variant === "light" ? "text-[#14213B]" : "text-white"
               )}
             >
               {experience.name}
@@ -74,7 +74,7 @@ export function ExperienceSwitcher({
             <span
               className={cn(
                 "mt-1 block text-sm leading-relaxed",
-                variant === "light" ? "text-[#4B5563]" : "text-text-secondary"
+                variant === "light" ? "text-[#46536B]" : "text-text-secondary"
               )}
             >
               {experience.tagline}

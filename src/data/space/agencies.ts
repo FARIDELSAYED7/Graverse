@@ -137,7 +137,7 @@ export const agencies: Agency[] = [
     ],
     notablePrograms: ["Canadarm", "Canadarm2", "Radarsat"],
     website: "https://www.asc-csa.gc.ca/",
-    accent: "#F472B6",
+    accent: "#F08A6A",
     sourceIds: ["SRC-CSA-AGENCY"],
   },
   {

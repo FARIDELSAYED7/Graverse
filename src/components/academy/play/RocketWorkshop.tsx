@@ -188,7 +188,7 @@ export function RocketWorkshop({ game }: { game: PlayGame }) {
         >
           <RocketScene config={config} launching={launching} launchKey={launchKey} />
         </StageFrame>
-        <p className="mt-3 text-xs leading-relaxed text-[#5A6472]">
+        <p className="mt-3 text-xs leading-relaxed text-[#46536B]">
           {game.toyNote}
         </p>
       </div>
@@ -270,7 +270,7 @@ export function RocketWorkshop({ game }: { game: PlayGame }) {
             <Rocket aria-hidden="true" className="h-3.5 w-3.5" />
             Your rocket
           </p>
-          <p className="mt-1 text-xs leading-relaxed text-[#5A6472]">{summary}</p>
+          <p className="mt-1 text-xs leading-relaxed text-[#46536B]">{summary}</p>
         </div>
 
         <button

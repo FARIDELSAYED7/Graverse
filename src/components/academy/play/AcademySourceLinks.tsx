@@ -46,7 +46,7 @@ export function AcademySourceLinks({
               <ExternalLink aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             </a>
             {source.notes ? (
-              <p className="mt-1 text-xs leading-relaxed text-[#5A6472]">
+              <p className="mt-1 text-xs leading-relaxed text-[#46536B]">
                 {source.notes}
               </p>
             ) : null}

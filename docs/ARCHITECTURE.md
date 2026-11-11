@@ -263,6 +263,8 @@ tsc --noEmit
         → next build (GRAVERSE_DIST_DIR=.next-prod)
           → next start -p 3100
             → puppeteer smoke + redirects + axe
+              → puppeteer user journeys
+                → internal link crawl
 ```
 
 `scripts/verify.mjs` orchestrates the sequence and tears the server down. The
@@ -270,6 +272,22 @@ browser script checks HTTP status, title, `h1`, `main` landmark and body length
 for 47 routes, asserts the three redirects preserve query strings, drives a real
 rover move from its focused arrow panel, launches the toy rocket and checks that
 `badge-play-rocket` was saved, and runs axe on 38 representative pages.
+
+`scripts/journeys.mjs` then drives the product the way a visitor does, so a
+route that renders but does not work still fails the gate: search by name and
+the empty search state, all three Explorer modes, filters with a removable chip
+and a reset, an impossible filter combination, the list view, sorting, the
+timeline preview opening the matching record, a museum record separating
+mission and hardware status and citing sources, a lesson quiz being recorded,
+progress export and reset, compare selection/swap/share, a favourite reaching
+My Universe, a simulation reacting to its controls and being marked explored,
+the Mission Control board filtering and opening a record, the open dataset
+endpoint, the Arabic right-to-left layout, the phone layout and its menu, and
+the Explorer and playground still working with WebGL disabled.
+
+`scripts/link-check.mjs` crawls 40 pages, collects every internal link and
+confirms each target resolves, which is the automated form of the blueprint's
+"no decorative dead ends" rule.
 
 ## 9a. Localisation
 

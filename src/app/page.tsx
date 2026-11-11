@@ -6,6 +6,7 @@ import {
   BookOpen,
   Bot,
   CalendarClock,
+  CircleHelp,
   Compass,
   Database,
   FlaskConical,
@@ -248,6 +249,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="container-content pt-12 sm:pt-14" aria-labelledby="problem-heading">
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+            <p className="eyebrow flex items-center gap-2">
+              <CircleHelp aria-hidden="true" className="h-3.5 w-3.5" />
+              {t(locale, "home.problemEyebrow")}
+            </p>
+            <h2
+              id="problem-heading"
+              className="mt-2 text-xl font-semibold tracking-tight text-text-primary"
+            >
+              {t(locale, "home.problemTitle")}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+              {t(locale, "home.problemBody")}
+            </p>
+          </div>
+          <div className="rounded-2xl border border-accent/25 bg-surface/70 p-5 sm:p-6">
+            <p className="eyebrow flex items-center gap-2">
+              <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
+              {t(locale, "home.answerEyebrow")}
+            </p>
+            <h2 className="mt-2 text-xl font-semibold tracking-tight text-text-primary">
+              {t(locale, "home.answerTitle")}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+              {t(locale, "home.answerBody")}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="container-content pt-14 sm:pt-16">
         <SectionHeading
           eyebrow="Three experiences, one collection"
@@ -319,6 +352,9 @@ export default function HomePage() {
             );
           })}
         </ul>
+        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-text-muted">
+          {t(locale, "home.provenance")}
+        </p>
       </section>
 
       <section className="container-content pt-14 sm:pt-16" aria-labelledby="more-surfaces-heading">
@@ -355,21 +391,21 @@ export default function HomePage() {
               icon: Microscope,
               labelKey: "sections.research.title",
               descriptionKey: "sections.research.description",
-              accent: "#A78BFA",
+              accent: "#7DD3FC",
             },
             {
               href: "/simulations",
               icon: FlaskConical,
               labelKey: "sections.simulations.title",
               descriptionKey: "sections.simulations.description",
-              accent: "#2B6C91",
+              accent: "#9FE3E8",
             },
             {
               href: "/my-universe",
               icon: Heart,
               labelKey: "sections.myUniverse.title",
               descriptionKey: "sections.myUniverse.description",
-              accent: "#F472B6",
+              accent: "#FFF8EC",
             },
           ].map((surface) => {
             const Icon = surface.icon;

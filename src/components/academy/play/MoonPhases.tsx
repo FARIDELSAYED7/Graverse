@@ -104,7 +104,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
         >
           <MoonScene phase={phase} />
         </StageFrame>
-        <div className="mt-3 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-[#5A6472]">
+        <div className="mt-3 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-[#46536B]">
           <span className="rounded-full bg-[#FFC93C]/25 px-2 py-1 text-[#7C4A03]">
             Sun on the left
           </span>
@@ -115,7 +115,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
             Moon on its orbit
           </span>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-[#5A6472]">{game.toyNote}</p>
+        <p className="mt-3 text-xs leading-relaxed text-[#46536B]">{game.toyNote}</p>
       </div>
 
       <div className="academy-card rounded-3xl p-5">
@@ -210,7 +210,7 @@ export function MoonPhases({ game }: { game: PlayGame }) {
               ? "bg-[#0F766E]/10 text-[#0F4F49]"
               : checked === "wrong"
                 ? "bg-[#FEE2E2] text-[#7F1D1D]"
-                : "bg-[#14213B]/5 text-[#4B5563]"
+                : "bg-[#14213B]/5 text-[#46536B]"
           }`}
         >
           {message}

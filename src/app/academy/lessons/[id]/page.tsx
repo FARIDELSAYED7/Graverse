@@ -86,7 +86,7 @@ export default function LessonPage({ params }: PageProps) {
             <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#14213B] sm:text-4xl">
               {lesson.title}
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-[#4B5563]">
+            <p className="mt-3 text-base leading-relaxed text-[#46536B]">
               {lesson.summary}
             </p>
 

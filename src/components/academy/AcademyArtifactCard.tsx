@@ -28,7 +28,7 @@ export function AcademyArtifactCard({ artifact }: { artifact: Artifact }) {
             {artifact.name}
           </Link>
         </h3>
-        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#5A6472]">
+        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#46536B]">
           {artifact.shortDescription}
         </p>
         <div className="mt-3 flex flex-wrap gap-1.5 text-[10px] font-medium">

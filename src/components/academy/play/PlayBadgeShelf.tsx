@@ -62,7 +62,7 @@ export function PlayBadgeShelf({ games }: { games: PlayGame[] }) {
                 ) : null}
               </div>
               <p className="mt-2 text-sm font-semibold text-[#14213B]">{game.badge.name}</p>
-              <p className="mt-0.5 text-[11px] leading-relaxed text-[#5A6472]">
+              <p className="mt-0.5 text-[11px] leading-relaxed text-[#46536B]">
                 {has ? "Earned on this device." : `Play ${game.title} to unlock.`}
               </p>
             </li>

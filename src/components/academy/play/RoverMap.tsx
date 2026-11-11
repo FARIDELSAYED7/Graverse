@@ -53,7 +53,7 @@ export function RoverMap({ rover }: { rover: RoverPoint }) {
           })
         )}
       </div>
-      <div className="mt-2 flex flex-wrap justify-center gap-3 text-[10px] font-medium text-[#5A6472]">
+      <div className="mt-2 flex flex-wrap justify-center gap-3 text-[10px] font-medium text-[#46536B]">
         <span className="inline-flex items-center gap-1">
           <Truck aria-hidden="true" className="h-3 w-3" /> Rover
         </span>

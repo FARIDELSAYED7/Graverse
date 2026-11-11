@@ -109,6 +109,20 @@ Open `/explorer`.
   production build, 47-route smoke and redirect checks, including a real rover
   key move and a rocket launch that saves its badge.
 
+## 6. Arabic and the extra surfaces (45 s, optional)
+
+1. Click the language toggle in the header.
+   - The document switches to `dir="rtl"` and `lang="ar"`; the layout mirrors
+     and dates stay intact. Say the honest line: interface chrome is translated,
+     editorial prose is still English.
+2. Switch back to English.
+3. If there is time, open `/mission-control` to show mission, hardware and the
+   clearly-labelled derived communication status side by side, then `/compare`
+   with two records, and `/my-universe` to show the local, account-free record.
+
+These are supporting surfaces. The three core experiences are the product; the
+others prove the same records serve different questions.
+
 ## Recorded results
 
 Last local run of `npm run verify`:
@@ -117,11 +131,13 @@ Last local run of `npm run verify`:
 | --- | --- |
 | Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 edges |
 | Data tests | 21/21 passed |
-| ESLint | No errors; one pre-existing `exhaustive-deps` warning |
+| ESLint | No errors and no warnings |
 | Typecheck | Passed |
 | Production build | Passed — 175 static pages |
 | Smoke | 47 routes, 0 failures, including gameplay and badge persistence |
 | Axe | 0 violations on 38 pages |
+| User journeys | 24/24 passed |
+| Internal links | 192/192 resolved |
 
 Reproduce with:
 
@@ -144,6 +160,12 @@ npm run verify
 ## Do not claim
 
 - A deployment URL that is not in this repository.
+- That GRAVERSE ships the official NASA challenge dataset. The supplied folder
+  contained the blueprint and the visual reference, so the collection was
+  normalized from public NASA mission pages, NASA/NSSDCA technical records and
+  NASA image records. `/about` states this and `/api/export` serves exactly the
+  data that is on screen.
+- NASA endorsement, partnership or review.
 - Lighthouse scores or field performance data that were not measured.
 - Screen-reader certification. Automated axe and keyboard checks are not the
   same as a screen-reader audit.

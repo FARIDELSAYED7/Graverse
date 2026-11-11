@@ -28,7 +28,7 @@ export function GameReward({
           <span className="text-[#14213B]/25">{"★".repeat(3 - stars)}</span>
         </span>
       </p>
-      <p className="mt-1 text-xs leading-relaxed text-[#4B5563]">{game.badge.description}</p>
+      <p className="mt-1 text-xs leading-relaxed text-[#46536B]">{game.badge.description}</p>
       <div className="mt-3 flex flex-wrap gap-3 text-xs font-semibold">
         <Link
           href="/academy/progress"

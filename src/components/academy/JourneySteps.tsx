@@ -27,7 +27,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
           <h2 id="journey-steps-heading" className="text-xl font-semibold text-[#14213B]">
             The route
           </h2>
-          <p className="mt-1 text-sm text-[#5A6472]">
+          <p className="mt-1 text-sm text-[#46536B]">
             {completed.length} of {journey.steps.length} steps complete. Progress is
             stored {mode === "local" ? "on this device" : "for this session"}.
           </p>
@@ -86,7 +86,7 @@ export function JourneySteps({ journey }: { journey: Journey }) {
                 >
                   {step.title}
                 </Link>
-                <p className="mt-0.5 text-sm leading-relaxed text-[#5A6472]">
+                <p className="mt-0.5 text-sm leading-relaxed text-[#46536B]">
                   {step.description}
                 </p>
               </div>

@@ -11,6 +11,8 @@
     "validate": "tsx scripts/validate-data.ts",
     "test:data": "tsx --test tests/data.test.ts",
     "test:e2e": "node scripts/smoke.mjs",
+    "test:journeys": "node scripts/journeys.mjs",
+    "test:links": "node scripts/link-check.mjs",
     "perf": "node scripts/perf.mjs",
     "verify": "node scripts/verify.mjs"
   },
