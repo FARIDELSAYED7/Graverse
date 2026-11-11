@@ -272,10 +272,3 @@ export function translationKeys(locale: Locale): string[] {
 export function t(locale: Locale, key: string): string {
   return dictionaries[locale][key] ?? dictionaries.en[key] ?? key;
 }
-
-export function translate(
-  locale: Locale
-): (key: string, fallback?: string) => string {
-  return (key, fallback) =>
-    dictionaries[locale][key] ?? fallback ?? dictionaries.en[key] ?? key;
-}
