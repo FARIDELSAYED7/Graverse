@@ -20,6 +20,9 @@ profile or "Reset progress" if you want a clean slate.
 
 Open `/`.
 
+- Read the two short panels under the hero: **the problem** (records for one
+  machine are scattered across mission pages, image libraries and archives) and
+  **what GRAVERSE adds** (one archive, three ways in, sources attached).
 - Point out the three doors: **Space Academy**, **Museum**, **Explorer**.
 - Say the sentence that frames the whole product: *"One verified collection,
   three different ways in — and every claim says how well it is established."*

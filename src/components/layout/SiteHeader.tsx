@@ -12,20 +12,20 @@ import { t, type Locale } from "@/lib/i18n";
 
 const primaryNav = [
   { href: "/", label: "nav.home" },
-  { href: "/museum", label: "nav.museum" },
   { href: "/explorer", label: "nav.explorer" },
+  { href: "/museum", label: "nav.museum" },
   { href: "/academy", label: "nav.academy" },
-  { href: "/simulations", label: "nav.simulations" },
-  { href: "/mission-control", label: "nav.missionControl" },
-  { href: "/stories", label: "nav.stories" },
+  { href: "/about", label: "nav.about" },
 ] as const;
 
 const moreNav = [
+  { href: "/mission-control", label: "nav.missionControl" },
   { href: "/engineering", label: "nav.engineering" },
+  { href: "/stories", label: "nav.stories" },
   { href: "/research", label: "nav.research" },
-  { href: "/compare", label: "nav.compare" },
+  { href: "/simulations", label: "nav.simulations" },
   { href: "/my-universe", label: "nav.myUniverse" },
-  { href: "/about", label: "nav.about" },
+  { href: "/compare", label: "nav.compare" },
 ] as const;
 
 function isActive(pathname: string, href: string): boolean {
