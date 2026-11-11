@@ -18,7 +18,7 @@ export default function NotFound() {
       </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
         <Link
-          href="/explore"
+          href="/explorer"
           className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
         >
           <Compass aria-hidden="true" className="h-4 w-4" />

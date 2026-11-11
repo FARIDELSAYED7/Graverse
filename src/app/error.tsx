@@ -39,7 +39,7 @@ export default function Error({
           Try again
         </button>
         <Link
-          href="/explore"
+          href="/explorer"
           className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-sm font-semibold text-text-primary transition-colors hover:border-accent/50 hover:bg-white/5"
         >
           Back to Explore

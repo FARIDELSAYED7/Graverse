@@ -254,7 +254,7 @@ export function RobotLab({
               data-robot-select
               value={robot.id}
               onChange={(event) => setSelectedId(event.target.value)}
-              className="mt-1.5 h-11 w-full rounded-full border border-white/15 bg-bg-elevated px-4 text-sm font-medium text-white transition-colors hover:border-brand-cyan/40 focus:border-brand-cyan/60 focus:outline-none"
+              className="mt-1.5 h-11 w-full rounded-full border border-white/15 bg-bg-elevated px-4 text-sm font-medium text-text-primary transition-colors hover:border-brand-cyan/40 focus:border-brand-cyan/60 focus:outline-none"
             >
               {groups.map((group) => (
                 <optgroup key={group.id} label={group.label}>

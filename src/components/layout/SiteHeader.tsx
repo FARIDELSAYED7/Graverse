@@ -10,9 +10,9 @@ import { cn } from "@/lib/cn";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/explore", label: "Explore" },
+  { href: "/academy", label: "Academy" },
   { href: "/museum", label: "Museum" },
-  { href: "/kids", label: "Kids" },
+  { href: "/explorer", label: "Explorer" },
   { href: "/about", label: "About" },
 ];
 
@@ -114,7 +114,7 @@ export function SiteHeader() {
             className="hidden items-center lg:flex"
           >
             <label htmlFor="header-search" className="sr-only">
-              Search artifacts, missions and destinations
+              Search artifacts, missions, lessons and destinations
             </label>
             <div className="group relative">
               <Search
@@ -126,7 +126,7 @@ export function SiteHeader() {
                 id="header-search"
                 name="q"
                 type="search"
-                placeholder="Search artifacts"
+                placeholder="Search everything"
                 autoComplete="off"
                 className="h-9 w-52 rounded-full border border-white/10 bg-white/[0.04] pl-8 pr-12 text-sm text-text-primary placeholder:text-text-muted focus:border-accent/50 focus:bg-white/[0.06] focus:outline-none"
               />
@@ -247,7 +247,7 @@ export function SiteHeader() {
               className="mt-4 flex items-center gap-2"
             >
               <label htmlFor="mobile-search" className="sr-only">
-                Search artifacts, missions and destinations
+                Search artifacts, missions, lessons and destinations
               </label>
               <div className="relative flex-1">
                 <Search

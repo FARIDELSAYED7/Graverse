@@ -27,6 +27,8 @@ import {
   hardwareTypeSingular,
 } from "@/data/artifacts";
 import { getSources, sourceTypeLabels } from "@/data/sources";
+import { getMissionByName } from "@/data/missions";
+import { getAgency } from "@/data/space/agencies";
 import { eventTypeLabels } from "@/lib/status";
 import { formatDate } from "@/lib/format";
 import type { Artifact } from "@/types/artifact";
@@ -73,6 +75,7 @@ const journey = [
   "journey",
   "science",
   "fate",
+  "provenance",
   "technical",
   "media",
   "related",
@@ -85,6 +88,7 @@ const journeyLabels: Record<string, string> = {
   journey: "The journey",
   science: "What we learned",
   fate: "What happened to it",
+  provenance: "Provenance",
   technical: "Technical details",
   media: "Media and model",
   related: "Related records",
@@ -97,6 +101,8 @@ export default function ArtifactPage({ params }: PageProps) {
 
   const sources = getSources(artifact.sourceIds);
   const related = getArtifacts(artifact.relatedIds);
+  const mission = getMissionByName(artifact.missionName);
+  const agency = mission ? getAgency(mission.agencyId) : undefined;
   const artifactIndex = artifacts.findIndex((entry) => entry.id === artifact.id);
   const previousArtifact =
     artifactIndex > 0 ? artifacts[artifactIndex - 1] : undefined;
@@ -144,7 +150,7 @@ export default function ArtifactPage({ params }: PageProps) {
               <li aria-hidden="true">/</li>
               <li>
                 <Link
-                  href={`/explore?mode=artifacts&destination=${artifact.destinationGroup}`}
+                  href={`/explorer?mode=artifacts&destination=${artifact.destinationGroup}`}
                   className="-my-1.5 inline-flex items-center py-1.5 hover:text-white"
                 >
                   {artifact.destination}
@@ -173,12 +179,29 @@ export default function ArtifactPage({ params }: PageProps) {
             </h1>
             <p className="mt-2 text-sm text-text-secondary">
               Mission:{" "}
-              <Link
-                href={`/search?q=${encodeURIComponent(artifact.missionName)}`}
-                className="font-medium text-accent-bright hover:text-white"
-              >
-                {artifact.missionName}
-              </Link>
+              {mission ? (
+                <Link
+                  href={`/museum/missions/${mission.id}`}
+                  className="font-medium text-accent-bright hover:text-white"
+                >
+                  {artifact.missionName}
+                </Link>
+              ) : (
+                <span className="font-medium text-text-primary">
+                  {artifact.missionName}
+                </span>
+              )}
+              {agency ? (
+                <>
+                  {" · "}
+                  <Link
+                    href={`/museum/agencies/${agency.id}`}
+                    className="text-accent-bright hover:text-white"
+                  >
+                    {agency.shortName}
+                  </Link>
+                </>
+              ) : null}
             </p>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-text-secondary">
               {artifact.shortDescription}
@@ -446,6 +469,85 @@ export default function ArtifactPage({ params }: PageProps) {
             </div>
           </section>
 
+          <section
+            id="provenance"
+            aria-labelledby="provenance-heading"
+            className="scroll-mt-24"
+          >
+            <SectionLabel index="E2" title="Provenance" />
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+              <h3
+                id="provenance-heading"
+                className="text-sm font-semibold text-text-primary"
+              >
+                How this record is sourced
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-text-secondary">
+                This page is compiled from{" "}
+                {sources.length === 1
+                  ? "one public record"
+                  : `${sources.length} public records`}
+                , last checked on {artifact.lastVerified}. Dates, locations and
+                status wording are taken from those records. The normalized
+                status labels are a GRAVERSE convenience; the original wording
+                is shown above and is never silently rewritten.
+              </p>
+              <dl className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                  <dt className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                    Mission
+                  </dt>
+                  <dd className="mt-1 text-sm font-medium text-text-primary">
+                    {mission ? (
+                      <Link
+                        href={`/museum/missions/${mission.id}`}
+                        className="hover:text-accent-bright"
+                      >
+                        {mission.name}
+                      </Link>
+                    ) : (
+                      artifact.missionName
+                    )}
+                  </dd>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                  <dt className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                    Agency
+                  </dt>
+                  <dd className="mt-1 text-sm font-medium text-text-primary">
+                    {agency ? (
+                      <Link
+                        href={`/museum/agencies/${agency.id}`}
+                        className="hover:text-accent-bright"
+                      >
+                        {agency.shortName}
+                      </Link>
+                    ) : (
+                      "Not recorded"
+                    )}
+                  </dd>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                  <dt className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                    Source records
+                  </dt>
+                  <dd className="mt-1 font-mono text-sm tabular-nums text-text-primary">
+                    {sources.length}
+                  </dd>
+                </div>
+              </dl>
+              <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-text-muted">
+                <ShieldAlert
+                  aria-hidden="true"
+                  className="mt-0.5 h-3.5 w-3.5 shrink-0 text-warning"
+                />
+                {artifact.dataNotes.length
+                  ? "Uncertainty notes for this record are listed with the sources below."
+                  : "No field in this record is marked uncertain. Status and distance figures can still change as sources are updated."}
+              </p>
+            </div>
+          </section>
+
           <section id="technical" className="scroll-mt-24">
             <SectionLabel index="F" title="Technical details" />
             <details className="group mt-4 rounded-xl border border-white/10 bg-white/[0.02]">
@@ -647,7 +749,7 @@ export default function ArtifactPage({ params }: PageProps) {
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
             <BackButton />
             <Link
-              href="/explore"
+              href="/explorer"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-bright hover:text-white"
             >
               Continue exploring

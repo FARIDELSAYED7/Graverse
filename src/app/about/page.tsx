@@ -120,12 +120,13 @@ export default function AboutPage() {
           <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
             GRAVERSE is a hackathon project built for the NASA Space Apps
             Challenge. It turns scattered records about human-made space hardware
-            into an approachable timeline and a digital museum — without
-            pretending that uncertain or missing information is known.
+            into three connected experiences — a Space Academy for ages 5–12, a
+            cinematic museum, and a data-first Explorer — without pretending
+            that uncertain or missing information is known.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              href="/explore"
+              href="/explorer"
               className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
             >
               Explore the timeline

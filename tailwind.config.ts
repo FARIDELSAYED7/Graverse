@@ -5,15 +5,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#050B18",
-        "bg-elevated": "#0A1426",
-        surface: "#0D192D",
-        border: "#263A56",
-        "text-primary": "#F4F7FC",
-        "text-secondary": "#AAB8CF",
-        "text-muted": "#74849D",
-        accent: "#43B9FF",
-        "accent-bright": "#83D7FF",
+        // Token colours are driven by CSS variables so the Academy can switch
+        // to a light surface without overriding every utility class. The RGB
+        // triplets let Tailwind keep opacity modifiers such as `bg-accent/10`.
+        bg: "rgb(var(--bg-rgb) / <alpha-value>)",
+        "bg-elevated": "rgb(var(--bg-elevated-rgb) / <alpha-value>)",
+        surface: "rgb(var(--surface-rgb) / <alpha-value>)",
+        border: "rgb(var(--border-rgb) / <alpha-value>)",
+        "text-primary": "rgb(var(--text-primary-rgb) / <alpha-value>)",
+        "text-secondary": "rgb(var(--text-secondary-rgb) / <alpha-value>)",
+        "text-muted": "rgb(var(--text-muted-rgb) / <alpha-value>)",
+        accent: "rgb(var(--accent-rgb) / <alpha-value>)",
+        "accent-bright": "rgb(var(--accent-bright-rgb) / <alpha-value>)",
         "brand-teal": "#5EEAD4",
         "brand-cyan": "#67E8F9",
         "brand-violet": "#A78BFA",

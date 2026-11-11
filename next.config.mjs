@@ -7,6 +7,14 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      // Preserve the old public URLs. Query strings are carried over by Next.
+      { source: "/explore", destination: "/explorer", permanent: false },
+      { source: "/kids", destination: "/academy", permanent: false },
+      { source: "/museum/timeline", destination: "/explorer", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -7,7 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate": "tsx scripts/validate-data.ts",
+    "test:data": "tsx --test tests/data.test.ts",
+    "test:e2e": "node scripts/smoke.mjs",
+    "perf": "node scripts/perf.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=20.9"
   },
   "dependencies": {
     "@react-three/drei": "9.122.0",
@@ -16,9 +24,11 @@
     "next": "14.2.35",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "three": "0.169.0"
+    "three": "0.169.0",
+    "zod": "3.24.1"
   },
   "devDependencies": {
+    "@axe-core/puppeteer": "4.10.2",
     "@types/node": "20.17.10",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
@@ -27,8 +37,10 @@
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.35",
     "postcss": "8.4.49",
+    "puppeteer-core": "23.11.1",
     "sharp": "0.33.5",
     "tailwindcss": "3.4.19",
+    "tsx": "4.19.2",
     "typescript": "5.7.2"
   }
 }

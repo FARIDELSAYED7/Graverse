@@ -8,6 +8,7 @@ import {
   CalendarClock,
   Compass,
   Database,
+  Landmark,
   MapPin,
   PackageOpen,
   Plane,
@@ -30,6 +31,7 @@ import {
   featuredIds,
   getArtifacts,
 } from "@/data/artifacts";
+import { experiences } from "@/lib/experience";
 import { pluralize } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -131,7 +133,7 @@ export default function HomePage() {
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="/explore"
+                href="/explorer"
                 className="btn-gradient inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
               >
                 Explore the timeline
@@ -240,6 +242,79 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="container-content pt-14 sm:pt-16">
+        <SectionHeading
+          eyebrow="Three experiences, one collection"
+          title="Choose how you want to explore"
+          description="The same verified records, arranged for different questions. Learn the basics, read the full story, or investigate the data."
+        />
+        <ul className="mt-6 grid gap-4 lg:grid-cols-3">
+          {experiences.map((experience) => {
+            const Icon =
+              experience.id === "academy"
+                ? BookOpen
+                : experience.id === "museum"
+                  ? Landmark
+                  : Compass;
+            return (
+              <li key={experience.id}>
+                <Link
+                  href={experience.href}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border p-5 transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
+                  style={{
+                    borderColor: `${experience.accent}40`,
+                    background: `linear-gradient(145deg, ${experience.accent}14, rgba(10, 20, 38, 0.72))`,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-0.5"
+                    style={{ backgroundColor: experience.accent }}
+                  />
+                  <div className="flex items-center justify-between gap-3">
+                    <span
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl border"
+                      style={{
+                        borderColor: `${experience.accent}45`,
+                        backgroundColor: `${experience.accent}18`,
+                        color: experience.accent,
+                      }}
+                    >
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                    </span>
+                    <span
+                      className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+                      style={{ color: experience.accent }}
+                    >
+                      {experience.eyebrow}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-text-primary">
+                    {experience.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-text-secondary">
+                    {experience.tagline}
+                  </p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-text-muted">
+                    {experience.description}
+                  </p>
+                  <span
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium"
+                    style={{ color: experience.accent }}
+                  >
+                    Open {experience.name}
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
       <section className="container-content py-16 sm:py-20">
         <Reveal>
         <SectionHeading
@@ -248,7 +323,7 @@ export default function HomePage() {
           description="Start with where the artifact is — or was last documented. Each collection includes its real operational state, not just its mission outcome."
           action={
             <Link
-              href="/explore?mode=destinations"
+              href="/explorer?mode=destinations"
               className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:border-accent/50 hover:text-white"
             >
               All destinations
@@ -265,7 +340,7 @@ export default function HomePage() {
             return (
               <Link
                 key={destination}
-                href={`/explore?mode=artifacts&destination=${destination}`}
+                href={`/explorer?mode=artifacts&destination=${destination}`}
                 data-destination={destination}
                 className="destination-card card-hover group relative overflow-hidden rounded-card border border-white/10 bg-surface/60"
               >
@@ -324,7 +399,7 @@ export default function HomePage() {
           description="Four verified records that span the collection: a lunar lander, a rover, surface equipment and an interstellar probe."
           action={
             <Link
-              href="/explore?mode=artifacts"
+              href="/explorer?mode=artifacts"
               className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:border-accent/50 hover:text-white"
             >
               All {artifacts.length} artifacts
@@ -371,7 +446,7 @@ export default function HomePage() {
                   step: "01",
                   title: "Pick a moment",
                   body: "Browse the timeline by milestone, or switch to the destination and artifact views. Filters apply instantly.",
-                  href: "/explore",
+                  href: "/explorer",
                   cta: "Open Explore",
                   tone: "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
                   edge: "via-brand-teal/60",
@@ -452,27 +527,27 @@ export default function HomePage() {
             <div>
               <p className="eyebrow flex items-center gap-2">
                 <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
-                Junior Explorers · Ages 7–12
+Space Academy · Ages 5–12
               </p>
               <h2 className="mt-2 max-w-xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                 A kid-sized way into the{" "}
                 <span className="text-gradient">collection.</span>
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base">
-                Six real machines, a scripted robot guide for every artifact,
-                a space word lab and a five-question quiz. The same verified
-                records, with simpler words.
+                Four guided journeys, twelve short lessons, quizzes, a glossary
+                and a robot lab. The same verified records, rewritten for ages
+                5–12 and split into three age bands.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/kids"
+                  href="/academy"
                   className="btn-gradient inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
                 >
-                  Open Junior Explorers
+                  Open Space Academy
                   <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/kids#robot-lab"
+                  href="/academy/robot-lab"
                   className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/15 px-5 text-sm font-semibold text-text-primary transition-colors hover:border-accent/50 hover:bg-white/5"
                 >
                   <Bot aria-hidden="true" className="h-4 w-4 text-brand-cyan" />
@@ -549,7 +624,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link
-            href="/explore"
+            href="/explorer"
             className="btn-gradient relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-5 text-sm font-semibold"
           >
             Explore the timeline

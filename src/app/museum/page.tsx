@@ -120,7 +120,7 @@ export default function MuseumPage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href="/explore"
+                href="/explorer"
                 className="btn-gradient inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
               >
                 Open the timeline
@@ -134,6 +134,21 @@ export default function MuseumPage() {
                 How the data works
               </Link>
             </div>
+            <nav aria-label="Museum indexes" className="mt-5 flex flex-wrap gap-2">
+              {[
+                { href: "/museum/missions", label: "Missions" },
+                { href: "/museum/agencies", label: "Agencies" },
+                { href: "/sources", label: "Source registry" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-brand-violet/40 hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
           </div>
 
           <div className="glass relative overflow-hidden rounded-2xl p-5">
@@ -266,23 +281,22 @@ export default function MuseumPage() {
             <div className="max-w-2xl">
               <p className="eyebrow flex items-center gap-2">
                 <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
-                Junior Explorers · Ages 7–12
+                Space Academy · Ages 5–12
               </p>
               <h2 className="mt-2 text-lg font-semibold text-white">
                 Visiting with a young explorer?
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                The kids&apos; guide turns six artifacts into kid-sized stories,
-                adds a scripted robot guide for every artifact, a word lab and a
-                five-question quiz — using the same verified records as the
-                museum.
+                Space Academy turns the same verified records into age-banded
+                lessons, guided journeys, quizzes and a robot lab — split into
+                ages 5–7, 8–9 and 10–12.
               </p>
             </div>
             <Link
-              href="/kids"
+              href="/academy"
               className="btn-gradient inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold"
             >
-              Open the kids&apos; guide
+              Open Space Academy
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
@@ -304,7 +318,7 @@ export default function MuseumPage() {
               description={meta.description}
               action={
                 <Link
-                  href={`/explore?mode=artifacts&destination=${destination}`}
+                  href={`/explorer?mode=artifacts&destination=${destination}`}
                   className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:border-accent/50 hover:text-white"
                 >
                   Filter Explore by {meta.name}

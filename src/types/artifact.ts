@@ -54,6 +54,8 @@ export type DatePrecision = "day" | "month" | "year";
 export type SourceType =
   | "mission-page"
   | "technical-archive"
+  | "fact-sheet"
+  | "reference"
   | "news-release"
   | "image-record";
 

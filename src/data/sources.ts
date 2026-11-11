@@ -477,6 +477,334 @@ export const sources: SourceRecord[] = [
     "mission-page",
     "Launch, Saturn arrival, Huygens landing, discoveries and end of mission."
   ),
+
+  /* --------------------------------------------- Solar system fact sheets */
+  source(
+    "SRC-NASA-PLANETARY-FACTS",
+    "NASA NSSDCA",
+    "Planetary Fact Sheet",
+    "https://nssdc.gsfc.nasa.gov/planetary/factsheet/",
+    "fact-sheet",
+    "Reference values for mass, radius, distance, orbital period, rotation and temperature."
+  ),
+  source(
+    "SRC-NASA-SOLAR-SYSTEM",
+    "NASA Science",
+    "Solar System Exploration",
+    "https://science.nasa.gov/solar-system/",
+    "reference",
+    "Overview of the Sun, planets, dwarf planets and moons."
+  ),
+  source(
+    "SRC-NASA-SUN",
+    "NASA Science",
+    "The Sun",
+    "https://science.nasa.gov/sun/",
+    "reference",
+    "Solar structure, surface temperature and age."
+  ),
+  source(
+    "SRC-NASA-MERCURY",
+    "NASA Science",
+    "Mercury",
+    "https://science.nasa.gov/mercury/",
+    "reference",
+    "Planet overview, surface conditions and exploration."
+  ),
+  source(
+    "SRC-NASA-VENUS",
+    "NASA Science",
+    "Venus",
+    "https://science.nasa.gov/venus/",
+    "reference",
+    "Atmosphere, surface temperature and exploration."
+  ),
+  source(
+    "SRC-NASA-EARTH",
+    "NASA Science",
+    "Earth",
+    "https://science.nasa.gov/earth/",
+    "reference",
+    "Earth overview, atmosphere and habitability."
+  ),
+  source(
+    "SRC-NASA-MARS",
+    "NASA Science",
+    "Mars",
+    "https://science.nasa.gov/mars/",
+    "reference",
+    "Mars overview, geology, atmosphere and exploration."
+  ),
+  source(
+    "SRC-NASA-JUPITER",
+    "NASA Science",
+    "Jupiter",
+    "https://science.nasa.gov/jupiter/",
+    "reference",
+    "Gas giant overview, Great Red Spot and moons."
+  ),
+  source(
+    "SRC-NASA-SATURN",
+    "NASA Science",
+    "Saturn",
+    "https://science.nasa.gov/saturn/",
+    "reference",
+    "Ring system, atmosphere and moons."
+  ),
+  source(
+    "SRC-NASA-URANUS",
+    "NASA Science",
+    "Uranus",
+    "https://science.nasa.gov/uranus/",
+    "reference",
+    "Ice giant overview, axial tilt and moons."
+  ),
+  source(
+    "SRC-NASA-NEPTUNE",
+    "NASA Science",
+    "Neptune",
+    "https://science.nasa.gov/neptune/",
+    "reference",
+    "Ice giant overview, winds and moons."
+  ),
+  source(
+    "SRC-NASA-PLUTO",
+    "NASA Science",
+    "Pluto",
+    "https://science.nasa.gov/dwarf-planets/pluto/",
+    "reference",
+    "Dwarf planet overview and New Horizons results."
+  ),
+  source(
+    "SRC-NASA-MOON",
+    "NASA Science",
+    "Earth's Moon",
+    "https://science.nasa.gov/moon/",
+    "reference",
+    "Lunar surface, exploration history and science."
+  ),
+  source(
+    "SRC-NASA-MOONS",
+    "NASA Science",
+    "Moons of Our Solar System",
+    "https://science.nasa.gov/solar-system/moons/",
+    "reference",
+    "Major moons, their orbits and key characteristics."
+  ),
+
+  /* ---------------------------------------------------------- Deep sky */
+  source(
+    "SRC-NASA-ORION",
+    "NASA Science",
+    "Messier 42 — Orion Nebula",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-42/",
+    "reference",
+    "Distance, appearance and star-forming structure of the Orion Nebula."
+  ),
+  source(
+    "SRC-NASA-CRAB",
+    "NASA Science",
+    "Messier 1 — Crab Nebula",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-1/",
+    "reference",
+    "Supernova remnant history, distance and structure."
+  ),
+  source(
+    "SRC-NASA-ANDROMEDA",
+    "NASA Science",
+    "Messier 31 — Andromeda Galaxy",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/",
+    "reference",
+    "Distance, size and structure of the nearest large spiral galaxy."
+  ),
+  source(
+    "SRC-NASA-SGR-A",
+    "NASA Science",
+    "Black Holes",
+    "https://science.nasa.gov/universe/black-holes/",
+    "reference",
+    "Black hole formation, the Milky Way's center and event horizon observations."
+  ),
+  source(
+    "SRC-NASA-PILLARS",
+    "NASA Science",
+    "Messier 16 — Eagle Nebula",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-16/",
+    "reference",
+    "The Eagle Nebula and the Pillars of Creation."
+  ),
+  source(
+    "SRC-NASA-WHIRLPOOL",
+    "NASA Science",
+    "Messier 51 — Whirlpool Galaxy",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-51/",
+    "reference",
+    "Distance, interacting spiral structure and star formation."
+  ),
+  source(
+    "SRC-NASA-SOMBRERO",
+    "NASA Science",
+    "Messier 104 — Sombrero Galaxy",
+    "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-104/",
+    "reference",
+    "Distance, dust lane and central bulge."
+  ),
+  source(
+    "SRC-NASA-MILKY-WAY",
+    "NASA Science",
+    "Galaxies",
+    "https://science.nasa.gov/universe/galaxies/",
+    "reference",
+    "Galaxy types, structure and the Milky Way."
+  ),
+
+  /* ----------------------------------------------------------- Missions */
+  source(
+    "SRC-NASA-APOLLO-15",
+    "NASA",
+    "Apollo 15",
+    "https://www.nasa.gov/mission/apollo-15/",
+    "mission-page",
+    "Mission overview, lunar module landing and lunar rover operations."
+  ),
+  source(
+    "SRC-NASA-VIKING",
+    "NASA Science",
+    "Viking 1 and 2",
+    "https://science.nasa.gov/mission/viking/",
+    "mission-page",
+    "Orbiters and landers, landing dates and biology experiments."
+  ),
+  source(
+    "SRC-NASA-PATHFINDER",
+    "NASA Science",
+    "Mars Pathfinder",
+    "https://science.nasa.gov/mission/mars-pathfinder/",
+    "mission-page",
+    "Lander and Sojourner rover mission overview."
+  ),
+  source(
+    "SRC-NASA-SPIRIT",
+    "NASA Science",
+    "Mars Exploration Rover — Spirit",
+    "https://science.nasa.gov/mission/mars-exploration-rover-spirit/",
+    "mission-page",
+    "Spirit rover mission overview and operational timeline."
+  ),
+  source(
+    "SRC-NASA-OPPORTUNITY",
+    "NASA Science",
+    "Mars Exploration Rover — Opportunity",
+    "https://science.nasa.gov/mission/mars-exploration-rover-opportunity/",
+    "mission-page",
+    "Opportunity rover mission overview and operational timeline."
+  ),
+  source(
+    "SRC-NASA-CURIOSITY",
+    "NASA Science",
+    "Curiosity",
+    "https://science.nasa.gov/mission/msl-curiosity/",
+    "mission-page",
+    "Curiosity rover mission overview, landing and science."
+  ),
+  source(
+    "SRC-NASA-MARS-2020",
+    "NASA Science",
+    "Mars 2020 Perseverance",
+    "https://science.nasa.gov/mission/mars-2020-perseverance/",
+    "mission-page",
+    "Perseverance rover and Ingenuity helicopter mission overview."
+  ),
+  source(
+    "SRC-NASA-VOYAGER",
+    "NASA Science",
+    "Voyager",
+    "https://science.nasa.gov/mission/voyager/",
+    "mission-page",
+    "Voyager 1 and 2 mission overview, planetary encounters and interstellar status."
+  ),
+  source(
+    "SRC-NASA-NEW-HORIZONS",
+    "NASA Science",
+    "New Horizons",
+    "https://science.nasa.gov/mission/new-horizons/",
+    "mission-page",
+    "Pluto flyby and Kuiper Belt exploration."
+  ),
+  source(
+    "SRC-NASA-CASSINI-MISSION",
+    "NASA Science",
+    "Cassini",
+    "https://science.nasa.gov/mission/cassini/",
+    "mission-page",
+    "Saturn orbital mission, Huygens and Grand Finale."
+  ),
+
+  /* ----------------------------------------------------------- Agencies */
+  source(
+    "SRC-NASA-AGENCY",
+    "NASA",
+    "About NASA",
+    "https://www.nasa.gov/about/",
+    "reference",
+    "Agency mandate, history and current programs."
+  ),
+  source(
+    "SRC-ESA-AGENCY",
+    "European Space Agency",
+    "About ESA",
+    "https://www.esa.int/About_Us",
+    "reference",
+    "Agency mandate and member states."
+  ),
+  source(
+    "SRC-JAXA-AGENCY",
+    "JAXA",
+    "About JAXA",
+    "https://global.jaxa.jp/about/",
+    "reference",
+    "Agency mandate and programs."
+  ),
+  source(
+    "SRC-ISRO-AGENCY",
+    "ISRO",
+    "About ISRO",
+    "https://www.isro.gov.in/AboutISRO.html",
+    "reference",
+    "Agency mandate and programs."
+  ),
+  source(
+    "SRC-CNSA-AGENCY",
+    "CNSA",
+    "China National Space Administration",
+    "https://www.cnsa.gov.cn/",
+    "reference",
+    "Agency mandate and programs."
+  ),
+  source(
+    "SRC-ROSCOSMOS-AGENCY",
+    "Roscosmos",
+    "Roscosmos State Corporation",
+    "https://roscosmos.ru/",
+    "reference",
+    "Agency mandate and programs."
+  ),
+  source(
+    "SRC-CSA-AGENCY",
+    "Canadian Space Agency",
+    "About the CSA",
+    "https://www.asc-csa.gc.ca/eng/about/",
+    "reference",
+    "Agency mandate and programs."
+  ),
+  source(
+    "SRC-UKSA-AGENCY",
+    "UK Space Agency",
+    "About the UK Space Agency",
+    "https://www.gov.uk/government/organisations/uk-space-agency/about",
+    "reference",
+    "Agency mandate and programs."
+  ),
 ];
 
 export const sourceMap = new Map(sources.map((item) => [item.id, item]));
@@ -492,8 +820,10 @@ export function getSources(ids: string[]): SourceRecord[] {
 }
 
 export const sourceTypeLabels: Record<SourceRecord["type"], string> = {
-  "mission-page": "NASA mission page",
-  "technical-archive": "NASA technical archive",
-  "news-release": "NASA news release",
-  "image-record": "NASA image record",
+  "mission-page": "Mission page",
+  "technical-archive": "Technical archive",
+  "fact-sheet": "Fact sheet",
+  reference: "Reference",
+  "news-release": "News release",
+  "image-record": "Image record",
 };

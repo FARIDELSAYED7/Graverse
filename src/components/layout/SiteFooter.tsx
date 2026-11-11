@@ -29,15 +29,15 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <nav aria-label="Explore links">
+          <nav aria-label="Explorer links">
             <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal">
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand-teal" />
-              Explore
+              Explorer
             </h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
                 <Link
-                  href="/explore"
+                  href="/explorer"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
                   Interactive timeline
@@ -45,7 +45,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/explore?mode=destinations"
+                  href="/explorer?mode=destinations"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
                   By destination
@@ -53,7 +53,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/explore?mode=artifacts"
+                  href="/explorer?mode=artifacts"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
                   By artifact type
@@ -61,10 +61,18 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/kids"
+                  href="/explorer/solar-system"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
-                  For kids (7–12)
+                  Solar system orrery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/academy"
+                  className="text-text-secondary transition-colors hover:text-white"
+                >
+                  Space Academy
                 </Link>
               </li>
               <li>
@@ -94,26 +102,26 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/museum/apollo-11-lm-descent-stage"
+                  href="/museum/missions"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
-                  Apollo 11 Eagle
+                  Missions
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/museum/perseverance"
+                  href="/museum/agencies"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
-                  Perseverance
+                  Space agencies
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/museum/voyager-1"
+                  href="/sources"
                   className="text-text-secondary transition-colors hover:text-white"
                 >
-                  Voyager 1
+                  Source registry
                 </Link>
               </li>
             </ul>
@@ -130,7 +138,7 @@ export function SiteFooter() {
               lists its sources and access dates.
             </p>
             <Link
-              href="/about#sources"
+              href="/sources"
               className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal hover:text-white"
             >
               Sources and methodology

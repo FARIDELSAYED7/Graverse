@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 export function BackButton({
-  fallbackHref = "/explore",
+  fallbackHref = "/explorer",
   label = "Back to results",
 }: {
   fallbackHref?: string;

@@ -177,12 +177,12 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
     (Object.keys(filters) as Array<keyof ArtifactFilters>).forEach((key) => {
       if (filters[key] !== "all") params.set(key, filters[key]);
     });
-    if (selectedEntry) params.set("event", selectedEntry.key);
+    if (selectedEntry && selectedKey) params.set("event", selectedEntry.key);
     const query = params.toString();
     window.history.replaceState(
       null,
       "",
-      query ? `/explore?${query}` : "/explore"
+      query ? `/explorer?${query}` : "/explorer"
     );
   }, [mode, view, scope, sort, filters, selectedEntry]);
 
@@ -258,19 +258,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-2xl">
-          <p className="eyebrow">Explore</p>
-          <h1 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            Explore the history of{" "}
-            <span className="text-gradient">space exploration</span>
-          </h1>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
-            Move through time, filter by destination or hardware type, and open
-            the source-linked story behind every artifact.
-          </p>
-        </div>
-
+      <div className="flex flex-col gap-4">
         <div
           role="tablist"
           aria-label="Explore modes"
@@ -816,7 +804,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
             events.
           </p>
           <Link
-            href="/explore?mode=artifacts&view=list"
+            href="/explorer?mode=artifacts&view=list"
             className="inline-flex items-center gap-1 font-medium text-accent-bright hover:text-white"
           >
             Prefer a simple list? Open the artifact table
