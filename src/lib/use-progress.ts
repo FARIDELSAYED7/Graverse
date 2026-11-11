@@ -99,6 +99,34 @@ export function useProgress() {
     setMode(saveProgress(empty) ? "local" : "memory");
   }, []);
 
+  const recordGame = useCallback(
+    (gameId: string, badgeId: string, stars: number) => {
+      const safeStars = Math.max(0, Math.min(3, Math.round(stars)));
+      setState((previous) => {
+        const best = Math.max(previous.games[gameId]?.stars ?? 0, safeStars);
+        const next: ProgressState = {
+          ...previous,
+          games: {
+            ...previous.games,
+            [gameId]: {
+              completedAt: new Date().toISOString(),
+              stars: best,
+            },
+          },
+          badges:
+            badgeId && !previous.badges.includes(badgeId)
+              ? [...previous.badges, badgeId]
+              : previous.badges,
+          updatedAt: new Date().toISOString(),
+        };
+        saveProgress(next);
+        return next;
+      });
+      setMode((current) => (current === "loading" ? "local" : current));
+    },
+    []
+  );
+
   const importJson = useCallback((raw: string): { ok: boolean; error?: string } => {
     let parsed: unknown;
     try {
@@ -133,6 +161,7 @@ export function useProgress() {
       journeysStarted: journeyIds.length,
       journeysCompleted,
       steps,
+      games: Object.keys(state.games).length,
       badges: state.badges.length,
     };
   }, [state]);
@@ -143,6 +172,7 @@ export function useProgress() {
     summary,
     markLesson,
     completeStep,
+    recordGame,
     reset,
     exportJson: () => exportProgress(state),
     importJson,

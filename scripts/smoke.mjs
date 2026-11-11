@@ -33,6 +33,10 @@ const pages = [
   "/academy/glossary",
   "/academy/progress",
   "/academy/robot-lab",
+  "/academy/play",
+  "/academy/play/rocket",
+  "/academy/play/moon",
+  "/academy/play/rover",
   "/museum",
   "/museum/apollo-11-lm-descent-stage",
   "/museum/missions",
@@ -62,6 +66,10 @@ const axePages = [
   "/academy/glossary",
   "/academy/progress",
   "/academy/robot-lab",
+  "/academy/play",
+  "/academy/play/rocket",
+  "/academy/play/moon",
+  "/academy/play/rover",
   "/museum",
   "/museum/apollo-11-lm-descent-stage",
   "/museum/missions/apollo-11",
@@ -196,6 +204,69 @@ async function main() {
       return button?.getAttribute("aria-expanded") === "false";
     });
     if (!menuClosed) failures.push("keyboard: Escape did not close the mobile menu");
+
+    // Keyboard: the rover game really moves from its focused control panel,
+    // even if the 3D canvas is unavailable.
+    await page.setViewport({ width: 1280, height: 1000 });
+    await page.goto(`${BASE_URL}/academy/play/rover`, {
+      waitUntil: "networkidle2",
+    });
+    const roverFocused = await page.evaluate(() => {
+      const panel = document.querySelector(
+        '[role="group"][aria-label="Rover controls"]'
+      );
+      panel?.focus();
+      return document.activeElement === panel;
+    });
+    if (!roverFocused) {
+      failures.push("keyboard: rover control panel could not receive focus");
+    } else {
+      await page.keyboard.press("ArrowUp");
+      await page.waitForFunction(
+        () =>
+          Array.from(document.querySelectorAll('[role="status"]')).some((node) =>
+            /Moved to column 4, row 6/i.test(node.textContent ?? "")
+          ),
+        { timeout: 5000 }
+      );
+      const played = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('[role="status"]')).some((node) =>
+          /Moved to column 4, row 6/i.test(node.textContent ?? "")
+        )
+      );
+      if (!played) {
+        failures.push("keyboard: ArrowUp did not move the rover on the map");
+      }
+    }
+
+    // Completion: launching the toy rocket saves a playground badge locally.
+    await page.goto(`${BASE_URL}/academy/play/rocket`, {
+      waitUntil: "networkidle2",
+    });
+    const launchClicked = await page.evaluate(() => {
+      const button = Array.from(document.querySelectorAll("button")).find((node) =>
+        /launch my rocket/i.test(node.textContent ?? "")
+      );
+      button?.click();
+      return Boolean(button);
+    });
+    if (!launchClicked) {
+      failures.push("play: rocket launch button was not found");
+    } else {
+      await page.waitForFunction(
+        () =>
+          Array.from(document.querySelectorAll('[role="status"]')).some((node) =>
+            /Great launch/i.test(node.textContent ?? "")
+          ),
+        { timeout: 8000 }
+      );
+      const saved = await page.evaluate(() =>
+        window.localStorage.getItem("graverse:progress:v1")
+      );
+      if (!saved || !saved.includes("badge-play-rocket")) {
+        failures.push("play: rocket completion did not save the badge");
+      }
+    }
 
     // Reduced motion: CSS animations are reduced to near-zero duration.
     await page.emulateMediaFeatures([

@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { allArtifacts, getArtifactById } from "@/data/artifacts";
 import { articles } from "@/data/articles";
+import { playGames } from "@/data/games";
 import { glossary } from "@/data/glossary";
 import { journeys } from "@/data/journeys";
 import { lessons } from "@/data/lessons";
@@ -16,6 +17,14 @@ import { experienceForPath } from "@/lib/experience";
 import { isValidClaim } from "@/lib/provenance";
 import { searchAll } from "@/lib/search-index";
 import { validateProgress } from "@/lib/progress";
+import {
+  ROVER_BASE,
+  ROVER_GRID,
+  ROVER_ROCKS,
+  ROVER_SAMPLES,
+  isRock,
+  starsForMoves,
+} from "@/lib/rover-quest";
 
 const sourceIds = new Set(sources.map((source) => source.id));
 
@@ -170,6 +179,123 @@ test("unified search finds records across kinds", () => {
   assert.ok(quiz.length > 0);
 
   assert.deepEqual(searchAll("zzzzzzzz-not-a-real-record"), []);
+});
+
+test("playground games link back to verified lessons and records", () => {
+  assert.equal(playGames.length, 3);
+  const badges = [
+    ...journeys.map((journey) => journey.badge.id),
+    ...playGames.map((game) => game.badge.id),
+  ];
+  assert.equal(new Set(badges).size, badges.length, "badge ids must be unique");
+
+  for (const game of playGames) {
+    assert.ok(game.sourceIds.length > 0, `${game.id} has no sources`);
+    for (const id of game.sourceIds) {
+      assert.ok(sourceIds.has(id), `${game.id} cites missing source ${id}`);
+    }
+    const lesson = lessons.find((entry) => entry.id === game.lessonId);
+    assert.ok(lesson, `${game.id} links to a missing lesson ${game.lessonId}`);
+    for (const id of game.artifactIds) {
+      assert.ok(getArtifactById(id), `${game.id} links to missing artifact ${id}`);
+      assert.ok(
+        lesson?.artifactIds.includes(id),
+        `${game.id} artifact ${id} is not in lesson ${game.lessonId}`
+      );
+    }
+    for (const id of game.bodyIds) {
+      assert.ok(
+        celestialBodies.some((body) => body.id === id),
+        `${game.id} links to missing body ${id}`
+      );
+      assert.ok(
+        lesson?.bodyIds.includes(id),
+        `${game.id} body ${id} is not in lesson ${game.lessonId}`
+      );
+    }
+    assert.ok(game.toyNote.length > 20, `${game.id} is missing its toy disclaimer`);
+  }
+});
+
+test("the rover game map is solvable and the star thresholds are ordered", () => {
+  const key = (point: { x: number; z: number }) => `${point.x},${point.z}`;
+  assert.equal(isRock(ROVER_BASE), false, "the rover must not start on a rock");
+
+  const blocked = new Set(ROVER_ROCKS.map(key));
+  const seen = new Set([key(ROVER_BASE)]);
+  const queue = [ROVER_BASE];
+  while (queue.length > 0) {
+    const point = queue.shift()!;
+    for (const [dx, dz] of [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+    ]) {
+      const next = { x: point.x + dx, z: point.z + dz };
+      if (
+        next.x < 0 ||
+        next.x >= ROVER_GRID ||
+        next.z < 0 ||
+        next.z >= ROVER_GRID ||
+        blocked.has(key(next)) ||
+        seen.has(key(next))
+      ) {
+        continue;
+      }
+      seen.add(key(next));
+      queue.push(next);
+    }
+  }
+
+  for (const sample of ROVER_SAMPLES) {
+    assert.equal(isRock(sample), false, `sample ${sample.id} is inside a rock`);
+    assert.ok(seen.has(key(sample)), `sample ${sample.id} is unreachable`);
+  }
+
+  assert.equal(starsForMoves(24), 3);
+  assert.equal(starsForMoves(25), 2);
+  assert.equal(starsForMoves(32), 2);
+  assert.equal(starsForMoves(33), 1);
+});
+
+test("progress validation accepts game stars and still reads older files", () => {
+  const base = {
+    version: 1,
+    lessons: {},
+    journeys: {},
+    badges: [],
+    updatedAt: "2026-11-10T00:00:00.000Z",
+  };
+
+  const legacy = validateProgress(base);
+  assert.ok(legacy, "a file without games must still import");
+  assert.deepEqual(legacy.games, {});
+
+  const withGames = validateProgress({
+    ...base,
+    games: {
+      rocket: { completedAt: "2026-11-10T00:00:00.000Z", stars: 2 },
+      moon: { completedAt: "2026-11-10T00:00:00.000Z", stars: 3 },
+    },
+  });
+  assert.equal(withGames?.games.rocket.stars, 2);
+  assert.equal(withGames?.games.moon.stars, 3);
+
+  assert.equal(
+    validateProgress({
+      ...base,
+      games: { rocket: { completedAt: "2026-11-10T00:00:00.000Z", stars: 4 } },
+    }),
+    null
+  );
+  assert.equal(
+    validateProgress({
+      ...base,
+      games: { rocket: { completedAt: "not-a-date", stars: 2 } },
+    }),
+    null
+  );
 });
 
 test("progress import validation rejects malformed data", () => {

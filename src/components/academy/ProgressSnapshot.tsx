@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, BookOpenCheck, Route, Sparkles } from "lucide-react";
+import { Award, BookOpenCheck, Gamepad2, Route, Sparkles } from "lucide-react";
 import { useProgress } from "@/lib/use-progress";
 
 export function ProgressSnapshot() {
@@ -8,11 +8,12 @@ export function ProgressSnapshot() {
   const items = [
     { label: "Lessons", value: summary.lessons, icon: BookOpenCheck },
     { label: "Journey steps", value: summary.steps, icon: Route },
+    { label: "Games", value: summary.games, icon: Gamepad2 },
     { label: "Badges", value: summary.badges, icon: Award },
   ];
   return (
     <div className="mt-4">
-      <dl className="grid grid-cols-3 gap-2">
+      <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {items.map((item) => (
           <div key={item.label} className="rounded-xl bg-[#152238]/5 p-3">
             <item.icon aria-hidden="true" className="h-4 w-4 text-[#152238]/50" />

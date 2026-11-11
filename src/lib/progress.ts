@@ -8,6 +8,7 @@ export function emptyProgress(): ProgressState {
     version: PROGRESS_VERSION,
     lessons: {},
     journeys: {},
+    games: {},
     badges: [],
     updatedAt: new Date().toISOString(),
   };
@@ -72,6 +73,29 @@ export function validateProgress(value: unknown): ProgressState | null {
     return null;
   }
 
+  const games: ProgressState["games"] = {};
+  if (value.games !== undefined) {
+    if (!isRecord(value.games)) return null;
+    for (const [key, entry] of Object.entries(value.games)) {
+      if (!key || !isRecord(entry)) return null;
+      if (
+        typeof entry.completedAt !== "string" ||
+        Number.isNaN(Date.parse(entry.completedAt))
+      ) {
+        return null;
+      }
+      if (
+        typeof entry.stars !== "number" ||
+        !Number.isInteger(entry.stars) ||
+        entry.stars < 0 ||
+        entry.stars > 3
+      ) {
+        return null;
+      }
+      games[key] = { completedAt: entry.completedAt, stars: entry.stars };
+    }
+  }
+
   const badges = Array.isArray(value.badges)
     ? value.badges.filter((badge): badge is string => typeof badge === "string")
     : [];
@@ -80,6 +104,7 @@ export function validateProgress(value: unknown): ProgressState | null {
     version: PROGRESS_VERSION,
     lessons,
     journeys,
+    games,
     badges,
     lastVisited: typeof value.lastVisited === "string" ? value.lastVisited : undefined,
     updatedAt:
@@ -138,6 +163,7 @@ export function progressSummary(state: ProgressState) {
     journeysStarted: journeys.length,
     journeysCompleted: completedJourneys,
     steps,
+    games: Object.keys(state.games).length,
     badges: state.badges.length,
   };
 }

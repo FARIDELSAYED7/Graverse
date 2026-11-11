@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import { Download, RotateCcw, ShieldCheck, Upload } from "lucide-react";
+import { Download, Gamepad2, RotateCcw, ShieldCheck, Upload } from "lucide-react";
+import { playGames } from "@/data/games";
 import { useProgress } from "@/lib/use-progress";
 
 export function ProgressDashboard() {
@@ -38,11 +39,12 @@ export function ProgressDashboard() {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {[
           { label: "Lessons completed", value: summary.lessons },
           { label: "Journeys started", value: summary.journeysStarted },
           { label: "Journeys finished", value: summary.journeysCompleted },
+          { label: "Games played", value: summary.games },
           { label: "Badges earned", value: summary.badges },
         ].map((item) => (
           <div key={item.label} className="academy-card rounded-2xl p-4">
@@ -140,12 +142,14 @@ export function ProgressDashboard() {
       <div className="academy-card rounded-2xl p-5">
         <h2 className="text-sm font-semibold text-[#152238]">Saved records</h2>
         {Object.keys(state.lessons).length === 0 &&
-        Object.keys(state.journeys).length === 0 ? (
+        Object.keys(state.journeys).length === 0 &&
+        Object.keys(state.games).length === 0 ? (
           <p className="mt-2 text-sm text-[#5A6472]">
-            Nothing saved yet. Finish a lesson quiz or mark a journey step done.
+            Nothing saved yet. Finish a lesson quiz, mark a journey step done or
+            play a playground game.
           </p>
         ) : (
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
                 Lessons
@@ -171,6 +175,24 @@ export function ProgressDashboard() {
                     <span className="truncate font-mono text-xs">{id}</span>
                     <span className="shrink-0 text-xs">
                       {entry.completedSteps.length} steps
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#B4532A]">
+                <Gamepad2 aria-hidden="true" className="h-3.5 w-3.5" />
+                Playground
+              </h3>
+              <ul className="mt-2 space-y-1 text-sm text-[#374151]">
+                {Object.entries(state.games).map(([id, entry]) => (
+                  <li key={id} className="flex justify-between gap-2">
+                    <span className="truncate text-xs">
+                      {playGames.find((game) => game.id === id)?.title ?? id}
+                    </span>
+                    <span className="shrink-0 text-xs" aria-label={`${entry.stars} of 3 stars`}>
+                      {entry.stars}/3 ★
                     </span>
                   </li>
                 ))}

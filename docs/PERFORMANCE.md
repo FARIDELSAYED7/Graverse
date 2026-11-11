@@ -11,6 +11,9 @@ what the build reports from what a local browser probe observed.
   the initial route bundle and is delayed until WebGL support is confirmed.
 - `three`, `@react-three/fiber` and `@react-three/drei` are isolated in the
   orrery chunk.
+- The three playground scenes are separate `next/dynamic` islands. Their game
+  controls, text, rewards and no-WebGL fallbacks are server-rendered HTML, so the
+  3D payload is only fetched when a scene actually mounts.
 - Images use `next/image` with local files, AVIF/WebP formats and explicit
   `sizes`; below-the-fold introduction images are lazy by default.
 - Fonts are local (`next/font/local`) with `display: swap`.
@@ -18,8 +21,9 @@ what the build reports from what a local browser probe observed.
   client island explicitly imports a small helper.
 
 The production build prints per-route First Load JS. The shared baseline in the
-recorded build was **87.5 kB**. The orrery route is the largest because of the
-lazy 3D chunk.
+recorded build was **87.7 kB**. The Explorer orrery and the playground game
+routes are the largest because of their lazy 3D chunks; the initial HTML and
+controls do not wait for those chunks.
 
 ## Local browser probe
 
@@ -39,23 +43,32 @@ scores, not field data, and not a claim about a deployed CDN.
 ### Recorded result
 
 Local run on 11 November 2026: macOS 26.6.2, Node 26.7.0, headless Chrome,
-1366×900, no network throttling, production `next start` on port 3100.
+1366×900, no network throttling, production `next start` on port 3100, 13 routes.
 
 | Route | LCP (ms) | CLS | Transfer (kB) | Requests | DOM nodes |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `/` | 128 | 0 | 638 | 35 | 753 |
-| `/academy` | 52 | 0 | 109 | 30 | 608 |
-| `/academy/lessons/our-neighbor-the-moon` | 68 | 0 | 337 | 31 | 462 |
-| `/museum` | 76 | 0 | 751 | 53 | 1705 |
-| `/museum/apollo-11-lm-descent-stage` | 372 | 0 | 201 | 27 | 768 |
-| `/explorer` | 88 | 0 | 129 | 29 | 550 |
-| `/explorer/solar-system` | 56 | 0 | 123 | 36 | 465 |
-| `/search?q=apollo` | 72 | 0 | 169 | 32 | 461 |
-| `/sources` | 64 | 0 | 59 | 21 | 1641 |
+| `/` | 108 | 0 | 646 | 37 | 752 |
+| `/academy` | 64 | 0 | 132 | 36 | 782 |
+| `/academy/lessons/our-neighbor-the-moon` | 72 | 0 | 380 | 42 | 494 |
+| `/academy/play` | 56 | 0 | 135 | 38 | 479 |
+| `/academy/play/rocket` | 56 | 0 | 143 | 41 | 504 |
+| `/academy/play/moon` | 56 | 0 | 106 | 42 | 504 |
+| `/academy/play/rover` | 60 | 0 | 154 | 41 | 595 |
+| `/museum` | 92 | 0 | 754 | 58 | 1703 |
+| `/museum/apollo-11-lm-descent-stage` | 68 | 0 | 203 | 29 | 768 |
+| `/explorer` | 72 | 0 | 131 | 32 | 550 |
+| `/explorer/solar-system` | 60 | 0 | 120 | 38 | 461 |
+| `/search?q=apollo` | 52 | 0 | 161 | 35 | 461 |
+| `/sources` | 60 | 0 | 61 | 23 | 1641 |
 
-`CLS` was 0 on every route in this run. The `/explorer/solar-system` figure
-describes the initial page; the lazily loaded 3D chunk is excluded from these
-numbers because WebGL support was not forced in the probe.
+`CLS` was 0 on every route in this run. LCP ranged from **52 ms to 108 ms**.
+
+The `/explorer/solar-system` and `/academy/play/*` figures describe the initial
+page. WebGL support was not forced in the probe, so the lazy `three` chunks were
+not part of these measurements; the numbers do not represent the cost of
+downloading and initialising a 3D scene. Run-to-run variance on the same machine
+is expected — an earlier run measured `/` at 116 ms and `/museum/apollo-11-lm-descent-stage`
+at 56 ms.
 
 These values are not comparable to a Lighthouse score or to field data from a
 deployed site. They show that the local production build paints quickly and does

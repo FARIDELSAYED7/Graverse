@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import { allArtifacts } from "@/data/artifacts";
 import { articles } from "@/data/articles";
+import { playGames } from "@/data/games";
 import { glossary } from "@/data/glossary";
 import { journeys } from "@/data/journeys";
 import { lessons } from "@/data/lessons";
@@ -21,6 +22,7 @@ import {
   journeySchema,
   lessonSchema,
   missionSchema,
+  playGameSchema,
   sourceSchema,
 } from "@/lib/schemas";
 
@@ -48,6 +50,7 @@ uniqueIds("journeys", journeys);
 uniqueIds("missions", missions);
 uniqueIds("articles", articles);
 uniqueIds("agencies", agencies);
+uniqueIds("play-games", playGames);
 
 const sourceIds = new Set(sources.map((source) => source.id));
 
@@ -175,6 +178,47 @@ journeys.forEach((journey) => {
   }
 });
 
+playGames.forEach((game) => {
+  const label = `play-game:${game.id}`;
+  const result = playGameSchema.safeParse(game);
+  if (!result.success) errors.push(`${label}: ${result.error.message}`);
+  checkSources(label, game.sourceIds);
+  const lesson = lessons.find((entry) => entry.id === game.lessonId);
+  check(label, Boolean(lesson), `missing lesson "${game.lessonId}"`);
+  if (lesson) {
+    for (const sourceId of game.sourceIds) {
+      check(
+        label,
+        lesson.sourceIds.includes(sourceId),
+        `source "${sourceId}" is not cited by lesson "${lesson.id}"`
+      );
+    }
+    for (const artifactId of game.artifactIds) {
+      check(
+        label,
+        lesson.artifactIds.includes(artifactId),
+        `artifact "${artifactId}" is not part of lesson "${lesson.id}"`
+      );
+    }
+    for (const bodyId of game.bodyIds) {
+      check(
+        label,
+        lesson.bodyIds.includes(bodyId),
+        `body "${bodyId}" is not part of lesson "${lesson.id}"`
+      );
+    }
+  }
+  for (const artifactId of game.artifactIds) {
+    check(label, allArtifacts.some((a) => a.id === artifactId), `missing artifact "${artifactId}"`);
+  }
+  for (const bodyId of game.bodyIds) {
+    check(label, celestialBodies.some((b) => b.id === bodyId), `missing body "${bodyId}"`);
+  }
+});
+
+const badgeIds = [...journeys.map((journey) => journey.badge.id), ...playGames.map((game) => game.badge.id)];
+check("badges", new Set(badgeIds).size === badgeIds.length, "duplicate badge id across journeys and games");
+
 missions.forEach((mission) => {
   const label = `mission:${mission.id}`;
   const result = missionSchema.safeParse(mission);
@@ -233,7 +277,7 @@ if (errors.length > 0) {
   console.log(
     `Data validation passed: ${allArtifacts.length} artifacts, ${celestialBodies.length} bodies, ` +
       `${deepSkyObjects.length} deep-sky objects, ${missions.length} missions, ${lessons.length} lessons, ` +
-      `${journeys.length} journeys, ${articles.length} articles, ${sources.length} sources, ` +
-      `${relations.length} directed relation edges.`
+      `${journeys.length} journeys, ${playGames.length} playground games, ${articles.length} articles, ` +
+      `${sources.length} sources, ${relations.length} directed relation edges.`
   );
 }

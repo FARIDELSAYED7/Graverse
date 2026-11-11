@@ -6,6 +6,7 @@ import {
   Bot,
   CheckCircle2,
   Compass,
+  Gamepad2,
   GraduationCap,
   Library,
   Sparkles,
@@ -17,15 +18,17 @@ import { JourneyCard } from "@/components/academy/JourneyCard";
 import { LessonCard } from "@/components/academy/LessonCard";
 import { ProgressSnapshot } from "@/components/academy/ProgressSnapshot";
 import { AgeBandMetaGrid } from "@/components/academy/AgeBandMetaGrid";
+import { PlayGameGrid } from "@/components/academy/play/PlayGameGrid";
 import { articles } from "@/data/articles";
+import { playGames } from "@/data/games";
 import { journeys } from "@/data/journeys";
 import { lessons } from "@/data/lessons";
 import { ageBands, ageBandMeta } from "@/types/academy";
 
 export const metadata: Metadata = {
-  title: "Space Academy — learn about real space hardware",
+  title: "Space Academy — learn and play with real space hardware",
   description:
-    "Guided space learning for ages 5–12: four journeys, twelve lessons, quizzes, a scripted robot guide and local progress. Every lesson links to source-backed museum records.",
+    "Guided space learning for ages 5–12: four journeys, twelve lessons, quizzes, three 3D playground games, a scripted robot guide and local progress. Every lesson links to source-backed museum records.",
 };
 
 export default function AcademyPage() {
@@ -55,10 +58,19 @@ export default function AcademyPage() {
               <span className="text-[#FF6B5A]">real space machines.</span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-[#4B5563] sm:text-lg">
-              Follow a journey, take a short lesson, try a quiz. Every stop connects
-              to a real NASA artifact in the museum, with sources you can check.
+              Play first, then read. Build a toy rocket, match Moon phases or drive
+              a rover, then follow the same idea into a short lesson linked to a real
+              NASA artifact in the museum.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="/academy/play"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#7C5CE5] px-6 text-sm font-semibold text-white shadow-[0_12px_28px_-16px_rgba(124,92,229,0.9)] transition-transform hover:-translate-y-0.5"
+              >
+                <Gamepad2 aria-hidden="true" className="h-4 w-4" />
+                Play in 3D
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
               <Link
                 href="#journeys"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-[#152238] px-6 text-sm font-semibold text-[#FFF7EA] transition-transform hover:-translate-y-0.5"
@@ -82,8 +94,8 @@ export default function AcademyPage() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-[#6B7280]">
-              Twelve lessons · four journeys · no account required · progress stays
-              in your browser.
+              Three 3D games · twelve lessons · four journeys · no account required ·
+              progress stays in your browser.
             </p>
           </div>
 
@@ -188,6 +200,33 @@ export default function AcademyPage() {
             <LessonCard key={lesson.id} lesson={lesson} />
           ))}
         </div>
+      </section>
+
+      <section className="container-content pt-14" aria-labelledby="play-heading">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5B3BC4]">
+              <Gamepad2 aria-hidden="true" className="h-3.5 w-3.5" />
+              Space Playground
+            </p>
+            <h2 id="play-heading" className="mt-1 text-2xl font-semibold text-[#152238] sm:text-3xl">
+              Three 3D games to try
+            </h2>
+          </div>
+          <Link
+            href="/academy/play"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#152238] underline-offset-4 hover:underline"
+          >
+            Open the playground
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#5A6472]">
+          Build and launch a toy rocket, slide the Moon to match a phase, or drive a
+          rover out to collect samples. Each game saves a badge and links back to the
+          real mission record. Keyboard, touch and no-3D fallbacks are included.
+        </p>
+        <PlayGameGrid games={playGames} />
       </section>
 
       <section className="container-content pt-14" aria-labelledby="robot-heading">

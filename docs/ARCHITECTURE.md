@@ -14,8 +14,10 @@ islands for interaction only:
 | `Orrery3D` / `OrreryScene` | WebGL canvas, loaded with `next/dynamic` |
 | `SiteHeader`, `MotionToggle` | Menus, focus management, motion preference |
 | Academy robot guide | Step state and playback |
+| Playground games (`RocketWorkshop`, `MoonPhases`, `RoverQuest`) | Game state, rewards, `localStorage`; the 3D scene itself is a separate `next/dynamic` island |
+| `PlayBadgeShelf`, `ProgressSnapshot` | Read the shared local progress record |
 
-The production build generates **136 static pages**. `/search` is the only
+The production build generates **140 static pages**. `/search` is the only
 dynamic route because its query string is user-controlled; it still renders from
 the same static data module.
 
@@ -24,12 +26,16 @@ the same static data module.
 Three experience prefixes map to three audiences:
 
 ```
-/academy/*   warm, light, age-banded learning
-/museum/*    cinematic artifact, mission and agency records
-/explorer/*  timeline, destinations, deep sky, 3D orrery
+/academy/*       warm, light, age-banded learning
+/academy/play/*  three small 3D playground games
+/museum/*        cinematic artifact, mission and agency records
+/explorer/*      timeline, destinations, deep sky, 3D orrery
 ```
 
-Shared surfaces (`/`, `/search`, `/sources`, `/about`) remain neutral.
+Shared surfaces (`/`, `/search`, `/sources`, `/about`) remain neutral. The
+playground hub is `/academy/play`; the games are `/academy/play/rocket`,
+`/academy/play/moon` and `/academy/play/rover`. They are normal static routes,
+so deep links work without client-side navigation.
 
 Preserved public URLs redirect in `next.config.mjs`:
 
@@ -56,13 +62,16 @@ missions.ts      missions derived from artifact records
 lessons.ts       12 lessons
 journeys.ts      4 journeys
 articles.ts      8 long-form articles
+games.ts         3 playground games (metadata, badges, verified links)
 glossary.ts      40 terms
 sources.ts       96 registered sources
 relations.ts     typed bidirectional relation graph
 ```
 
 `src/types` holds the contracts (`artifact`, `space`, `academy`, `provenance`,
-`progress`). `src/lib/schemas.ts` holds the zod schemas used by the validator.
+`progress`, `play`). `src/lib/schemas.ts` holds the zod schemas used by the
+validator, including `playGameSchema`. `src/lib/rover-quest.ts` holds the pure
+grid/star rules for Rover Quest so they can be unit-tested without a browser.
 
 ### Derived missions
 
@@ -128,6 +137,32 @@ The 3D scene is `aria-hidden`; all meaning and navigation lives in the 2D map.
 Animation pauses when reduced motion is requested. The scene is explicitly
 labelled "Schematic — not to scale".
 
+Each playground game follows the same pattern, but the game is **not** optional:
+
+1. the scene (`RocketScene`, `MoonScene`, `RoverScene`) is a separate
+   `next/dynamic` island with `ssr: false`, mounted only after `useWebgl` finds a
+   usable context;
+2. all game state, controls, feedback and rewards live in ordinary HTML outside
+   the canvas, so the game remains fully playable without WebGL or with a
+   keyboard;
+3. the canvas is `aria-hidden`; status changes are announced through a
+   `role="status"` region;
+4. reduced motion skips the launch animation, stops the rover bob and renders
+   the Moon scene without decorative rotation.
+
+The models are primitive toys. Each page carries a "toy — not to scale" label;
+the rocket and rover also state that they are not reconstructions of real
+spacecraft, and the rover terrain is invented for the game. Factual material is
+never inside a canvas: `GamePageLayout` links back to the verified lesson,
+artifacts, bodies and sources.
+
+## 5a. Academy navigation
+
+`AcademyNav` is rendered once by `src/app/academy/layout.tsx`, so Overview,
+Journeys, Lessons, Playground, Robot lab and Progress share one labelled
+navigation surface. Academy pages remain server components; only the progress
+widgets and games are client islands.
+
 ## 6. Search
 
 `src/lib/search-index.ts` builds one in-memory index over artifacts, missions,
@@ -146,13 +181,20 @@ are mirrored into `/search?q=…&kind=…`.
   version: 1,
   lessons: { [id]: { completedAt, score, total } },
   journeys: { [id]: { startedAt, completedAt?, completedSteps } },
+  games: { [id]: { completedAt, stars } },   // optional for older files
   badges: string[],
   updatedAt: string
 }
 ```
 
+`games` was added without bumping `version`: files written before the playground
+still import, and `validateProgress` fills in an empty `games` record. Playground
+badge IDs (`badge-play-rocket`, `badge-play-moon`, `badge-play-rover`) share the
+same badge list as journeys, and the validator asserts that all badge IDs are
+unique. Star scores are integers from 1 to 3.
+
 Imports are validated before writing. Malformed versions, bad dates and
-out-of-range scores are rejected with a message. If `localStorage` is
+out-of-range scores or stars are rejected with a message. If `localStorage` is
 unavailable the hook degrades to an in-memory store for the session. Export
 produces a downloadable JSON file; reset clears the record after confirmation.
 
@@ -178,5 +220,6 @@ tsc --noEmit
 
 `scripts/verify.mjs` orchestrates the sequence and tears the server down. The
 browser script checks HTTP status, title, `h1`, `main` landmark and body length
-for 32 routes, asserts the three redirects preserve query strings, and runs axe
-on 20 representative pages.
+for 36 routes, asserts the three redirects preserve query strings, drives a real
+rover move from its focused arrow panel, launches the toy rocket and checks that
+`badge-play-rocket` was saved, and runs axe on 24 representative pages.

@@ -1,6 +1,6 @@
 # Demo guide
 
-A judge-facing walkthrough. Total time: about 8 minutes. Nothing depends on a
+A judge-facing walkthrough. Total time: about 9 minutes. Nothing depends on a
 network connection except the outbound source links.
 
 ## Before you start
@@ -25,7 +25,7 @@ Open `/`.
   three different ways in — and every claim says how well it is established."*
 - Show the collection counts and the source-linked featured record.
 
-## 1. Space Academy (2 min)
+## 1. Space Academy and Playground (3 min)
 
 Open `/academy`.
 
@@ -36,14 +36,24 @@ Open `/academy`.
 3. Open a lesson (`/academy/lessons/our-neighbor-the-moon`).
    - Take one quiz question.
    - Point out that the lesson cites the same source records as the museum.
-4. Open `/academy/progress`.
-   - Show the local-only statement.
+4. Open **Play in 3D** (`/academy/play`).
+   - Open **Rocket Workshop** (`/academy/play/rocket`).
+   - Change the nose, body or fin count, then press **Launch my rocket**.
+   - Wait for the reward panel: it says the **Rocket Builder** badge was earned.
+   - Say the honesty line: these are toys built from simple shapes, not official
+     spacecraft models, and sizes are not to scale.
+   - Optional: open **Rover Quest** (`/academy/play/rover`), focus the arrow
+     panel and drive with the arrow keys. The flat map works even without WebGL.
+5. Open `/academy/progress`.
+   - Show the local-only statement and the **Games played** count / playground
+     stars.
    - Click **Export progress** (downloads `graverse-progress.json`), then
      **Reset progress** and show the inline confirmation.
    - Optional: re-import the file to show validation.
 
-Talking point: no accounts, no analytics, no cloud; progress is versioned and
-validated on import.
+Talking point: no accounts, no analytics, no cloud; lessons, journey steps,
+playground badges and best star scores share one versioned, validated local
+record.
 
 ## 2. Museum (2 min)
 
@@ -93,10 +103,11 @@ Open `/explorer`.
 
 - Press `Tab` once: the skip link appears.
 - On mobile width, open the menu with the keyboard and close it with `Escape`.
-- Mention: axe on 20 pages, 0 serious/critical violations; semantic landmarks;
+- Mention: axe on 24 pages, 0 serious/critical violations; semantic landmarks;
   reduced-motion support; 2D alternatives.
-- Mention the build gate: data validation, 9 data tests, lint, typecheck,
-  production build, 32-route smoke and redirect checks.
+- Mention the build gate: data validation, 12 data tests, lint, typecheck,
+  production build, 36-route smoke and redirect checks, including a real rover
+  key move and a rocket launch that saves its badge.
 
 ## Recorded results
 
@@ -104,13 +115,13 @@ Last local run of `npm run verify`:
 
 | Gate | Result |
 | --- | --- |
-| Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky, 24 missions, 12 lessons, 4 journeys, 8 articles, 96 sources, 581 edges |
-| Data tests | 9/9 passed |
-| ESLint | No warnings or errors |
+| Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 edges |
+| Data tests | 12/12 passed |
+| ESLint | No errors; one pre-existing `exhaustive-deps` warning |
 | Typecheck | Passed |
-| Production build | Passed — 136 static pages |
-| Smoke | 32 routes, 0 failures |
-| Axe | 0 serious/critical violations on 20 pages |
+| Production build | Passed — 140 static pages |
+| Smoke | 36 routes, 0 failures, including gameplay and badge persistence |
+| Axe | 0 violations on 24 pages |
 
 Reproduce with:
 
@@ -122,8 +133,10 @@ npm run verify
 
 - **Port in use:** stop the other process, or use `npx next start -p 3200` and
   `BASE_URL=http://localhost:3200 npm run test:e2e`.
-- **3D does not render:** expected on machines without WebGL. The page falls
-  back to the 2D map, which contains all the content. Say so — it is a feature.
+- **3D does not render:** expected on machines without WebGL. The Explorer falls
+  back to the 2D orbit map and the playground games fall back to their full HTML
+  controls and diagrams. All content and actions remain available. Say so — it
+  is a feature.
 - **No Chrome for browser tests:** set `CHROME_PATH`, or demo without the
   automated gate and show the recorded results above.
 - **Academy progress looks stale:** open `/academy/progress` and reset it.
@@ -135,3 +148,5 @@ npm run verify
 - Screen-reader certification. Automated axe and keyboard checks are not the
   same as a screen-reader audit.
 - A complete inventory of space history. The collection is deliberately finite.
+- That the playground 3D models are official spacecraft reconstructions or to
+  scale. They are primitive toys, and the rover terrain is invented for play.

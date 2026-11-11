@@ -11,6 +11,11 @@ one verified collection:
 | **Museum** | `/museum` | General readers | Cinematic, dark, story-first |
 | **Explorer** | `/explorer` | Curious investigators | Data-first, immersive, filterable |
 
+The Academy also has a **Space Playground** at `/academy/play` with three small
+3D games — a toy rocket builder, a Moon-phase mission and a rover sample run.
+They are built with simple shapes, labelled as toys rather than official models,
+and each links back to a verified lesson and museum record.
+
 Every record answers the same questions — what was it, what happened, what did we
 learn, what is known about it now — and every important claim carries an
 evidence label and a link to the public source it came from.
@@ -93,6 +98,10 @@ overwrites a running `next dev` cache.
 /academy/articles
 /academy/articles/[id]
 /academy/glossary
+/academy/play                  3D Space Playground hub
+/academy/play/rocket           Rocket Workshop (toy builder/launcher)
+/academy/play/moon             Moon Phase Mission (3 rounds + 3D diagram)
+/academy/play/rover            Rover Quest (invented grid game)
 /academy/progress              local progress: export / import / reset
 /academy/robot-lab             scripted robot guide
 /museum                        the collection
@@ -141,12 +150,31 @@ Explorer query parameters (`mode`, `view`, `scope`, `sort`, `destination`,
 | Academy lessons | 12 |
 | Academy journeys | 4 |
 | Academy articles | 8 |
+| Playground games | 3 |
 | Glossary terms | 40 |
 | Registered sources | 96 |
 | Directed relation edges | 581 |
 
 The collection is intentionally finite and curated. It is not a complete
 inventory of space history, and it does not pretend to be.
+
+### Space Playground
+
+The three games at `/academy/play` are interactive toys, not reconstructions:
+
+| Game | What a child does | Badge |
+| --- | --- | --- |
+| **Rocket Workshop** | Choose nose, body, fins, engine and colours; spin the model; launch it | Rocket Builder |
+| **Moon Phase Mission** | Move the Moon around a toy Earth–Moon–Sun diagram and match three phases | Moon Watcher |
+| **Rover Quest** | Drive a toy rover on an invented grid, collect three samples and return to the pad | Rover Driver |
+
+Every model is assembled from primitives and labelled "toy — not to scale". The
+rocket and rover are explicitly **not** models of real spacecraft, and the rover
+terrain is invented for the game. Each game has keyboard and touch controls, a
+complete no-WebGL fallback, reduced-motion handling, and saves its badge and best
+star score in the same local progress record as lessons and journeys. All facts
+and links come from the existing verified lesson, artifact, body and source
+records.
 
 ### Evidence model
 
@@ -187,6 +215,9 @@ Key decisions:
 - A typed provenance layer drives claim badges, validation and the source registry.
 - The Academy swaps theme tokens on `<html data-experience="academy">`, so the
   shared header and footer restyle without a duplicate layout.
+- Playground scenes are client-only islands loaded with `next/dynamic`; the game
+  logic, controls, rewards and fallbacks are ordinary HTML and work without
+  WebGL.
 
 More detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -198,9 +229,10 @@ Target: WCAG 2.1 AA. Semantic landmarks, one `h1` per page, keyboard paths,
 visible focus, labelled controls, non-color status cues, reduced-motion support,
 `aria-live` result counts, and 2D alternatives for every 3D/decorative view.
 
-Browser checks run axe (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`) on 20
-representative pages. See [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) for
-the approach, automated results and the manual checks that were performed.
+Browser checks run axe (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`) on 24
+representative pages, including the playground hub and all three games. See
+[`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) for the approach, automated
+results and the manual checks that were performed.
 
 ---
 
@@ -211,17 +243,19 @@ summarised below. Results are from the local machine, not a claim about a
 deployed environment.
 
 - Data validation: **passed** — 30 artifacts, 20 bodies, 8 deep-sky objects,
-  24 missions, 12 lessons, 4 journeys, 8 articles, 96 sources, 581 directed
-  relation edges.
-- Data tests: **9/9 passed**.
-- Lint: **no warnings or errors**.
+  24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96
+  sources, 581 directed relation edges.
+- Data tests: **12/12 passed**.
+- Lint: **no errors**; one pre-existing `react-hooks/exhaustive-deps` warning in
+  `ExploreExperience.tsx`.
 - Typecheck: **passed**.
-- Production build: **passed** — 136 static pages generated.
-- Browser smoke: **32 routes checked, 0 failures**.
-- Axe: **0 serious or critical violations** on 20 pages.
+- Production build: **passed** — 140 static pages generated.
+- Browser smoke: **36 routes checked, 0 failures**, including a real rover key
+  move and a rocket launch that saves its badge.
+- Axe: **0 violations** (0 serious or critical) on 24 pages.
 
-A local headless-Chrome probe of nine representative routes recorded **CLS 0**
-everywhere and LCP between **52 ms and 372 ms** on an unthrottled machine. Those
+A local headless-Chrome probe of thirteen representative routes recorded **CLS 0**
+everywhere and LCP between **52 ms and 108 ms** on an unthrottled machine. Those
 are local numbers, not Lighthouse or field data; the table and environment are in
 [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md).
 
@@ -239,10 +273,13 @@ Exact numbers and the build output summary are repeated in
   verified.
 - Some records deliberately omit an image or model instead of substituting a
   generated asset. Illustrations and schematic gradients are labelled.
-- The 3D orrery is schematic — orbits and sizes are compressed, not to scale.
-  No spacecraft 3D models are included.
-- Academy progress is local to one browser. There are no accounts, no cloud
-  sync and no analytics on progress. Export a JSON file to move it.
+- The 3D orrery and the Academy playground models are schematic toys built from
+  primitives: orbits, sizes and distances are compressed, and the rocket and
+  rover are explicitly not reconstructions of real vehicles. No photoreal or
+  official spacecraft model is included.
+- Academy progress, including playground badges and best star scores, is local to
+  one browser. There are no accounts, no cloud sync and no analytics on progress.
+  Export a JSON file to move it.
 - Automated coverage is data/logic tests plus browser smoke and axe. There is no
   full visual-regression or cross-browser matrix.
 - The browser gate needs Chrome/Chromium. Set `CHROME_PATH` when the default

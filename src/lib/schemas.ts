@@ -320,6 +320,29 @@ export const agencySchema = z.object({
   sourceIds: z.array(z.string()).min(1),
 });
 
+export const playGameSchema = z.object({
+  id: z.enum(["rocket", "moon", "rover"]),
+  title: z.string().min(1),
+  tagline: z.string().min(1),
+  description: z.string().min(1),
+  ages: z.array(z.enum(["5-7", "8-9", "10-12"])).min(1),
+  minutes: z.number().positive(),
+  accent: z.string().min(1),
+  softAccent: z.string().min(1),
+  badge: z.object({
+    id: z.string().min(1),
+    name: z.string().min(1),
+    description: z.string().min(1),
+  }),
+  skills: z.array(z.string().min(1)).min(1),
+  controls: z.string().min(1),
+  toyNote: z.string().min(1),
+  lessonId: z.string().min(1),
+  artifactIds: z.array(z.string()),
+  bodyIds: z.array(z.string()),
+  sourceIds: z.array(z.string()).min(1),
+});
+
 export const importedProgressSchema = z.object({
   version: z.literal(1),
   lessons: z.record(
@@ -336,6 +359,14 @@ export const importedProgressSchema = z.object({
       completedAt: z.string().optional(),
     })
   ),
+  games: z
+    .record(
+      z.object({
+        completedAt: z.string(),
+        stars: z.number().int().min(0).max(3),
+      })
+    )
+    .optional(),
   badges: z.array(z.string()),
   lastVisited: z.string().optional(),
   updatedAt: z.string(),
