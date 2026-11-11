@@ -315,3 +315,4 @@ Exact numbers and the build output summary are repeated in
 - [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md) — build characteristics and local probe method
 - [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md) — judge-facing walkthrough and recorded results
 - [`docs/adr/`](docs/adr) — architecture decision records
+# Graverse
