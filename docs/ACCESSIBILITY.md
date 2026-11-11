@@ -11,6 +11,8 @@ Target: **WCAG 2.1 AA**.
 - Header and footer navigation are labelled (`Primary`, `Mobile primary`, etc.).
 - Breadcrumbs are `<nav aria-label="Breadcrumb">`.
 - Status is never conveyed by colour alone: badges include text and an icon.
+- Derived communication status carries a text note explaining that it is not live
+  telemetry, and passive hardware is explicitly labelled not applicable.
 - Claim badges always show a text label, not just a coloured pill.
 - Fact grids use `dl`/`dt`/`dd`; lists use `ul`/`li`. The claim legend is a list,
   not a malformed definition list.
@@ -53,6 +55,30 @@ Target: **WCAG 2.1 AA**.
 - Images use meaningful alt text where they carry information; decorative
   imagery is hidden.
 
+### Language and direction
+
+- A language toggle switches the interface between English and Arabic using a
+  cookie, so the choice survives navigation without an account.
+- The root `<html>` element receives `lang` and `dir` from the same locale, and
+  the layout uses logical properties so the Arabic interface lays out RTL.
+- Navigation, footer, homepage hero, section chrome and the new Mission Control,
+  Engineering, Stories, Research, Simulations, My Universe and comparison
+  surfaces are translated. Editorial artifact, lesson and story prose remains
+  English-only, and the Research Archive states that limitation.
+- Because the interface and the editorial records are written in different
+  languages, mixed blocks are laid out with `unicode-bidi: plaintext`. A block
+  takes its reading direction from its own content, so an English paragraph
+  keeps its own order and an Arabic paragraph reads right to left. Without
+  this, the bidi algorithm splits a date such as "16 July 1969" into two runs
+  and moves a sentence-ending full stop to the front of the line.
+- Technical values (dates, measurements, identifiers) are isolated so they
+  never reorder inside an Arabic sentence. Status and communication badges are
+  marked `dir="auto"`, so the English label and its value read as one unit
+  instead of reversing around the separator.
+- Corner labels, badges, search icons, quote borders and table alignment use
+  logical inset, padding, border and text-align utilities, so they mirror with
+  the text direction instead of staying pinned to the left.
+
 ### Forms and feedback
 
 - Search input has a label (visually hidden), a described-by result count and an
@@ -64,15 +90,13 @@ Target: **WCAG 2.1 AA**.
 
 `npm run test:e2e` (also part of `npm run verify`) runs:
 
-1. **axe-core** with tags `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` on 24
-   representative pages:
-   `/`, `/academy`, a journey, a lesson, an article, the glossary, the progress
-   dashboard, the robot lab, the playground hub, all three playground games,
-   `/museum`, an artifact, a mission, an agency, `/explorer`, a filtered Explorer
-   list view, `/explorer/solar-system`, a body page, a deep-sky page, `/sources`,
-   `/search?q=apollo`, and `/about`.
+1. **axe-core** with tags `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` on 38
+   representative pages, including the new Mission Control, Engineering, Stories,
+   Research, Simulations, My Universe, comparison and Academy build/flashcard/
+   achievement/certificate surfaces.
 2. **Smoke assertions** for HTTP status, title, exactly one `h1`, `main`
-   landmark and non-empty content on 36 routes.
+   landmark and non-empty content on 47 routes (one of which is the deliberate
+   404 check).
 3. **Keyboard assertions**: first Tab reaches the skip link; Enter activates it;
    the mobile menu opens, moves focus inside and closes on Escape; ArrowUp moves
    the rover from its focused control panel.
@@ -83,7 +107,7 @@ Target: **WCAG 2.1 AA**.
 
 ### Last recorded result
 
-- Axe: **0 violations** (0 serious, 0 critical) across the 24 pages.
+- Axe: **0 violations** (0 serious, 0 critical) across the 38 pages.
 - Keyboard checks: **passed**, including the rover move.
 - Gameplay/badge persistence check: **passed**.
 - Reduced-motion check: **passed**.
@@ -101,10 +125,16 @@ in every browser or assistive technology.
 - Checked that decorative canvas/gradients are hidden from assistive technology.
 - Checked focus order and Escape behaviour with the automated keyboard pass
   above.
+- Rendered the home, Explorer, Museum detail, Search and playground pages in
+  Arabic at 1440px and compared them against the English layout, checking
+  reading order of dates, sentences, badges and labels.
 
 ## Known limitations
 
 - No screen-reader session (VoiceOver/NVDA) was recorded for this submission.
+- Arabic localisation is partial by design: interface chrome is translated, but
+  editorial prose is still English-only. A screen reader will therefore switch
+  languages within some pages.
 - Axe cannot detect every contrast or focus problem, especially inside canvas.
 - The 3D canvases have no keyboard interaction of their own by design; they are
   decorative. The orrery's 2D map and the playground's HTML controls are the

@@ -15,9 +15,12 @@ islands for interaction only:
 | `SiteHeader`, `MotionToggle` | Menus, focus management, motion preference |
 | Academy robot guide | Step state and playback |
 | Playground games (`RocketWorkshop`, `MoonPhases`, `RoverQuest`) | Game state, rewards, `localStorage`; the 3D scene itself is a separate `next/dynamic` island |
-| `PlayBadgeShelf`, `ProgressSnapshot` | Read the shared local progress record |
+| `PlayBadgeShelf`, `ProgressSnapshot`, `AchievementsView`, `CertificateView` | Read the shared local progress and personal records |
+| `StatusBoard`, `CompareClient`, `ArtifactActions` | Filters, side-by-side selection, favourites and recent views |
+| `Simulators` | Eight interactive educational models with local state |
+| `MyUniverseClient`, `RoverBuilder`, `Flashcards` | Local collections, build state and study-card state |
 
-The production build generates **140 static pages**. `/search` is the only
+The production build generates **175 static pages**. `/search` is the only
 dynamic route because its query string is user-controlled; it still renders from
 the same static data module.
 
@@ -30,6 +33,19 @@ Three experience prefixes map to three audiences:
 /academy/play/*  three small 3D playground games
 /museum/*        cinematic artifact, mission and agency records
 /explorer/*      timeline, destinations, deep sky, 3D orrery
+```
+
+Six shared source-linked surfaces sit alongside the three core experiences:
+
+```
+/mission-control  mission, hardware and derived communication status
+/engineering/*    engineering explainers linked to artifact records
+/stories/*        curated reading paths through existing records
+/research         method, source hierarchy, coverage and changelog
+/simulations/*    eight educational models, clearly labelled as approximations
+/my-universe      local favourites, collections and recent views
+/compare          side-by-side comparison of documented values
+/api/export       JSON export of one dataset or the whole collection
 ```
 
 Shared surfaces (`/`, `/search`, `/sources`, `/about`) remain neutral. The
@@ -63,6 +79,10 @@ lessons.ts       12 lessons
 journeys.ts      4 journeys
 articles.ts      8 long-form articles
 games.ts         3 playground games (metadata, badges, verified links)
+engineering.ts   7 engineering explainers
+stories.ts       8 curated story collections
+simulations.ts   8 simulation definitions with approximation notes
+research.ts      method sections, coverage, changelog and API notes
 glossary.ts      40 terms
 sources.ts       96 registered sources
 relations.ts     typed bidirectional relation graph
@@ -159,17 +179,19 @@ artifacts, bodies and sources.
 ## 5a. Academy navigation
 
 `AcademyNav` is rendered once by `src/app/academy/layout.tsx`, so Overview,
-Journeys, Lessons, Playground, Robot lab and Progress share one labelled
-navigation surface. Academy pages remain server components; only the progress
-widgets and games are client islands.
+Journeys, Lessons, Playground, Robot lab, Build a rover, Flashcards, Progress,
+Achievements and Certificate share one labelled navigation surface. Academy pages
+remain server components; only the progress widgets, study cards, builder and
+games are client islands.
 
 ## 6. Search
 
 `src/lib/search-index.ts` builds one in-memory index over artifacts, missions,
-bodies, deep-sky objects, lessons, journeys, articles, agencies and glossary
-terms. Search is case-insensitive, partial-match, scored by field (title >
-keywords > description), and grouped by kind in the UI. The query and kind filter
-are mirrored into `/search?q=…&kind=…`.
+bodies, deep-sky objects, lessons, journeys, articles, agencies, glossary terms,
+engineering explainers, story collections, simulations and Research Archive
+method sections. Search is case-insensitive, partial-match, scored by field
+(title > keywords > description), and grouped by kind in the UI. The query and
+kind filter are mirrored into `/search?q=…&kind=…`.
 
 ## 7. Progress storage
 
@@ -198,6 +220,31 @@ out-of-range scores or stars are rejected with a message. If `localStorage` is
 unavailable the hook degrades to an in-memory store for the session. Export
 produces a downloadable JSON file; reset clears the record after confirmation.
 
+Personal state is deliberately separate, under `graverse:personal:v1`:
+
+```ts
+{
+  version: 1,
+  favorites: string[],
+  collections: [{ id, name, artifactIds, createdAt }],
+  recent: [{ id, viewedAt }],       // newest first, capped at 16
+  simulations: { [id]: { completedAt, score? } },
+  updatedAt: string
+}
+```
+
+This prevents an imported Academy progress file from overwriting a visitor's
+favourites or collections. `usePersonal` exposes the same local-only behaviour,
+and `MyUniverseClient` exports, imports and resets this record separately.
+
+## 7a. Derived communication status
+
+`src/lib/mission-control.ts` derives a communication label from the recorded
+hardware status and preserves the original wording on the artifact page. Passive
+retroreflectors and left-behind descent stages are explicitly `not-applicable`
+because they do not carry an independent transmitter. The derived label is shown
+with a note that it is not live telemetry; no new source claim is created.
+
 ## 8. Error and empty states
 
 - `src/app/error.tsx` — client error boundary with a retry path.
@@ -220,6 +267,40 @@ tsc --noEmit
 
 `scripts/verify.mjs` orchestrates the sequence and tears the server down. The
 browser script checks HTTP status, title, `h1`, `main` landmark and body length
-for 36 routes, asserts the three redirects preserve query strings, drives a real
+for 47 routes, asserts the three redirects preserve query strings, drives a real
 rover move from its focused arrow panel, launches the toy rocket and checks that
-`badge-play-rocket` was saved, and runs axe on 24 representative pages.
+`badge-play-rocket` was saved, and runs axe on 38 representative pages.
+
+## 9a. Localisation
+
+The interface chrome is available in English and Arabic. The choice is explicit
+and stored in a cookie (`graverse-locale`); no browser-language sniffing is
+used, so the visitor is never switched silently.
+
+| Piece | Role |
+| --- | --- |
+| `src/lib/i18n.ts` | Locale metadata, the `en`/`ar` dictionaries and `t()` |
+| `src/lib/locale.ts` | Reads the cookie on the server; exposes `lang`/`dir` |
+| `src/components/layout/LanguageToggle.tsx` | Sets the cookie and refreshes the route |
+
+- The locale is read on the server and passed down as a prop, so client islands
+  stay free of locale lookups and the first paint is already localised.
+- `t(locale, key)` falls back to English and then to the key itself, so a missing
+  translation degrades to readable English rather than to an empty label.
+- Both dictionaries are kept in sync by a check in `tests/data.test.ts`; keys
+  with no corresponding interface element are removed rather than left to drift.
+- The `<html>` element carries `lang` and `dir` from the same locale, so the
+  document direction and the language announcement always agree.
+
+Mixed-language pages are the hard part: the interface is translated but the
+artifact, lesson and story prose is still English. Two rules keep that
+readable.
+
+1. Layout uses logical CSS properties (`ms-`/`me-`, `start-`/`end-`,
+   `text-start`/`text-end`, `border-s-`) so the layout mirrors with the
+   direction instead of staying pinned to the left.
+2. Text direction is resolved per block with `unicode-bidi: plaintext`, and
+   technical values are isolated. A date such as "16 July 1969" and a sentence
+   that ends in a full stop then keep their own reading order inside an Arabic
+   page.
+

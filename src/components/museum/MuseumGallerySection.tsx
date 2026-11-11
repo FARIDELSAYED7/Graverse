@@ -179,7 +179,7 @@ export function MuseumGallerySection({
               onSelect={selectByIndex}
             />
 
-            <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/12 bg-black/45 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-white/75 backdrop-blur sm:left-5 sm:top-5">
+            <div className="pointer-events-none absolute start-4 top-4 flex items-center gap-2 rounded-full border border-white/12 bg-black/45 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-white/75 backdrop-blur sm:start-5 sm:top-5">
               <Orbit aria-hidden="true" className="h-3.5 w-3.5 text-accent-bright" />
               3D exhibition hall
             </div>
@@ -323,7 +323,7 @@ export function MuseumGallerySection({
                         : undefined
                     }
                     className={cn(
-                      "exhibit-thumb flex w-[124px] items-center gap-2 rounded-xl border p-1.5 text-left",
+                      "exhibit-thumb flex w-[124px] items-center gap-2 rounded-xl border p-1.5 text-start",
                       active
                         ? "border-white/30"
                         : "border-white/10 bg-white/[0.03]"
@@ -355,7 +355,7 @@ export function MuseumGallerySection({
         </div>
       </div>
 
-      <p className="mt-3 text-right text-[11px] text-text-muted">
+      <p className="mt-3 text-end text-[11px] text-text-muted">
         Exhibit imagery: NASA. The 3D hall is decorative; all information is in
         the accessible panel and the collection below.
       </p>

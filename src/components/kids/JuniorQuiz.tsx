@@ -209,7 +209,7 @@ export function JuniorQuiz({ questions }: JuniorQuizProps) {
                 data-quiz-option
                 data-correct={isCorrectOption}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left text-sm font-medium transition-colors",
+                  "flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-start text-sm font-medium transition-colors",
                   !answered &&
                     "border-white/12 bg-white/[0.03] text-text-primary hover:border-accent/50 hover:bg-white/[0.06]",
                   answered &&

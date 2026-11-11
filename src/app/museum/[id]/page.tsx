@@ -16,9 +16,13 @@ import {
   Scan,
   ShieldAlert,
 } from "lucide-react";
+import { ArtifactActions } from "@/components/artifacts/ArtifactActions";
+import { ArtifactAnatomy } from "@/components/artifacts/ArtifactAnatomy";
 import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { ArtifactVisual } from "@/components/artifacts/ArtifactVisual";
 import { BackButton } from "@/components/artifacts/BackButton";
+import { LessonCard } from "@/components/academy/LessonCard";
+import { CommunicationBadge } from "@/components/ui/CommunicationBadge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import {
   artifacts,
@@ -29,7 +33,15 @@ import {
 import { getSources, sourceTypeLabels } from "@/data/sources";
 import { getMissionByName } from "@/data/missions";
 import { getAgency } from "@/data/space/agencies";
+import { lessons } from "@/data/lessons";
 import { eventTypeLabels } from "@/lib/status";
+import { getLocale } from "@/lib/locale";
+import { t } from "@/lib/i18n";
+import {
+  communicationStatusNote,
+  deriveCommunicationStatus,
+  freshnessFor,
+} from "@/lib/mission-control";
 import { formatDate } from "@/lib/format";
 import type { Artifact } from "@/types/artifact";
 
@@ -76,8 +88,11 @@ const journey = [
   "science",
   "fate",
   "provenance",
+  "communication",
   "technical",
+  "anatomy",
   "media",
+  "lessons",
   "related",
   "sources",
 ];
@@ -89,8 +104,11 @@ const journeyLabels: Record<string, string> = {
   science: "What we learned",
   fate: "What happened to it",
   provenance: "Provenance",
+  communication: "Communication status",
   technical: "Technical details",
+  anatomy: "Recorded anatomy",
   media: "Media and model",
+  lessons: "Academy lessons",
   related: "Related records",
   sources: "Sources",
 };
@@ -98,6 +116,7 @@ const journeyLabels: Record<string, string> = {
 export default function ArtifactPage({ params }: PageProps) {
   const artifact = getArtifact(params.id);
   if (!artifact) notFound();
+  const locale = getLocale();
 
   const sources = getSources(artifact.sourceIds);
   const related = getArtifacts(artifact.relatedIds);
@@ -110,6 +129,15 @@ export default function ArtifactPage({ params }: PageProps) {
     artifactIndex >= 0 && artifactIndex < artifacts.length - 1
       ? artifacts[artifactIndex + 1]
       : undefined;
+  const relatedLessons = lessons.filter((lesson) =>
+    lesson.artifactIds.includes(artifact.id)
+  );
+  const compareId =
+    related[0]?.id ??
+    artifacts.find((entry) => entry.id !== artifact.id)?.id ??
+    artifact.id;
+  const communication = deriveCommunicationStatus(artifact);
+  const freshness = freshnessFor(artifact.lastVerified);
 
   const quickFacts = [
     artifact.launchDate
@@ -160,7 +188,7 @@ export default function ArtifactPage({ params }: PageProps) {
               <li className="text-text-secondary">{artifact.name}</li>
             </ol>
           </nav>
-          <BackButton />
+          <BackButton label={t(locale, "common.back")} />
         </div>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
@@ -211,6 +239,12 @@ export default function ArtifactPage({ params }: PageProps) {
               <StatusBadge kind="mission" status={artifact.missionStatus} />
               <StatusBadge kind="hardware" status={artifact.hardwareStatus} />
             </div>
+
+            <ArtifactActions
+              artifactId={artifact.id}
+              artifactName={artifact.name}
+              compareId={compareId}
+            />
 
             <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:grid-cols-3">
               <div>
@@ -297,8 +331,9 @@ export default function ArtifactPage({ params }: PageProps) {
 
       <div className="container-content mt-10">
         <section
+          id="communication"
           aria-labelledby="status-heading"
-          className="rounded-2xl border border-white/10 bg-bg-elevated/60 p-4 sm:p-6"
+          className="scroll-mt-24 rounded-2xl border border-white/10 bg-bg-elevated/60 p-4 sm:p-6"
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2
@@ -313,7 +348,7 @@ export default function ArtifactPage({ params }: PageProps) {
             </p>
           </div>
 
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
               <div className="flex items-center justify-between gap-2">
                 <p className="flex items-center gap-1.5 text-xs font-semibold text-text-primary">
@@ -336,6 +371,22 @@ export default function ArtifactPage({ params }: PageProps) {
               </div>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary">
                 {artifact.hardwareStatusOriginal}
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+              <div className="flex items-center justify-between gap-2">
+                <p className="flex items-center gap-1.5 text-xs font-semibold text-text-primary">
+                  <Radio aria-hidden="true" className="h-3.5 w-3.5 text-accent-bright" />
+                  Communication
+                </p>
+                <CommunicationBadge status={communication} compact locale={locale} />
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                {communicationStatusNote(artifact)}
+              </p>
+              <p className="mt-2 text-[11px] leading-relaxed text-text-muted">
+                {t(locale, "common.derivedNote")} Record checked{" "}
+                {artifact.lastVerified} ({freshness.label.toLowerCase()}).
               </p>
             </div>
           </div>
@@ -364,14 +415,14 @@ export default function ArtifactPage({ params }: PageProps) {
               Key events as recorded by NASA. Event types and dates are shown as
               stated; the defining milestone is marked.
             </p>
-            <ol className="relative mt-6 space-y-5 border-l border-white/12 pl-6">
+            <ol className="relative mt-6 space-y-5 border-s border-white/12 ps-6">
               {artifact.timelineEvents.map((event) => {
                 const isPrimary = event.id === artifact.primaryMilestone.id;
                 return (
                   <li key={event.id} className="relative">
                     <span
                       aria-hidden="true"
-                      className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border ${
+                      className={`absolute -start-[31px] top-1.5 h-3 w-3 rounded-full border ${
                         isPrimary
                           ? "border-accent-bright bg-accent-bright shadow-[0_0_12px_rgba(131,215,255,0.7)]"
                           : "border-white/40 bg-[#0a1526]"
@@ -523,7 +574,7 @@ export default function ArtifactPage({ params }: PageProps) {
                         {agency.shortName}
                       </Link>
                     ) : (
-                      "Not recorded"
+                      t(locale, "common.none")
                     )}
                   </dd>
                 </div>
@@ -575,6 +626,11 @@ export default function ArtifactPage({ params }: PageProps) {
             </details>
           </section>
 
+          <section id="anatomy" className="scroll-mt-24">
+            <SectionLabel index="F2" title="Recorded anatomy" />
+            <ArtifactAnatomy artifact={artifact} />
+          </section>
+
           <section id="media" className="scroll-mt-24">
             <SectionLabel index="G" title="Media and model" />
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -602,8 +658,30 @@ export default function ArtifactPage({ params }: PageProps) {
             </div>
           </section>
 
+          <section id="lessons" className="scroll-mt-24">
+            <SectionLabel index="H" title="Academy lessons" />
+            {relatedLessons.length ? (
+              <>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-muted">
+                  Lessons that use this artifact record. They add explanation and
+                  sequencing, not new facts.
+                </p>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {relatedLessons.map((lesson) => (
+                    <LessonCard key={lesson.id} lesson={lesson} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="mt-4 text-sm text-text-muted">
+                No Academy lesson currently uses this artifact as a teaching
+                example.
+              </p>
+            )}
+          </section>
+
           <section id="related" className="scroll-mt-24">
-            <SectionLabel index="H" title="Related records" />
+            <SectionLabel index="I" title="Related records" />
             {related.length ? (
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {related.map((relatedArtifact) => (
@@ -621,7 +699,7 @@ export default function ArtifactPage({ params }: PageProps) {
           </section>
 
           <section id="sources" className="scroll-mt-24">
-            <SectionLabel index="I" title="Sources and verification" />
+            <SectionLabel index="J" title="Sources and verification" />
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-muted">
               Facts were checked against these public NASA records on{" "}
               {artifact.lastVerified}. Links open in a new tab. Where a field was
@@ -724,7 +802,7 @@ export default function ArtifactPage({ params }: PageProps) {
               {nextArtifact ? (
                 <Link
                   href={`/museum/${nextArtifact.id}`}
-                  className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-right transition-colors hover:border-accent/40 hover:bg-white/[0.04]"
+                  className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-end transition-colors hover:border-accent/40 hover:bg-white/[0.04]"
                 >
                   <span className="min-w-0">
                     <span className="block text-[10px] uppercase tracking-[0.16em] text-text-muted">
@@ -747,7 +825,7 @@ export default function ArtifactPage({ params }: PageProps) {
           </nav>
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
-            <BackButton />
+            <BackButton label={t(locale, "common.back")} />
             <Link
               href="/explorer"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-bright hover:text-white"

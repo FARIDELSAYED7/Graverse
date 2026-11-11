@@ -45,12 +45,12 @@ function PlayGameCard({ game }: { game: PlayGame }) {
           className="relative h-16 w-16 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"
           style={{ color: game.accent }}
         />
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#14213B] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#FFF8EC]">
+        <span className="absolute start-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#14213B] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#FFF8EC]">
           <Gamepad2 aria-hidden="true" className="h-3 w-3" />
           3D game
         </span>
         {record ? (
-          <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#0F766E] shadow-sm">
+          <span className="absolute end-4 top-4 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#0F766E] shadow-sm">
             <Star aria-hidden="true" className="h-3 w-3 fill-current" />
             {record.stars}/3
           </span>

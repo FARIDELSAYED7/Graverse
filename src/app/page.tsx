@@ -8,14 +8,20 @@ import {
   CalendarClock,
   Compass,
   Database,
+  FlaskConical,
+  Heart,
   Landmark,
   MapPin,
+  Microscope,
   PackageOpen,
   Plane,
+  Radio,
   Satellite,
   Search,
   Sparkles,
+  ScrollText,
   Truck,
+  Wrench,
 } from "lucide-react";
 import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { ArtifactVisual } from "@/components/artifacts/ArtifactVisual";
@@ -33,6 +39,8 @@ import {
 } from "@/data/artifacts";
 import { experiences } from "@/lib/experience";
 import { pluralize } from "@/lib/format";
+import { getLocale } from "@/lib/locale";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "GRAVERSE — Explore the history of space exploration",
@@ -43,6 +51,7 @@ export const metadata: Metadata = {
 const popularSearches = ["Perseverance", "Apollo 11", "Voyager 1", "Ingenuity"];
 
 export default function HomePage() {
+  const locale = getLocale();
   const featured = getArtifacts(featuredIds);
   const destinationCounts = countByDestination();
   const decadeCount = new Set(
@@ -74,17 +83,15 @@ export default function HomePage() {
           <div className="max-w-2xl">
             <p className="eyebrow flex items-center gap-2">
               <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
-              A NASA Space Apps Challenge experience
+              {t(locale, "home.eyebrow")}
             </p>
             <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
-              Discover the machines that{" "}
-              <span className="text-accent">shaped our understanding</span> of
-              space.
+              {t(locale, "home.titleLead")}{" "}
+              <span className="text-accent">{t(locale, "home.titleAccent")}</span>{" "}
+              {t(locale, "home.titleTail")}
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg">
-              Explore the hardware, missions and discoveries left across the
-              Moon, Mars and beyond — then find out what is actually known about
-              what happened to each machine.
+              {t(locale, "home.subtitle")}
             </p>
 
             <form
@@ -93,32 +100,32 @@ export default function HomePage() {
               className="mt-8 flex flex-col gap-2 sm:flex-row"
             >
               <label htmlFor="home-search" className="sr-only">
-                Search artifacts, missions and destinations
+                {t(locale, "common.searchHint")}
               </label>
               <div className="relative flex-1">
                 <Search
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted"
+                  className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted"
                 />
                 <input
                   id="home-search"
                   name="q"
                   type="search"
-                  placeholder="Search an artifact, mission or destination"
-                  className="h-12 w-full rounded-full border border-white/12 bg-white/[0.05] pl-11 pr-4 text-sm text-text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] placeholder:text-text-muted focus:border-accent/60 focus:bg-white/[0.07] focus:outline-none"
+                  placeholder={t(locale, "home.searchPlaceholder")}
+                  className="h-12 w-full rounded-full border border-white/12 bg-white/[0.05] ps-11 pe-4 text-sm text-text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] placeholder:text-text-muted focus:border-accent/60 focus:bg-white/[0.07] focus:outline-none"
                 />
               </div>
               <button
                 type="submit"
                 className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
               >
-                Search the archive
+                {t(locale, "home.searchButton")}
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </button>
             </form>
 
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-text-muted">
-              <span>Try</span>
+              <span>{t(locale, "home.try")}</span>
               {popularSearches.map((term) => (
                 <Link
                   key={term}
@@ -135,14 +142,14 @@ export default function HomePage() {
                 href="/explorer"
                 className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold"
               >
-                Explore the timeline
+                {t(locale, "home.exploreTimeline")}
                 <Compass aria-hidden="true" className="h-4 w-4" />
               </Link>
               <Link
                 href="/museum"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/15 px-6 text-sm font-semibold text-text-primary transition-colors hover:border-accent/50 hover:bg-white/5"
               >
-                Browse the museum
+                {t(locale, "home.browseMuseum")}
                 <BookOpen aria-hidden="true" className="h-4 w-4" />
               </Link>
             </div>
@@ -150,7 +157,7 @@ export default function HomePage() {
             <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-6">
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
-                  Artifacts
+                  {t(locale, "home.artifacts")}
                 </dt>
                 <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-cyan">
                   {artifacts.length}
@@ -158,7 +165,7 @@ export default function HomePage() {
               </div>
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
-                  Destinations
+                  {t(locale, "home.destinations")}
                 </dt>
                 <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-amber">
                   {destinationOrder.length}
@@ -166,7 +173,7 @@ export default function HomePage() {
               </div>
               <div>
                 <dt className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
-                  Decades
+                  {t(locale, "home.decades")}
                 </dt>
                 <dd className="mt-1 font-mono text-2xl tabular-nums text-brand-teal">
                   {decadeCount}
@@ -218,7 +225,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="glass absolute -left-3 top-6 hidden rounded-xl px-3.5 py-3 shadow-card sm:block lg:-left-8">
+            <div className="glass absolute start-[-0.75rem] top-6 hidden rounded-xl px-3.5 py-3 shadow-card sm:block lg:start-[-2rem]">
               <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-text-muted">
                 <CalendarClock aria-hidden="true" className="h-3 w-3" />
                 First landing
@@ -228,7 +235,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="glass absolute -right-2 bottom-10 hidden rounded-xl px-3.5 py-3 shadow-card sm:block lg:-right-6">
+            <div className="glass absolute end-[-0.5rem] bottom-10 hidden rounded-xl px-3.5 py-3 shadow-card sm:block lg:end-[-1.5rem]">
               <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-text-muted">
                 <Database aria-hidden="true" className="h-3 w-3" />
                 Source-linked
@@ -305,6 +312,94 @@ export default function HomePage() {
                     <ArrowRight
                       aria-hidden="true"
                       className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="container-content pt-14 sm:pt-16" aria-labelledby="more-surfaces-heading">
+        <SectionHeading
+          eyebrow={t(locale, "home.moreEyebrow")}
+          title={t(locale, "home.moreTitle")}
+          description={t(locale, "home.moreDescription")}
+        />
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              href: "/mission-control",
+              icon: Radio,
+              labelKey: "sections.missionControl.title",
+              descriptionKey: "sections.missionControl.description",
+              accent: "#5EEAD4",
+            },
+            {
+              href: "/engineering",
+              icon: Wrench,
+              labelKey: "sections.engineering.title",
+              descriptionKey: "sections.engineering.description",
+              accent: "#F2B33D",
+            },
+            {
+              href: "/stories",
+              icon: ScrollText,
+              labelKey: "sections.stories.title",
+              descriptionKey: "sections.stories.description",
+              accent: "#F08A6A",
+            },
+            {
+              href: "/research",
+              icon: Microscope,
+              labelKey: "sections.research.title",
+              descriptionKey: "sections.research.description",
+              accent: "#A78BFA",
+            },
+            {
+              href: "/simulations",
+              icon: FlaskConical,
+              labelKey: "sections.simulations.title",
+              descriptionKey: "sections.simulations.description",
+              accent: "#2B6C91",
+            },
+            {
+              href: "/my-universe",
+              icon: Heart,
+              labelKey: "sections.myUniverse.title",
+              descriptionKey: "sections.myUniverse.description",
+              accent: "#F472B6",
+            },
+          ].map((surface) => {
+            const Icon = surface.icon;
+            return (
+              <li key={surface.href}>
+                <Link
+                  href={surface.href}
+                  className="group flex h-full flex-col rounded-2xl border border-white/10 bg-surface/60 p-4 transition-colors hover:border-white/25"
+                >
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border"
+                    style={{
+                      borderColor: `${surface.accent}45`,
+                      backgroundColor: `${surface.accent}18`,
+                      color: surface.accent,
+                    }}
+                  >
+                    <Icon aria-hidden="true" className="h-4 w-4" />
+                  </span>
+                  <h3 className="mt-3 text-base font-semibold text-white">
+                    {t(locale, surface.labelKey)}
+                  </h3>
+                  <p className="mt-1 flex-1 text-xs leading-relaxed text-text-muted">
+                    {t(locale, surface.descriptionKey)}
+                  </p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent-bright">
+                    {t(locale, "home.openSurface")}
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
                     />
                   </span>
                 </Link>

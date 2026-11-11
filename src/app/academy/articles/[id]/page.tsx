@@ -51,7 +51,7 @@ export default function ArticlePage({ params }: PageProps) {
           <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#14213B] sm:text-4xl">
             {article.title}
           </h1>
-          <p className="mt-3 border-l-4 border-[#9C4321]/50 pl-4 text-lg leading-relaxed text-[#4B5563]">
+          <p className="mt-3 border-s-4 border-[#9C4321]/50 ps-4 text-lg leading-relaxed text-[#4B5563]">
             {article.dek}
           </p>
 

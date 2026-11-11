@@ -123,7 +123,7 @@ export default function LessonPage({ params }: PageProps) {
                     ))}
                   </div>
                   {section.callout ? (
-                    <p className="mt-4 flex items-start gap-2 rounded-xl border-l-4 border-[#F2B33D] bg-[#F2B33D]/12 px-4 py-3 text-sm leading-relaxed text-[#6B4A05]">
+                    <p className="mt-4 flex items-start gap-2 rounded-xl border-s-4 border-[#F2B33D] bg-[#F2B33D]/12 px-4 py-3 text-sm leading-relaxed text-[#6B4A05]">
                       <Lightbulb aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
                       {section.callout}
                     </p>

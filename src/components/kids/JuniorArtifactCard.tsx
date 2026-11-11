@@ -35,11 +35,11 @@ export function JuniorArtifactCard({
           imageClassName="group-hover:scale-[1.04]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-        <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur">
+        <span className="absolute start-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur">
           <MapPin aria-hidden="true" className="artifact-pin h-3 w-3" />
           {artifact.destination}
         </span>
-        <span className="absolute right-3 top-3 z-10 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 font-mono text-[11px] tabular-nums text-white/90 backdrop-blur">
+        <span className="absolute end-3 top-3 z-10 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 font-mono text-[11px] tabular-nums text-white/90 backdrop-blur">
           {formatYear(artifact.primaryMilestone.date)}
         </span>
       </div>

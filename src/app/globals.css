@@ -984,3 +984,51 @@ html[data-experience="academy"] a[href="#main-content"] {
     backdrop-filter: none;
   }
 }
+
+/* ---------------------------------------------------------------- RTL text
+ *
+ * The interface chrome is localised into Arabic while the artifact records
+ * are still English. Without help, the bidi algorithm reorders mixed blocks:
+ * a date such as "16 July 1969" is split into two runs, and a sentence that
+ * ends in a full stop moves the full stop to the front of the line.
+ *
+ * Paragraph direction is therefore taken from the content of each block, so
+ * a Latin paragraph keeps its own reading order and an Arabic paragraph keeps
+ * the right-to-left order. Blocks are aligned to the start of the page
+ * direction, which is what an Arabic reader expects. */
+html[dir="rtl"] p,
+html[dir="rtl"] li,
+html[dir="rtl"] dd,
+html[dir="rtl"] dt,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] figcaption,
+html[dir="rtl"] blockquote,
+html[dir="rtl"] td,
+html[dir="rtl"] th,
+html[dir="rtl"] legend,
+html[dir="rtl"] summary,
+html[dir="rtl"] span,
+html[dir="rtl"] a,
+html[dir="rtl"] strong,
+html[dir="rtl"] em,
+html[dir="rtl"] small,
+html[dir="rtl"] button,
+html[dir="rtl"] label,
+html[dir="rtl"] time {
+  unicode-bidi: plaintext;
+}
+
+/* Numbers, units and other technical values never reorder. Inline values are
+   isolated so they keep their own reading order inside an Arabic sentence.
+   Block values are left to the paragraph rule above, which already resolves
+   their direction from the content. */
+html[dir="rtl"] span.font-mono,
+html[dir="rtl"] span.tabular-nums {
+  direction: ltr;
+  unicode-bidi: isolate;
+}

@@ -2,8 +2,9 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { MotionToggle } from "./MotionToggle";
+import { t, type Locale } from "@/lib/i18n";
 
-export function SiteFooter() {
+export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
   return (
     <footer className="relative mt-24 overflow-hidden border-t border-white/10 bg-[#040a14]/85">
       <div className="brand-rule absolute inset-x-0 top-0" />
@@ -19,108 +20,86 @@ export function SiteFooter() {
           <div>
             <Logo idPrefix="footer" asLink showTagline />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-secondary">
-              An interactive space heritage timeline and digital museum. Explore
-              the hardware, missions and discoveries left across the Moon, Mars
-              and beyond.
+              {t(locale, "footer.description")}
             </p>
             <div className="mt-4">
               <MotionToggle showLabel />
             </div>
           </div>
 
-          <nav aria-label="Explorer links">
+          <nav aria-label={t(locale, "footer.explorer")}>
             <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-teal">
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand-teal" />
-              Explorer
+              {t(locale, "footer.explorer")}
             </h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link
-                  href="/explorer"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Interactive timeline
+                <Link href="/explorer" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "home.exploreTimeline")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/explorer?mode=destinations"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  By destination
+                <Link href="/explorer?mode=destinations" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "footer.byDestination")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/explorer?mode=artifacts"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  By artifact type
+                <Link href="/explorer/solar-system" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "footer.orrery")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/explorer/solar-system"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Solar system orrery
+                <Link href="/mission-control" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.missionControl")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/academy"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Space Academy
+                <Link href="/simulations" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.simulations")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/search"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Search
+                <Link href="/search" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "common.search")}
                 </Link>
               </li>
             </ul>
           </nav>
 
-          <nav aria-label="Museum links">
+          <nav aria-label={t(locale, "footer.collection")}>
             <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-violet">
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand-violet" />
-              Collection
+              {t(locale, "footer.collection")}
             </h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link
-                  href="/museum"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  The museum
+                <Link href="/museum" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.museum")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/museum/missions"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Missions
+                <Link href="/museum/missions" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "footer.missions")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/museum/agencies"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Space agencies
+                <Link href="/engineering" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.engineering")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/sources"
-                  className="text-text-secondary transition-colors hover:text-white"
-                >
-                  Source registry
+                <Link href="/stories" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.stories")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/compare" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.compare")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/my-universe" className="text-text-secondary transition-colors hover:text-white">
+                  {t(locale, "nav.myUniverse")}
                 </Link>
               </li>
             </ul>
@@ -129,33 +108,34 @@ export function SiteFooter() {
           <div>
             <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-magenta">
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand-magenta" />
-              About the data
+              {t(locale, "footer.aboutData")}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-              Facts are normalized from public NASA mission pages, NASA/NSSDCA
-              technical records and NASA image records. Every artifact page
-              lists its sources and access dates.
+              {t(locale, "footer.dataNote")}
             </p>
-            <Link
-              href="/sources"
-              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal hover:text-white"
-            >
-              Sources and methodology
-              <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
-            </Link>
+            <div className="mt-3 flex flex-col gap-2">
+              <Link
+                href="/research"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal hover:text-white"
+              >
+                {t(locale, "nav.research")}
+                <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/sources"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal hover:text-white"
+              >
+                {t(locale, "common.sources")}
+                <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
 
         <div className="brand-rule mt-10" />
         <div className="mt-6 flex flex-col gap-3 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            GRAVERSE — a NASA Space Apps Challenge project. Not an official NASA
-            website.
-          </p>
-          <p>
-            Imagery: NASA. Data verified against public NASA records on 10
-            November 2026.
-          </p>
+          <p>{t(locale, "footer.notNasa")}</p>
+          <p>{t(locale, "footer.imagery")}</p>
         </div>
       </div>
     </footer>

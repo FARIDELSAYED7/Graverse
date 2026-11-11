@@ -1,9 +1,13 @@
 import { allArtifacts } from "@/data/artifacts";
 import { articles } from "@/data/articles";
+import { engineeringTopics, engineeringSystemLabels } from "@/data/engineering";
 import { glossary } from "@/data/glossary";
 import { journeys } from "@/data/journeys";
 import { lessons } from "@/data/lessons";
 import { missions } from "@/data/missions";
+import { methodSections } from "@/data/research";
+import { simulations } from "@/data/simulations";
+import { storyCollections } from "@/data/stories";
 import { agencies } from "@/data/space/agencies";
 import { celestialBodies } from "@/data/space/bodies";
 import { deepSkyObjects } from "@/data/space/deep-sky";
@@ -17,7 +21,11 @@ export type SearchKind =
   | "journey"
   | "article"
   | "agency"
-  | "glossary";
+  | "glossary"
+  | "engineering"
+  | "story"
+  | "simulation"
+  | "research";
 
 export interface SearchDoc {
   id: string;
@@ -148,6 +156,69 @@ const docs: SearchDoc[] = [
     meta: "Glossary",
     keywords: normalize([entry.term, entry.definition, entry.category].join(" ")),
   })),
+  ...engineeringTopics.map((topic) => ({
+    id: `engineering:${topic.id}`,
+    kind: "engineering" as const,
+    title: topic.title,
+    description: topic.summary,
+    href: `/engineering/${topic.id}`,
+    meta: engineeringSystemLabels[topic.system],
+    keywords: normalize(
+      [
+        topic.title,
+        topic.question,
+        topic.summary,
+        topic.body.join(" "),
+        topic.takeaway,
+        engineeringSystemLabels[topic.system],
+      ].join(" ")
+    ),
+  })),
+  ...storyCollections.map((story) => ({
+    id: `story:${story.id}`,
+    kind: "story" as const,
+    title: story.title,
+    description: story.dek,
+    href: `/stories/${story.id}`,
+    meta: story.eyebrow,
+    keywords: normalize(
+      [
+        story.title,
+        story.eyebrow,
+        story.dek,
+        story.summary,
+        story.sections.map((section) => section.heading).join(" "),
+      ].join(" ")
+    ),
+  })),
+  ...simulations.map((simulation) => ({
+    id: `simulation:${simulation.id}`,
+    kind: "simulation" as const,
+    title: simulation.title,
+    description: simulation.description,
+    href: simulation.href,
+    meta: `${simulation.number} · educational model`,
+    keywords: normalize(
+      [
+        simulation.title,
+        simulation.tagline,
+        simulation.description,
+        simulation.objectives.join(" "),
+        simulation.concepts.join(" "),
+      ].join(" ")
+    ),
+  })),
+  ...methodSections.map((section) => ({
+    id: `research:${section.id}`,
+    kind: "research" as const,
+    title: section.heading,
+    description: section.paragraphs[0] ?? "Research Archive method",
+    href: `/research#${section.id}`,
+    meta: "Research Archive",
+    keywords: normalize(
+      [section.heading, section.paragraphs.join(" "), "method sources limits"].join(" ")
+    ),
+  })),
 ];
 
 export const searchDocs = docs;
@@ -162,6 +233,10 @@ export const kindLabels: Record<SearchKind, string> = {
   article: "Article",
   agency: "Agency",
   glossary: "Glossary",
+  engineering: "Engineering",
+  story: "Story",
+  simulation: "Simulation",
+  research: "Research",
 };
 
 export interface SearchResult {

@@ -55,7 +55,7 @@ export function ArtifactVisual({
         )}
       />
       {showLabel && media.isIllustration ? (
-        <span className="absolute left-3 top-3 z-10 rounded-full border border-white/20 bg-black/65 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
+        <span className="absolute start-3 top-3 z-10 rounded-full border border-white/20 bg-black/65 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
           Illustration
         </span>
       ) : null}

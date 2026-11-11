@@ -8,7 +8,11 @@ import {
   BookOpen,
   Gamepad2,
   Home,
+  Layers,
   Route,
+  ScrollText,
+  Trophy,
+  Wrench,
 } from "lucide-react";
 
 const links = [
@@ -17,7 +21,11 @@ const links = [
   { href: "/academy/lessons", label: "Lessons", icon: BookOpen },
   { href: "/academy/play", label: "Playground", icon: Gamepad2 },
   { href: "/academy/robot-lab", label: "Robot lab", icon: Bot },
+  { href: "/academy/build-rover", label: "Build a rover", icon: Wrench },
+  { href: "/academy/flashcards", label: "Flashcards", icon: Layers },
   { href: "/academy/progress", label: "Progress", icon: Award },
+  { href: "/academy/achievements", label: "Achievements", icon: Trophy },
+  { href: "/academy/certificate", label: "Certificate", icon: ScrollText },
 ] as const;
 
 export function AcademyNav() {

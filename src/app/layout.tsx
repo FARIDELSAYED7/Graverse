@@ -4,6 +4,8 @@ import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ExperienceTheme } from "@/components/layout/ExperienceTheme";
+import { getLocale, localeAttributes } from "@/lib/locale";
+import { t } from "@/lib/i18n";
 
 const inter = localFont({
   src: "../fonts/InterVariable.woff2",
@@ -63,8 +65,15 @@ const experienceScript = `try{var p=location.pathname;var e=p==="/academy"||p.in
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = getLocale();
+  const attributes = localeAttributes(locale);
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={attributes.lang}
+      dir={attributes.dir}
+      className={inter.variable}
+      suppressHydrationWarning
+    >
       <body className="font-sans">
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
         <script dangerouslySetInnerHTML={{ __html: experienceScript }} />
@@ -73,7 +82,7 @@ export default function RootLayout({
           href="#main-content"
           className="btn-primary fixed left-4 top-4 z-[100] -translate-y-24 rounded-full px-4 py-2 text-sm font-semibold transition-transform focus:translate-y-0"
         >
-          Skip to main content
+          {t(locale, "common.skip")}
         </a>
         <div className="space-backdrop" aria-hidden="true">
           <div className="space-backdrop__photo" />
@@ -81,11 +90,11 @@ export default function RootLayout({
           <div className="space-backdrop__stars" />
           <div className="space-backdrop__veil" />
         </div>
-        <SiteHeader />
+        <SiteHeader locale={locale} />
         <main id="main-content" className="min-h-[70vh]">
           {children}
         </main>
-        <SiteFooter />
+        <SiteFooter locale={locale} />
       </body>
     </html>
   );

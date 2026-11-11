@@ -345,7 +345,7 @@ export default function AboutPage() {
               </h2>
             </div>
             <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-start text-sm">
                 <caption className="sr-only">
                   Data fields included in the normalized records
                 </caption>

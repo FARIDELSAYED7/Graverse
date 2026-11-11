@@ -37,6 +37,10 @@ const kindOrder: SearchKind[] = [
   "article",
   "agency",
   "glossary",
+  "engineering",
+  "story",
+  "simulation",
+  "research",
 ];
 
 export function SearchExperience({ initial }: { initial: SearchInitialState }) {
@@ -118,7 +122,8 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
           Artifacts, missions, destinations, deep-sky records, lessons,
-          journeys, articles, agencies and glossary terms. Partial and
+          journeys, articles, agencies, glossary terms, engineering explainers,
+          stories, simulations and the Research Archive. Partial and
           case-insensitive matches work; every result opens its own record.
         </p>
       </div>
@@ -137,7 +142,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
         <div className="relative flex-1">
           <Search
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted"
+            className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted"
           />
           <input
             ref={inputRef}
@@ -149,7 +154,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="e.g. Perseverance, Apollo, Moon, rover, quiz"
             aria-describedby="search-result-count"
-            className="h-12 w-full rounded-full border border-white/12 bg-white/[0.05] pl-11 pr-10 text-sm text-text-primary placeholder:text-text-muted focus:border-accent/60 focus:outline-none"
+            className="h-12 w-full rounded-full border border-white/12 bg-white/[0.05] ps-11 pe-10 text-sm text-text-primary placeholder:text-text-muted focus:border-accent/60 focus:outline-none"
           />
           {query ? (
             <button
@@ -160,7 +165,7 @@ export function SearchExperience({ initial }: { initial: SearchInitialState }) {
                 inputRef.current?.focus();
               }}
               aria-label="Clear search text"
-              className="absolute right-3 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-white"
+              className="absolute end-3 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-text-muted hover:bg-white/10 hover:text-white"
             >
               <X aria-hidden="true" className="h-3.5 w-3.5" />
             </button>

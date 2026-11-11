@@ -2,8 +2,8 @@
 
 **An interactive space heritage timeline and source-linked digital museum.**
 
-GRAVERSE is one product with three deliberately different experiences built on
-one verified collection:
+GRAVERSE is one product with three deliberately different core experiences built
+on one verified collection:
 
 | Experience | Route | Audience | Character |
 | --- | --- | --- | --- |
@@ -11,10 +11,23 @@ one verified collection:
 | **Museum** | `/museum` | General readers | Cinematic, dark, story-first |
 | **Explorer** | `/explorer` | Curious investigators | Data-first, immersive, filterable |
 
+Around those three doors sit six additional source-linked surfaces:
+
+| Surface | Route | What it adds |
+| --- | --- | --- |
+| **Mission Control** | `/mission-control` | A status board that keeps mission, hardware and derived communication status separate |
+| **Engineering Lab** | `/engineering` | Seven explainers on power, mobility, landing, communication, instruments, materials and engineering evolution |
+| **Space Stories** | `/stories` | Eight curated reading paths through records that already exist |
+| **Research Archive** | `/research` | Method, source hierarchy, claim labels, coverage and an honest changelog |
+| **Mission Experience Lab** | `/simulations` | Eight interactive educational models, each labelled as an approximation |
+| **My Universe** | `/my-universe` | Local favourites, collections, recently viewed records and completed simulations |
+
 The Academy also has a **Space Playground** at `/academy/play` with three small
 3D games — a toy rocket builder, a Moon-phase mission and a rover sample run.
 They are built with simple shapes, labelled as toys rather than official models,
-and each links back to a verified lesson and museum record.
+and each links back to a verified lesson and museum record. The Academy adds a
+rover engineering exercise, flashcards, an achievement shelf and a printable
+self-issued learning record.
 
 Every record answers the same questions — what was it, what happened, what did we
 learn, what is known about it now — and every important claim carries an
@@ -57,7 +70,7 @@ readers get larger text, simpler sections and stronger contrast.
 | @react-three/fiber | 8.18.0 |
 | @react-three/drei | 9.122.0 |
 | zod | 3.24.1 |
-| Node.js | ≥ 20.9 (`.nvmrc` pins 20) |
+| Node.js | ≥ 22 (`.nvmrc` pins 22) |
 | Browser checks | puppeteer-core 23.11.1 + @axe-core/puppeteer 4.10.2 |
 
 No Vite migration, no alternate framework, no component library.
@@ -67,7 +80,7 @@ No Vite migration, no alternate framework, no component library.
 ## Quick start
 
 ```bash
-nvm use            # Node 20
+nvm use            # Node 22
 npm ci
 npm run dev        # http://localhost:3000
 ```
@@ -122,6 +135,10 @@ overwrites a running `next dev` cache.
 /academy/play/rocket           Rocket Workshop (toy builder/launcher)
 /academy/play/moon             Moon Phase Mission (3 rounds + 3D diagram)
 /academy/play/rover            Rover Quest (invented grid game)
+/academy/build-rover           rover engineering trade-off exercise
+/academy/flashcards            lesson and glossary study cards
+/academy/achievements          badges derived from local activity
+/academy/certificate           printable self-issued learning record
 /academy/progress              local progress: export / import / reset
 /academy/robot-lab             scripted robot guide
 /museum                        the collection
@@ -130,6 +147,17 @@ overwrites a running `next dev` cache.
 /museum/missions/[id]
 /museum/agencies               agency index
 /museum/agencies/[id]
+/mission-control               mission / hardware / communication status board
+/engineering                   engineering explainer index
+/engineering/[id]
+/stories                       curated reading paths
+/stories/[id]
+/research                      method, sources, coverage and changelog
+/simulations                   Mission Experience Lab index
+/simulations/[id]
+/my-universe                   local favourites, collections and recent records
+/compare                       side-by-side artifact comparison
+/api/export                    JSON export of any dataset (or all)
 /explorer                      timeline / destination / artifact modes
 /explorer/solar-system         3D orrery + accessible 2D map
 /explorer/bodies               destination index
@@ -171,6 +199,10 @@ Explorer query parameters (`mode`, `view`, `scope`, `sort`, `destination`,
 | Academy journeys | 4 |
 | Academy articles | 8 |
 | Playground games | 3 |
+| Engineering explainers | 7 |
+| Story collections | 8 |
+| Simulation definitions | 8 |
+| Research method sections | 7 |
 | Glossary terms | 40 |
 | Registered sources | 96 |
 | Directed relation edges | 581 |
@@ -249,7 +281,7 @@ Target: WCAG 2.1 AA. Semantic landmarks, one `h1` per page, keyboard paths,
 visible focus, labelled controls, non-color status cues, reduced-motion support,
 `aria-live` result counts, and 2D alternatives for every 3D/decorative view.
 
-Browser checks run axe (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`) on 24
+Browser checks run axe (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`) on 38
 representative pages, including the playground hub and all three games. See
 [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) for the approach, automated
 results and the manual checks that were performed.
@@ -265,14 +297,14 @@ deployed environment.
 - Data validation: **passed** — 30 artifacts, 20 bodies, 8 deep-sky objects,
   24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96
   sources, 581 directed relation edges.
-- Data tests: **12/12 passed**.
+- Data tests: **21/21 passed**, including the interface dictionary checks.
 - Lint: **no errors**; one pre-existing `react-hooks/exhaustive-deps` warning in
   `ExploreExperience.tsx`.
 - Typecheck: **passed**.
-- Production build: **passed** — 140 static pages generated.
-- Browser smoke: **36 routes checked, 0 failures**, including a real rover key
+- Production build: **passed** — 175 static pages generated.
+- Browser smoke: **47 routes checked, 0 failures**, including a real rover key
   move and a rocket launch that saves its badge.
-- Axe: **0 violations** (0 serious or critical) on 24 pages.
+- Axe: **0 violations** (0 serious or critical) on 38 pages.
 
 A local headless-Chrome probe of thirteen representative routes recorded **CLS 0**
 everywhere and LCP between **52 ms and 108 ms** on an unthrottled machine. Those
@@ -299,7 +331,21 @@ Exact numbers and the build output summary are repeated in
   official spacecraft model is included.
 - Academy progress, including playground badges and best star scores, is local to
   one browser. There are no accounts, no cloud sync and no analytics on progress.
-  Export a JSON file to move it.
+  Export a JSON file to move it. Personal favourites, collections and recent
+  views use a separate local record, so importing an old progress file cannot
+  overwrite them.
+- Interface localisation covers navigation, the footer, the homepage hero, section
+  chrome and the new Mission Control, Engineering, Stories, Research, Simulations,
+  My Universe and comparison surfaces. Editorial artifact, lesson and story prose
+  remains English-only; the Research Archive states this limitation instead of
+  implying a full translation. The Arabic layout mirrors the English one and
+  keeps dates, measurements and sentences in their own reading order, but a
+  screen reader will still switch languages within a page.
+- Communication status is **derived** from recorded hardware status. It is not a
+  live telemetry feed and the interface labels it as derived on every surface.
+- The artifact "recorded anatomy" view groups specifications that are already in
+  the record. It is a schematic reading aid, not a physical layout, and it is
+  labelled as a non-reconstruction.
 - Automated coverage is data/logic tests plus browser smoke and axe. There is no
   full visual-regression or cross-browser matrix.
 - The browser gate needs Chrome/Chromium. Set `CHROME_PATH` when the default

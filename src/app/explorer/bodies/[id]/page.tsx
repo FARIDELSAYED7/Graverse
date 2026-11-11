@@ -339,7 +339,7 @@ export default function BodyPage({ params }: PageProps) {
             {next ? (
               <Link
                 href={`/explorer/bodies/${next.id}`}
-                className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-right transition-colors hover:border-brand-cyan/40"
+                className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-end transition-colors hover:border-brand-cyan/40"
               >
                 <span>
                   <span className="block text-[10px] uppercase tracking-[0.16em] text-text-muted">

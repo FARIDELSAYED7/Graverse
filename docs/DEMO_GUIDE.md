@@ -103,10 +103,10 @@ Open `/explorer`.
 
 - Press `Tab` once: the skip link appears.
 - On mobile width, open the menu with the keyboard and close it with `Escape`.
-- Mention: axe on 24 pages, 0 serious/critical violations; semantic landmarks;
+- Mention: axe on 38 pages, 0 serious/critical violations; semantic landmarks;
   reduced-motion support; 2D alternatives.
-- Mention the build gate: data validation, 12 data tests, lint, typecheck,
-  production build, 36-route smoke and redirect checks, including a real rover
+- Mention the build gate: data validation, 21 data tests, lint, typecheck,
+  production build, 47-route smoke and redirect checks, including a real rover
   key move and a rocket launch that saves its badge.
 
 ## Recorded results
@@ -116,12 +116,12 @@ Last local run of `npm run verify`:
 | Gate | Result |
 | --- | --- |
 | Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 edges |
-| Data tests | 12/12 passed |
+| Data tests | 21/21 passed |
 | ESLint | No errors; one pre-existing `exhaustive-deps` warning |
 | Typecheck | Passed |
-| Production build | Passed — 140 static pages |
-| Smoke | 36 routes, 0 failures, including gameplay and badge persistence |
-| Axe | 0 violations on 24 pages |
+| Production build | Passed — 175 static pages |
+| Smoke | 47 routes, 0 failures, including gameplay and badge persistence |
+| Axe | 0 violations on 38 pages |
 
 Reproduce with:
 

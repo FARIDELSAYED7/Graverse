@@ -184,7 +184,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
       "",
       query ? `/explorer?${query}` : "/explorer"
     );
-  }, [mode, view, scope, sort, filters, selectedEntry]);
+  }, [mode, view, scope, sort, filters, selectedEntry, selectedKey]);
 
   function updateFilter<K extends keyof ArtifactFilters>(
     key: K,
@@ -383,7 +383,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                   onChange={(event) =>
                     setSort(event.target.value as SortOption)
                   }
-                  className="h-9 rounded-full border border-white/12 bg-[#0a1426] px-3 pr-7 text-xs text-text-primary focus:border-accent/60 focus:outline-none"
+                  className="h-9 rounded-full border border-white/12 bg-[#0a1426] px-3 pe-7 text-xs text-text-primary focus:border-accent/60 focus:outline-none"
                 >
                   <option value="oldest">Oldest first</option>
                   <option value="newest">Newest first</option>
@@ -653,7 +653,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                       setView("visual");
                     }}
                     className={cn(
-                      "card-hover group relative overflow-hidden rounded-card border border-white/10 bg-surface/60 text-left transition-opacity",
+                      "card-hover group relative overflow-hidden rounded-card border border-white/10 bg-surface/60 text-start transition-opacity",
                       count === 0 && "cursor-not-allowed opacity-55"
                     )}
                   >
@@ -664,7 +664,7 @@ export function ExploreExperience({ initial }: ExploreExperienceProps) {
                         imageClassName="group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/25 to-transparent" />
-                      <span className="absolute right-3 top-3 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
+                      <span className="absolute end-3 top-3 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
                         {pluralize(count, "match", "matches")}
                       </span>
                     </div>

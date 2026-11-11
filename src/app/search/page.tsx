@@ -8,7 +8,7 @@ import type { SearchKind } from "@/lib/search-index";
 export const metadata: Metadata = {
   title: "Search",
   description:
-    "Search artifacts, missions, destinations, deep-sky records, lessons, journeys, articles, agencies and glossary terms across GRAVERSE.",
+    "Search artifacts, missions, destinations, deep-sky records, lessons, journeys, articles, agencies, glossary terms, engineering explainers, stories, simulations and the Research Archive across GRAVERSE.",
 };
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -24,6 +24,10 @@ const kinds: Array<SearchKind | "all"> = [
   "article",
   "agency",
   "glossary",
+  "engineering",
+  "story",
+  "simulation",
+  "research",
 ];
 
 function first(value: string | string[] | undefined): string | undefined {

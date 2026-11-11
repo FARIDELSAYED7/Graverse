@@ -1,22 +1,52 @@
 import assert from "node:assert/strict";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import { allArtifacts, getArtifactById } from "@/data/artifacts";
 import { articles } from "@/data/articles";
+import { engineeringTopics } from "@/data/engineering";
 import { playGames } from "@/data/games";
 import { glossary } from "@/data/glossary";
 import { journeys } from "@/data/journeys";
 import { lessons } from "@/data/lessons";
 import { missions } from "@/data/missions";
+import { methodSections } from "@/data/research";
+import { simulations } from "@/data/simulations";
 import { sources } from "@/data/sources";
+import { storyCollections } from "@/data/stories";
 import { agencies } from "@/data/space/agencies";
 import { celestialBodies } from "@/data/space/bodies";
 import { deepSkyObjects } from "@/data/space/deep-sky";
 import { listRelations } from "@/data/relations";
+import { achievementSummary } from "@/lib/achievements";
 import { experienceForPath } from "@/lib/experience";
+import {
+  addRecent,
+  createCollection,
+  deleteCollection,
+  emptyPersonal,
+  exportPersonal,
+  importPersonal,
+  MAX_RECENT,
+  recordSimulation,
+  toggleCollectionItem,
+  toggleFavorite,
+  validatePersonal,
+} from "@/lib/personal";
+import { deriveCommunicationStatus } from "@/lib/mission-control";
 import { isValidClaim } from "@/lib/provenance";
+import {
+  defaultRoverBuild,
+  evaluateRoverBuild,
+  ROVER_MASS_LIMIT_KG,
+  ROVER_POWER_LIMIT_W,
+} from "@/lib/rover-builder";
 import { searchAll } from "@/lib/search-index";
+import { isRtl, LOCALE_COOKIE, localeMeta } from "@/lib/i18n";
 import { validateProgress } from "@/lib/progress";
+import type { ProgressState } from "@/types/progress";
 import {
   ROVER_BASE,
   ROVER_GRID,
@@ -325,4 +355,296 @@ test("progress import validation rejects malformed data", () => {
     })?.lessons.ok.score,
     2
   );
+});
+
+test("new editorial datasets cite only registered sources and artifacts", () => {
+  const artifactIds = new Set(allArtifacts.map((artifact) => artifact.id));
+
+  assert.equal(engineeringTopics.length, 7);
+  assert.equal(storyCollections.length, 8);
+  assert.equal(simulations.length, 8);
+  assert.equal(methodSections.length, 7);
+
+  for (const topic of engineeringTopics) {
+    assert.ok(topic.sourceIds.length > 0, `${topic.id} has no sources`);
+    for (const id of topic.sourceIds) {
+      assert.ok(sourceIds.has(id), `${topic.id} cites missing source ${id}`);
+    }
+    for (const id of topic.artifactIds) {
+      assert.ok(artifactIds.has(id), `${topic.id} cites missing artifact ${id}`);
+    }
+  }
+
+  for (const story of storyCollections) {
+    assert.ok(story.sourceIds.length > 0, `${story.id} has no sources`);
+    for (const id of story.sourceIds) {
+      assert.ok(sourceIds.has(id), `${story.id} cites missing source ${id}`);
+    }
+    for (const id of story.artifactIds) {
+      assert.ok(artifactIds.has(id), `${story.id} cites missing artifact ${id}`);
+    }
+    for (const section of story.sections) {
+      for (const id of section.artifactIds) {
+        assert.ok(artifactIds.has(id), `${story.id} section cites missing artifact ${id}`);
+      }
+    }
+  }
+
+  for (const simulation of simulations) {
+    assert.ok(simulation.sourceIds.length > 0, `${simulation.id} has no sources`);
+    for (const id of simulation.sourceIds) {
+      assert.ok(sourceIds.has(id), `${simulation.id} cites missing source ${id}`);
+    }
+    for (const id of simulation.artifactIds) {
+      assert.ok(artifactIds.has(id), `${simulation.id} cites missing artifact ${id}`);
+    }
+    assert.equal(simulation.href, `/simulations/${simulation.id}`);
+    assert.ok(
+      simulation.approximation.length > 30,
+      `${simulation.id} needs an honest approximation note`
+    );
+  }
+});
+
+test("communication status is derived conservatively and labelled as derived", () => {
+  const valid = new Set([
+    "communicating",
+    "lost-contact",
+    "intermittent",
+    "not-applicable",
+    "unknown",
+  ]);
+
+  for (const artifact of allArtifacts) {
+    const status = deriveCommunicationStatus(artifact);
+    assert.ok(valid.has(status), `${artifact.id} produced ${status}`);
+  }
+
+  assert.equal(
+    deriveCommunicationStatus(getArtifactById("apollo-11-lrrr")!),
+    "not-applicable",
+    "passive retroreflectors must not be described as transmitting"
+  );
+  assert.equal(
+    deriveCommunicationStatus(getArtifactById("perseverance")!),
+    "communicating"
+  );
+  assert.equal(
+    deriveCommunicationStatus(getArtifactById("apollo-11-lm-descent-stage")!),
+    "not-applicable"
+  );
+});
+
+test("personal state is local, bounded and validates imports", () => {
+  let state = emptyPersonal();
+  state = toggleFavorite(state, "perseverance");
+  assert.deepEqual(state.favorites, ["perseverance"]);
+  state = toggleFavorite(state, "perseverance");
+  assert.deepEqual(state.favorites, []);
+
+  state = addRecent(state, "a");
+  state = addRecent(state, "b");
+  state = addRecent(state, "a");
+  assert.deepEqual(
+    state.recent.map((entry) => entry.id),
+    ["a", "b"],
+    "recently viewed must be deduplicated and newest first"
+  );
+
+  for (let index = 0; index < MAX_RECENT + 4; index += 1) {
+    state = addRecent(state, `artifact-${index}`);
+  }
+  assert.equal(state.recent.length, MAX_RECENT);
+
+  state = createCollection(state, "Moon hardware", ["apollo-11-lrrr"]);
+  const collectionId = state.collections[0]!.id;
+  assert.equal(state.collections[0]!.name, "Moon hardware");
+  state = toggleCollectionItem(state, collectionId, "perseverance");
+  assert.deepEqual(state.collections[0]!.artifactIds, [
+    "apollo-11-lrrr",
+    "perseverance",
+  ]);
+  state = deleteCollection(state, collectionId);
+  assert.equal(state.collections.length, 0);
+
+  state = recordSimulation(state, "landing", 88);
+  assert.equal(state.simulations.landing?.score, 88);
+
+  assert.ok(importPersonal(exportPersonal(state)));
+  assert.equal(importPersonal("{not json"), null);
+  assert.equal(validatePersonal({ version: 2 }), null);
+});
+
+test("achievements are derived from progress and personal activity", () => {
+  const emptyProgress: ProgressState = {
+    version: 1,
+    lessons: {},
+    journeys: {},
+    games: {},
+    badges: [],
+    updatedAt: "2026-11-11T00:00:00.000Z",
+  };
+
+  const empty = achievementSummary({
+    progress: emptyProgress,
+    personal: emptyPersonal(),
+  });
+  assert.equal(empty.unlocked, 0);
+  assert.equal(empty.statuses.length, 15);
+
+  let personal = emptyPersonal();
+  personal = toggleFavorite(personal, "perseverance");
+  personal = recordSimulation(personal, "landing");
+  personal = recordSimulation(personal, "rover-builder", 72);
+
+  const progress: ProgressState = {
+    ...emptyProgress,
+    lessons: {
+      "what-is-an-artifact": {
+        completedAt: "2026-11-11T00:00:00.000Z",
+        score: 2,
+        total: 2,
+      },
+    },
+  };
+
+  const summary = achievementSummary({ progress, personal });
+  const unlocked = new Set(
+    summary.statuses.filter((status) => status.unlocked).map((status) => status.id)
+  );
+  assert.ok(unlocked.has("first-lesson"));
+  assert.ok(unlocked.has("first-favorite"));
+  assert.ok(unlocked.has("first-simulation"));
+  assert.ok(unlocked.has("rover-builder"));
+  assert.ok(!unlocked.has("five-lessons"));
+});
+
+test("the rover builder reports a bounded, transparent teaching model", () => {
+  const result = evaluateRoverBuild(defaultRoverBuild);
+  assert.ok(result.score >= 0 && result.score <= 100);
+  assert.ok(result.massKg > 0);
+  assert.ok(Number.isFinite(result.powerW));
+  assert.ok(Array.isArray(result.notes));
+  assert.equal(typeof result.valid, "boolean");
+  assert.ok(ROVER_MASS_LIMIT_KG > 0);
+  assert.ok(ROVER_POWER_LIMIT_W > 0);
+
+  const incomplete = evaluateRoverBuild({
+    ...defaultRoverBuild,
+    instruments: [],
+    communication: "relay-unknown",
+  });
+  assert.equal(incomplete.valid, false);
+  assert.ok(incomplete.notes.length >= 2);
+  assert.ok(incomplete.notes.some((note) => note.includes("data")));
+});
+
+test("unified search covers engineering, stories, simulations and research", () => {
+  assert.ok(
+    searchAll("solar panels").some((result) => result.doc.kind === "engineering"),
+    "engineering topics must be searchable"
+  );
+  assert.ok(
+    searchAll("first machines").some((result) => result.doc.kind === "story"),
+    "story collections must be searchable"
+  );
+  assert.ok(
+    searchAll("landing sequence").some((result) => result.doc.kind === "simulation"),
+    "simulations must be searchable"
+  );
+  assert.ok(
+    searchAll("source hierarchy").some((result) => result.doc.kind === "research"),
+    "research method sections must be searchable"
+  );
+});
+
+/* ------------------------------------------------------------------ locale */
+
+interface LocaleDictionaries {
+  en: Record<string, string>;
+  ar: Record<string, string>;
+}
+
+/**
+ * Reads the two dictionaries straight out of the i18n module source so the
+ * test can compare them without exporting the internals for production use.
+ */
+function readDictionaries(): LocaleDictionaries {
+  const source = readFileSync(
+    new URL("../src/lib/i18n.ts", import.meta.url),
+    "utf8"
+  );
+  function keysOf(name: string): Record<string, string> {
+    const start = source.indexOf(`const ${name}: Dictionary = {`);
+    assert.notEqual(start, -1, `the ${name} dictionary must exist`);
+    const end = source.indexOf("\n};", start);
+    const body = source.slice(start, end);
+    const entries = [...body.matchAll(/"([^"]+)":\s*"((?:[^"\\]|\\.)*)"/g)];
+    return Object.fromEntries(
+      entries.map((match) => [match[1], match[2].replace(/\\"/g, '"')])
+    );
+  }
+  return { en: keysOf("en"), ar: keysOf("ar") };
+}
+
+function collectSourceFiles(directory: string): string[] {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return collectSourceFiles(path);
+    return /\.tsx?$/.test(entry.name) ? [path] : [];
+  });
+}
+
+test("the interface dictionaries are complete and in step", () => {
+  const { en, ar } = readDictionaries();
+  const enKeys = Object.keys(en).sort();
+  const arKeys = Object.keys(ar).sort();
+
+  assert.deepEqual(
+    enKeys,
+    arKeys,
+    "every English key needs an Arabic key and vice versa"
+  );
+  assert.ok(enKeys.length > 0, "the interface dictionary must not be empty");
+
+  for (const key of enKeys) {
+    assert.ok(en[key].trim().length > 0, `${key} must not be empty in English`);
+    assert.ok(ar[key].trim().length > 0, `${key} must not be empty in Arabic`);
+  }
+});
+
+test("every translation key used in the interface is defined", () => {
+  const { en } = readDictionaries();
+  const root = fileURLToPath(new URL("../src", import.meta.url));
+  const used = new Set<string>();
+
+  for (const file of collectSourceFiles(root)) {
+    if (file.endsWith(join("lib", "i18n.ts"))) continue;
+    const source = readFileSync(file, "utf8");
+    // t(locale, "key") and translate(locale)("key")
+    for (const match of source.matchAll(/\bt\(\s*[A-Za-z_$][\w$.]*\s*,\s*"([^"]+)"/g)) {
+      used.add(match[1]);
+    }
+    for (const match of source.matchAll(/\btranslate\(\s*[A-Za-z_$][\w$.]*\s*\)\s*\(\s*"([^"]+)"/g)) {
+      used.add(match[1]);
+    }
+    // Keys referenced as plain strings, such as the navigation config.
+    for (const match of source.matchAll(/"([a-z][A-Za-z]*\.[A-Za-z.]+)"/g)) {
+      used.add(match[1]);
+    }
+  }
+
+  const missing = [...used].filter((key) => !(key in en)).sort();
+  assert.deepEqual(missing, [], `undefined translation keys: ${missing.join(", ")}`);
+  assert.ok(used.size > 0, "the interface must actually use translated strings");
+});
+
+test("the locale cookie drives the document direction", () => {
+  assert.equal(localeMeta.en.dir, "ltr");
+  assert.equal(localeMeta.en.htmlLang, "en");
+  assert.equal(localeMeta.ar.dir, "rtl");
+  assert.equal(localeMeta.ar.htmlLang, "ar");
+  assert.equal(isRtl("en"), false);
+  assert.equal(isRtl("ar"), true);
+  assert.equal(LOCALE_COOKIE, "graverse-locale");
 });

@@ -10,6 +10,8 @@ import { getMission, missions } from "@/data/missions";
 import { getAgencyForMission } from "@/data/space/agencies";
 import { missionStatusLabels } from "@/lib/status";
 import { formatDate } from "@/lib/format";
+import { getLocale } from "@/lib/locale";
+import { t } from "@/lib/i18n";
 
 type PageProps = { params: { id: string } };
 
@@ -31,6 +33,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
 export default function MissionPage({ params }: PageProps) {
   const mission = getMission(params.id);
   if (!mission) notFound();
+  const locale = getLocale();
 
   const artifacts = getArtifactsByIds(mission.artifactIds);
   const agency = getAgencyForMission(mission);
@@ -216,7 +219,7 @@ export default function MissionPage({ params }: PageProps) {
               {next ? (
                 <Link
                   href={`/museum/missions/${next.id}`}
-                  className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-right transition-colors hover:border-brand-violet/40"
+                  className="group flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-end transition-colors hover:border-brand-violet/40"
                 >
                   <span>
                     <span className="block text-[10px] uppercase tracking-[0.16em] text-text-muted">
@@ -244,13 +247,13 @@ export default function MissionPage({ params }: PageProps) {
                 <div>
                   <dt className="text-text-muted">Program</dt>
                   <dd className="mt-0.5 font-medium text-text-primary">
-                    {mission.program || "Not recorded"}
+                    {mission.program || t(locale, "common.none")}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-text-muted">Agency</dt>
                   <dd className="mt-0.5 font-medium text-text-primary">
-                    {agency?.name ?? "Not recorded"}
+                    {agency?.name ?? t(locale, "common.none")}
                   </dd>
                 </div>
                 <div>

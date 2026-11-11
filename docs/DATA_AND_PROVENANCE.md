@@ -67,12 +67,31 @@ document does not duplicate the list because duplication is how registries drift
 | Lessons | `src/data/lessons.ts` | 12 | Three age bands |
 | Journeys | `src/data/journeys.ts` | 4 | First Flight, Moon Detectives, Mission Engineer, Rock to Rover |
 | Articles | `src/data/articles.ts` | 8 | Long-form Academy reading |
+| Engineering | `src/data/engineering.ts` | 7 | Explainers linked to existing artifacts and sources |
+| Stories | `src/data/stories.ts` | 8 | Curated reading paths; no new factual claims |
+| Simulations | `src/data/simulations.ts` | 8 | Definitions plus mandatory approximation notes |
+| Research | `src/data/research.ts` | 7 method sections | Method, coverage, changelog and API notes |
 | Glossary | `src/data/glossary.ts` | 40 | Plain-language definitions |
 | Sources | `src/data/sources.ts` | 96 | Registry |
 | Relations | `src/data/relations.ts` | 581 directed edges | Symmetric inverses |
 
 Counts are ceilings that were deliberately kept small. A smaller, checked set is
 more useful than a large unchecked one.
+
+Editorial files do not introduce new mission facts. Engineering topics, stories
+and simulations reference artifact and source IDs that already exist; the data
+tests assert that every reference resolves. Simulation outputs are computed
+teaching models, not observations, and every definition carries an
+`approximation` note shown in the interface.
+
+## Derived communication status
+
+Communication status is not a stored source field. `src/lib/mission-control.ts`
+derives a conservative label from the recorded hardware status, with explicit
+exceptions for passive retroreflectors and left-behind descent stages. The
+original hardware wording remains on the artifact page, and every derived label is
+accompanied by a note saying it is not a live telemetry feed. The derivation adds
+no new claim to the dataset.
 
 ## Validation
 
@@ -117,6 +136,10 @@ ended. These notes are rendered next to the sources, not buried in metadata.
 - Illustrations are flagged with `isIllustration` and labelled in the UI.
 - Bodies and deep-sky objects use schematic gradients, explicitly labelled
   "Schematic, not a photo" / "no telescope image is included".
-- There are no spacecraft 3D models. The only 3D view is the schematic orrery.
+- There are no photoreal spacecraft 3D models. The only 3D views are the
+  schematic orrery and the labelled playground toys.
+- Artifact pages include a "recorded anatomy" panel that groups the specifications
+  already present in the record. It is a reading aid, not a physical layout, and
+  is labelled as a schematic non-reconstruction.
 - Missing media is shown as a deliberate "no image" state, not replaced with a
   generated asset.

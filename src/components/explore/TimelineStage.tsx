@@ -230,7 +230,7 @@ export function TimelineStage({
                 </p>
               </div>
             </div>
-            <div className="glass absolute -left-3 bottom-8 hidden rounded-lg px-2.5 py-1.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary sm:block">
+            <div className="glass absolute start-[-0.75rem] bottom-8 hidden rounded-lg px-2.5 py-1.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary sm:block">
               {artifact.media?.isIllustration ? "Artist concept" : "NASA image"}
             </div>
           </div>
