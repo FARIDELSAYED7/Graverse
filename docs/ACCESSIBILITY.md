@@ -95,7 +95,7 @@ Target: **WCAG 2.1 AA**.
    Research, Simulations, My Universe, comparison and Academy build/flashcard/
    achievement/certificate surfaces.
 2. **Smoke assertions** for HTTP status, title, exactly one `h1`, `main`
-   landmark and non-empty content on 47 routes (one of which is the deliberate
+   landmark and non-empty content on 50 routes (one of which is the deliberate
    404 check).
 3. **Keyboard assertions**: first Tab reaches the skip link; Enter activates it;
    the mobile menu opens, moves focus inside and closes on Escape; ArrowUp moves

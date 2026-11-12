@@ -20,9 +20,12 @@ islands for interaction only:
 | `Simulators` | Eight interactive educational models with local state |
 | `MyUniverseClient`, `RoverBuilder`, `Flashcards` | Local collections, build state and study-card state |
 
-The production build generates **175 static pages**. `/search` is the only
-dynamic route because its query string is user-controlled; it still renders from
-the same static data module.
+The production build defines **47 route patterns** that resolve to **172 concrete
+routes**: 35 static routes plus 137 pages generated from `generateStaticParams`
+across the artifact, mission, agency, body, deep-sky, lesson, journey, article,
+engineering, story, and simulation routes. `/search` is the only route rendered
+on demand, because its query string is user-controlled; it still renders from the
+same static data module.
 
 ## 2. Route model
 
@@ -269,7 +272,7 @@ tsc --noEmit
 
 `scripts/verify.mjs` orchestrates the sequence and tears the server down. The
 browser script checks HTTP status, title, `h1`, `main` landmark and body length
-for 47 routes, asserts the three redirects preserve query strings, drives a real
+for 50 routes, asserts the three redirects preserve query strings, drives a real
 rover move from its focused arrow panel, launches the toy rocket and checks that
 `badge-play-rocket` was saved, and runs axe on 38 representative pages.
 

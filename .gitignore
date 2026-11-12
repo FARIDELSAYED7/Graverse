@@ -1,22 +1,141 @@
-# dependencies
-node_modules/
+# =============================================================================
+# GRAVERSE — repository ignore rules
+#
+# Keep this file in sync with the stack: Next.js 14 (App Router), React 18,
+# TypeScript (strict), Tailwind CSS, three.js + @react-three/fiber + drei,
+# zod, and Node.js 22.
+#
+# Nothing that the application needs at runtime or build time belongs here:
+# source, public assets, datasets, documentation and configuration are all
+# tracked. Only generated output, local state and machine noise are ignored.
+# =============================================================================
 
-# Next.js build output
+# ---------------------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ---------------------------------------------------------------------------
+# Next.js build output and generated files
+# ---------------------------------------------------------------------------
 .next/
 .next-prod/
 out/
-
-# local environment
-.env
-.env*.local
-
-# TypeScript
-*.tsbuildinfo
+build/
+dist/
 next-env.d.ts
 
-# OS / editor
-.DS_Store
-*.pem
+# ---------------------------------------------------------------------------
+# TypeScript
+# ---------------------------------------------------------------------------
+*.tsbuildinfo
+*.tsbuildinfo.*
+
+# ---------------------------------------------------------------------------
+# Test, coverage and browser-automation artifacts
+# ---------------------------------------------------------------------------
+coverage/
+coverage-final.json
+.nyc_output/
+lib-cov/
+playwright-report/
+playwright/.cache/
+test-results/
+blob-report/
+.playwright/
+.percy/
+.puppeteer-cache/
+screenshots/
+
+# ---------------------------------------------------------------------------
+# Caches
+# ---------------------------------------------------------------------------
+.cache/
+.eslintcache
+.stylelintcache
+.prettiercache
+.parcel-cache/
+.turbo/
+.swc/
+.tmp/
+tmp/
+temp/
+
+# ---------------------------------------------------------------------------
+# Logs and debugging output
+# ---------------------------------------------------------------------------
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.pid
+*.seed
+*.pid.lock
+
+# ---------------------------------------------------------------------------
+# Local environment files (may contain secrets)
+# `.env.example` is a documented template and stays tracked.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------------------
+# Editor and IDE directories
+# ---------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.iml
+*.ipr
+*.iws
+.zed/
+*.sublime-workspace
+*.sublime-project
+
+# ---------------------------------------------------------------------------
+# Operating system metadata
+# ---------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------------------------------------------------------------------------
+# Deployment and hosting providers
+# ---------------------------------------------------------------------------
+.vercel/
+.netlify/
+.firebase/
+*.firebase
+.wrangler/
+
+# ---------------------------------------------------------------------------
+# Miscellaneous local artefacts
+# ---------------------------------------------------------------------------
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+.eslintcache

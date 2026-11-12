@@ -136,8 +136,8 @@ Last local run of `npm run verify`:
 | Data tests | 21/21 passed |
 | ESLint | No errors and no warnings |
 | Typecheck | Passed |
-| Production build | Passed — 175 static pages |
-| Smoke | 47 routes, 0 failures, including gameplay and badge persistence |
+| Production build | Passed — 47 route patterns, 172 concrete routes |
+| Smoke | 50 routes, 0 failures, including gameplay and badge persistence |
 | Axe | 0 violations on 38 pages |
 | User journeys | 24/24 passed |
 | Internal links | 192/192 resolved |
