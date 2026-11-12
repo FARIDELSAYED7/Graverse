@@ -569,6 +569,290 @@ check("no-webgl-fallback", "The product still works when WebGL is unavailable", 
   );
 });
 
+check("ask-graverse", "The assistant opens, stays contextual, and never blocks the museum", async (page) => {
+  await goto(page, "/museum/perseverance");
+
+  const launcher = await page.$('button[aria-label="Open Ask GRAVERSE"]');
+  assert(launcher, "The Ask GRAVERSE launcher was not rendered");
+  await launcher.click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const panel = await page.$('[role="dialog"]');
+  assert(panel, "The assistant panel did not open");
+
+  const panelText = await page.evaluate(() => {
+    const node = document.querySelector('[role="dialog"]');
+    return node ? (node.textContent ?? "") : "";
+  });
+  assert(/Ask GRAVERSE/i.test(panelText), "The assistant panel lost its title");
+  assert(
+    /Perseverance/i.test(panelText),
+    "The contextual record was not carried into the assistant"
+  );
+  assert(
+    /[?？]/i.test(panelText) || panelText.length > 0,
+    "The assistant panel is empty"
+  );
+
+  const composer = await page.$('[role="dialog"] textarea');
+  assert(composer, "The assistant has no question box");
+
+  // The two operating modes are offered on a contextual page.
+  const modes = await page.$$eval('[role="dialog"] button[aria-pressed]', (nodes) =>
+    nodes.map((node) => ({
+      pressed: node.getAttribute("aria-pressed"),
+      label: (node.textContent ?? "").trim(),
+    }))
+  );
+  assert(
+    modes.length === 2,
+    "The assistant did not offer both a contextual and a global mode"
+  );
+  assert(
+    modes.some((mode) => mode.pressed === "true"),
+    "No assistant mode was selected"
+  );
+
+  // The assistant must never open more than one WebGL surface, and the 3D
+  // identity must be present in the launcher and in the console.
+  const surfaces = await page.evaluate(() => ({
+    canvases: document.querySelectorAll("canvas").length,
+    slots: document.querySelectorAll('[role="dialog"] span.block').length,
+  }));
+  assert(
+    surfaces.canvases <= 1,
+    `The assistant opened ${surfaces.canvases} WebGL surfaces`
+  );
+  assert(surfaces.slots >= 1, "The assistant identity was not rendered");
+
+  // The museum record behind the panel is still complete.
+  const body = await bodyText(page);
+  assert(
+    /Perseverance/i.test(body),
+    "The museum record disappeared when the assistant opened"
+  );
+  assert(
+    /Sources|Accessed/i.test(body),
+    "The artifact sources disappeared when the assistant opened"
+  );
+
+  // Escape closes the panel and the page keeps working.
+  await page.keyboard.press("Escape");
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  const closed = await page.evaluate(() => {
+    const node = document.querySelector('[role="dialog"]');
+    if (!node) return true;
+    const style = getComputedStyle(node);
+    return style.display === "none" || style.visibility === "hidden";
+  });
+  assert(closed, "Escape did not close the assistant");
+});
+
+check("ask-graverse-scroll", "The 3D identity never escapes the console", async (page) => {
+  await goto(page, "/museum/perseverance");
+  await new Promise((resolve) => setTimeout(resolve, 1400));
+  const launcher = await page.$('button[aria-label="Open Ask GRAVERSE"]');
+  assert(launcher, "The assistant launcher was not rendered");
+  await launcher.click();
+  await new Promise((resolve) => setTimeout(resolve, 900));
+
+  // Scroll the conversation so the empty state leaves the console.
+  await page.evaluate(() => {
+    const log = document.querySelector('[role="log"]');
+    log.scrollTop = log.scrollHeight;
+    log.dispatchEvent(new Event("scroll", { bubbles: true }));
+  });
+  await new Promise((resolve) => setTimeout(resolve, 700));
+
+  const state = await page.evaluate(() => {
+    const log = document.querySelector('[role="log"]');
+    const slot = log.querySelector("div.relative.h-24");
+    if (!slot) return { gone: true };
+    const fallback = slot.firstElementChild;
+    const s = slot.getBoundingClientRect();
+    const l = log.getBoundingClientRect();
+    return {
+      gone: false,
+      outside: s.top < l.top - 1 || s.bottom > l.bottom + 1,
+      fallbackOpacity: fallback ? getComputedStyle(fallback).opacity : null,
+    };
+  });
+
+  if (state.gone) {
+    // The empty state was replaced by a conversation: nothing can escape.
+  } else {
+    assert(
+      state.outside,
+      "The empty state did not scroll out of the console, so the check is void"
+    );
+    assert(
+      state.fallbackOpacity === "1",
+      "The 3D core is still painted outside the console — the CSS mark must take over"
+    );
+  }
+
+  // Scrolling back brings the 3D core with it.
+  await page.evaluate(() => {
+    const log = document.querySelector('[role="log"]');
+    log.scrollTop = 0;
+    log.dispatchEvent(new Event("scroll", { bubbles: true }));
+  });
+  await new Promise((resolve) => setTimeout(resolve, 700));
+  const back = await page.evaluate(() => {
+    const log = document.querySelector('[role="log"]');
+    const slot = log.querySelector("div.relative.h-24");
+    if (!slot) return { gone: true };
+    const fallback = slot.firstElementChild;
+    return {
+      gone: false,
+      fallbackOpacity: fallback ? getComputedStyle(fallback).opacity : null,
+    };
+  });
+  assert(
+    back.gone || back.fallbackOpacity === "0",
+    "The 3D core did not come back when the console was scrolled to the top"
+  );
+});
+
+check("ask-graverse-local", "A local answer is labelled and reaches the visitor", async (page) => {
+  await goto(page, "/museum/perseverance");
+  const launcher = await page.$('button[aria-label="Open Ask GRAVERSE"]');
+  assert(launcher, "The assistant launcher was not rendered");
+  await launcher.click();
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  // A question GRAVERSE can answer from its own records. The answer is
+  // assembled locally, so this costs no provider request and no free quota.
+  await page.type('[role="dialog"] textarea', "What is the Solar System?");
+  await page.keyboard.press("Enter");
+  await new Promise((resolve) => setTimeout(resolve, 2500));
+
+  const log = await page.evaluate(
+    () => document.querySelector('[role="log"]')?.textContent ?? ""
+  );
+  assert(/Solar System/i.test(log), "the local answer did not arrive");
+  assert(
+    /GRAVERSE Knowledge|mعرفة GRAVERSE/.test(log),
+    "the answer did not say that it came from GRAVERSE's own knowledge"
+  );
+  assert(
+    /SRC-NASA/.test(log),
+    "the local answer did not carry its registered sources"
+  );
+});
+
+check("ask-graverse-service", "The assistant reports its state without spending quota", async (page) => {
+  await goto(page, "/");
+  const response = await page.evaluate(async () => {
+    const result = await fetch("/api/ask");
+    return { status: result.status, body: await result.json() };
+  });
+  assert(response.status === 200, "The service report did not answer");
+  assert(
+    typeof response.body.configured === "boolean",
+    "The service report did not say whether the assistant is configured"
+  );
+  assert(
+    response.body.freeOnly === true,
+    "The service report did not confirm the free-only model policy"
+  );
+  assert(
+    !JSON.stringify(response.body).includes("OPENROUTER_API_KEY"),
+    "The service report leaked configuration detail"
+  );
+
+  // The composer state must match the report. This check never asks a
+  // question: the free tier is a shared, small quota and the automated gate
+  // must not spend it.
+  const launcher = await page.$('button[aria-label="Open Ask GRAVERSE"]');
+  assert(launcher, "The assistant launcher was not rendered");
+  await launcher.click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const composer = await page.$('[role="dialog"] textarea');
+  assert(composer, "The assistant has no question box");
+  const disabled = await page.evaluate(
+    () => (document.querySelector('[role="dialog"] textarea')?.disabled) ?? false
+  );
+  assert(
+    disabled === (response.body.configured === false),
+    "The composer state does not match the service report"
+  );
+
+  if (response.body.configured === false) {
+    const panelText = await page.evaluate(() => {
+      const node = document.querySelector('[role="dialog"]');
+      return node ? (node.textContent ?? "") : "";
+    });
+    assert(
+      /not configured/i.test(panelText),
+      "The assistant did not say that it is not configured"
+    );
+    assert(
+      /Museum, Academy and Explorer|remain fully available/i.test(panelText),
+      "The assistant did not tell the visitor that the museum still works"
+    );
+  }
+});
+
+check("ask-graverse-webgl", "The assistant still works without WebGL", async (page) => {
+  await page.evaluateOnNewDocument(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (type, ...rest) {
+      if (typeof type === "string" && type.includes("webgl")) return null;
+      return original.call(this, type, ...rest);
+    };
+  });
+  await goto(page, "/museum/perseverance");
+  await new Promise((resolve) => setTimeout(resolve, 1200));
+
+  const canvases = await page.evaluate(
+    () => document.querySelectorAll("canvas").length
+  );
+  assert(canvases === 0, "A WebGL canvas was created on a device without WebGL");
+
+  const launcher = await page.$('button[aria-label="Open Ask GRAVERSE"]');
+  assert(launcher, "The assistant launcher was not rendered without WebGL");
+  await launcher.click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const panel = await page.$('[role="dialog"]');
+  assert(panel, "The assistant panel did not open without WebGL");
+  const composer = await page.$('[role="dialog"] textarea');
+  assert(composer, "The assistant has no question box without WebGL");
+});
+
+check("ask-graverse-rtl", "The assistant works in the Arabic right-to-left interface", async (page) => {
+  await page.setCookie({ name: "graverse-locale", value: "ar", url: BASE_URL });
+  try {
+    await goto(page, "/museum/perseverance");
+    const launcher = await page.$('button[aria-label*="Ask GRAVERSE"]');
+    assert(launcher, "The assistant launcher was not rendered in Arabic");
+    await launcher.click();
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    const panel = await page.$('[role="dialog"]');
+    assert(panel, "The assistant panel did not open in Arabic");
+
+    const text = await page.evaluate(() => {
+      const node = document.querySelector('[role="dialog"]');
+      return node ? (node.textContent ?? "") : "";
+    });
+    assert(/[؀-ۿ]/.test(text), "The Arabic assistant rendered no Arabic copy");
+
+    const overflow = await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth - document.documentElement.clientWidth
+    );
+    assert(overflow <= 2, `The Arabic assistant overflows by ${overflow}px`);
+  } finally {
+    await page.deleteCookie({
+      name: "graverse-locale",
+      url: BASE_URL,
+    });
+  }
+});
+
 /* ------------------------------------------------------------------- runner */
 
 const browser = await puppeteer.launch({

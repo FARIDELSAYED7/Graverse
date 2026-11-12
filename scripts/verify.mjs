@@ -1,7 +1,10 @@
 import { spawn, spawnSync } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
 
-const BASE_URL = "http://localhost:3100";
+// The verification server runs on 3100 by default. GRAVERSE_VERIFY_PORT moves
+// it when that port is already taken by a development server.
+const PORT = process.env.GRAVERSE_VERIFY_PORT ?? "3100";
+const BASE_URL = `http://localhost:${PORT}`;
 const env = { ...process.env, GRAVERSE_DIST_DIR: ".next-prod" };
 
 function run(command, args, options = {}) {
@@ -15,23 +18,26 @@ function run(command, args, options = {}) {
   }
 }
 
-console.log("\n1/5 Typecheck");
+console.log("\n1/6 Typecheck");
 run("npm", ["run", "typecheck"]);
 
-console.log("\n2/5 Lint");
+console.log("\n2/6 Lint");
 run("npm", ["run", "lint"]);
 
-console.log("\n3/5 Data validation");
+console.log("\n3/6 Data validation");
 run("npm", ["run", "validate"]);
 
-console.log("\n4/5 Data tests");
+console.log("\n4/6 Data tests");
 run("npm", ["run", "test:data"]);
 
-console.log("\n5/5 Production build");
+console.log("\n5/6 Ask GRAVERSE tests");
+run("npm", ["run", "test:ask"]);
+
+console.log("\n6/6 Production build");
 run("npm", ["run", "build"]);
 
 console.log("\nStarting production server for browser checks…");
-const server = spawn("npm", ["run", "start", "--", "-p", "3100"], {
+const server = spawn("npm", ["run", "start", "--", "-p", PORT], {
   stdio: "inherit",
   env,
   detached: false,

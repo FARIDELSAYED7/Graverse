@@ -476,6 +476,25 @@ body:has([data-destination="deep-space"]) .space-backdrop__photo {
   pointer-events: none;
 }
 
+/* Room controls above the hall ------------------------------------------ */
+
+.gallery-toolbar {
+  border-radius: 1rem;
+}
+
+.gallery-filters {
+  padding: 0.3rem;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 213, 225, 0.08);
+  background: rgba(9, 17, 31, 0.5);
+}
+
+.hall-stage {
+  position: relative;
+}
+
+/* The room itself -------------------------------------------------------- */
+
 .gallery-stage {
   background:
     radial-gradient(ellipse 62% 56% at 50% 36%, rgba(24, 56, 88, 0.5), transparent 70%),
@@ -497,6 +516,161 @@ body:has([data-destination="deep-space"]) .space-backdrop__photo {
     radial-gradient(ellipse 50% 50% at 50% 40%, rgba(94, 234, 212, 0.14), transparent 68%),
     linear-gradient(180deg, #0a1220, #070c17);
 }
+
+/* Floor plan ------------------------------------------------------------- */
+
+.hall-plan-wrap {
+  position: absolute;
+  inset-block-start: 4.4rem;
+  inset-inline-end: 1rem;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hall-plan {
+  position: relative;
+  width: 7.25rem;
+  height: 7.25rem;
+  pointer-events: auto;
+}
+
+.hall-plan__drawing {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.65));
+}
+
+.hall-plan__bays {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hall-plan__bay {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.25rem 0 0 -0.25rem;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(4, 12, 24, 0.9);
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.hall-plan__bay:hover {
+  transform: scale(1.45);
+}
+
+.hall-plan__bay[aria-pressed="true"] {
+  transform: scale(1.7);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.92),
+    0 0 14px 2px rgba(255, 255, 255, 0.55);
+}
+
+.hall-plan__label {
+  position: absolute;
+  inset-block-end: -1rem;
+  inset-inline: 0;
+  text-align: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@media (max-width: 639px) {
+  .hall-plan-wrap {
+    display: none;
+  }
+}
+
+/* Chronology axis -------------------------------------------------------- */
+
+.hall-chronology__track {
+  position: relative;
+  height: 1.9rem;
+  margin-top: 0.35rem;
+}
+
+.hall-chronology__line {
+  position: absolute;
+  inset-inline: 0.5rem;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 190, 224, 0.4),
+    transparent
+  );
+}
+
+/* The rail keeps the first and last markers inside the track. */
+.hall-chronology__rail {
+  position: absolute;
+  inset-inline: 0.5rem;
+  top: 50%;
+  height: 0;
+}
+
+.hall-chronology__tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 0.4rem;
+  transform: translate(-50%, -50%);
+  background: rgba(148, 190, 224, 0.28);
+}
+
+.hall-chronology__dot {
+  position: absolute;
+  top: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(var(--dot-scale, 1));
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.hall-chronology__dot:hover {
+  transform: translate(-50%, -50%) scale(calc(var(--dot-scale, 1) * 1.35));
+}
+
+.hall-chronology__dot[data-active="true"] {
+  box-shadow:
+    0 0 0 3px rgba(6, 13, 25, 0.95),
+    0 0 0 5px var(--dot-accent),
+    0 0 18px var(--dot-accent);
+}
+
+/* Guided tour indicator -------------------------------------------------- */
+
+@keyframes hall-tour-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hall-tour-ring {
+  border-style: dashed;
+  animation: hall-tour-sweep 3.5s linear infinite;
+}
+
+/* Exhibit rail ----------------------------------------------------------- */
 
 .exhibit-rail {
   scrollbar-width: thin;
@@ -749,6 +923,103 @@ details[open] .disclosure-icon {
 
 .robot-antenna {
   animation: robot-antenna-pulse 3s ease-in-out infinite;
+}
+
+/* Ask GRAVERSE ---------------------------------------------------------- */
+
+/* The CSS astrolabe: a sweeping arc around the orbital ring. */
+@keyframes ask-ring-a {
+  from {
+    transform: rotate3d(1, 0.35, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(1, 0.35, 0, 360deg);
+  }
+}
+
+@keyframes ask-ring-b {
+  from {
+    transform: rotate3d(0.4, 1, 0.2, 0deg);
+  }
+  to {
+    transform: rotate3d(0.4, 1, 0.2, -360deg);
+  }
+}
+
+@keyframes ask-spin {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* The CSS core pulses while the assistant is thinking. */
+@keyframes ask-core-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+[data-thinking="true"] {
+  animation: ask-core-pulse 1.4s ease-in-out infinite;
+}
+
+/* A message arriving in the console. */
+@keyframes ask-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ask-message {
+  animation: ask-message-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The thinking indicator: three motes drifting in sequence. */
+@keyframes ask-mote {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.ask-mote {
+  animation: ask-mote 1.15s ease-in-out infinite;
+}
+
+/* The console opening. */
+@keyframes ask-console-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ask-console {
+  animation: ask-console-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Reduced motion --------------------------------------------------------- */

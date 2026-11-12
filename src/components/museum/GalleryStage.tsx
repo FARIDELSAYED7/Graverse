@@ -9,7 +9,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { GalleryItem } from "@/types/gallery";
+import { t } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+import type { GalleryItem, HallControls } from "@/types/gallery";
 
 const GalleryCanvas = dynamic(() => import("./GalleryCanvas"), {
   ssr: false,
@@ -47,13 +49,26 @@ type GalleryStageProps = {
   selected: GalleryItem;
   selectedIndex: number;
   onSelect: (index: number) => void;
+  controls: React.MutableRefObject<HallControls>;
+  onLookChange?: (looking: boolean) => void;
+  locale: Locale;
+  children?: ReactNode;
 };
 
+/**
+ * Hosts the WebGL room. The canvas is only mounted once the section is
+ * close to the viewport, and a readable poster takes its place when WebGL
+ * is unavailable or the scene fails to build.
+ */
 export function GalleryStage({
   items,
   selected,
   selectedIndex,
   onSelect,
+  controls,
+  onLookChange,
+  locale,
+  children,
 }: GalleryStageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -113,7 +128,9 @@ export function GalleryStage({
           </div>
           <div className="absolute inset-x-0 bottom-0 p-3">
             <p className="text-[10px] uppercase tracking-[0.2em] text-accent-bright">
-              {unavailable ? "Exhibit preview" : "Preparing the hall"}
+              {unavailable
+                ? t(locale, "gallery.preview")
+                : t(locale, "gallery.loading")}
             </p>
             <p className="mt-1 line-clamp-2 text-xs font-medium text-white">
               {selected.name}
@@ -122,8 +139,8 @@ export function GalleryStage({
         </div>
         <p className="mt-4 text-center text-[11px] leading-relaxed text-text-muted">
           {unavailable
-            ? "The 3D hall is not available in this browser. The exhibit list below remains fully usable."
-            : "Loading the 3D exhibition hall as you approach it."}
+            ? t(locale, "gallery.unavailable")
+            : t(locale, "gallery.approaching")}
         </p>
       </div>
     </div>
@@ -137,11 +154,14 @@ export function GalleryStage({
             items={items}
             selectedIndex={selectedIndex}
             onSelect={onSelect}
+            controls={controls}
+            onLookChange={onLookChange}
           />
         </CanvasBoundary>
       ) : (
         poster
       )}
+      {children}
     </div>
   );
 }

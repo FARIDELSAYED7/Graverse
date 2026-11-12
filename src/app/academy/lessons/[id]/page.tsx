@@ -12,9 +12,12 @@ import {
 import { AcademyArtifactCard } from "@/components/academy/AcademyArtifactCard";
 import { AcademySourceLinks } from "@/components/academy/play/AcademySourceLinks";
 import { LessonQuiz } from "@/components/academy/LessonQuiz";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { getArtifactsByIds } from "@/data/artifacts";
 import { getLesson, lessons } from "@/data/lessons";
 import { getBody } from "@/data/space/bodies";
+import { getLocale } from "@/lib/locale";
 import { ageBandMeta } from "@/types/academy";
 
 type PageProps = { params: { id: string } };
@@ -38,6 +41,7 @@ export default function LessonPage({ params }: PageProps) {
   const lesson = getLesson(params.id);
   if (!lesson) notFound();
 
+  const locale = getLocale();
   const band = ageBandMeta[lesson.ageBand];
   const artifacts = getArtifactsByIds(lesson.artifactIds);
   const bodies = lesson.bodyIds.map(getBody).filter((body) => Boolean(body));
@@ -89,6 +93,20 @@ export default function LessonPage({ params }: PageProps) {
             <p className="mt-3 text-base leading-relaxed text-[#46536B]">
               {lesson.summary}
             </p>
+
+            <AskGraverseScope
+              context={{
+                kind: "lesson",
+                id: lesson.id,
+                title: lesson.title,
+                subtitle: `Academy lesson · ages ${lesson.ageBand}`,
+                href: `/academy/lessons/${lesson.id}`,
+              }}
+            >
+              <div className="mt-4">
+                <AskGraverseButton locale={locale} />
+              </div>
+            </AskGraverseScope>
 
             <section className="academy-card mt-5 rounded-2xl p-5" aria-labelledby="objectives">
               <h2 id="objectives" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#9C4321]">

@@ -6,9 +6,12 @@ import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { FactGrid } from "@/components/explorer/FactGrid";
 import { ClaimLegend } from "@/components/ui/ClaimBadge";
 import { SourceList } from "@/components/ui/SourceList";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { getArtifacts } from "@/data/artifacts";
 import { celestialBodies, getBody } from "@/data/space/bodies";
 import { getRelations } from "@/data/relations";
+import { getLocale } from "@/lib/locale";
 import type { EntityKind } from "@/data/relations";
 
 type PageProps = { params: { id: string } };
@@ -51,6 +54,7 @@ export default function BodyPage({ params }: PageProps) {
   const body = getBody(params.id);
   if (!body) notFound();
 
+  const locale = getLocale();
   const relatedArtifacts = getArtifacts(body.relatedArtifactIds);
   const relations = getRelations(`body:${body.id}`);
   const parent = body.parentId ? getBody(body.parentId) : undefined;
@@ -116,6 +120,20 @@ export default function BodyPage({ params }: PageProps) {
             <MapPin aria-hidden="true" className="h-3.5 w-3.5" />
             {body.distanceLabel}
           </p>
+
+          <AskGraverseScope
+            context={{
+              kind: "body",
+              id: body.id,
+              title: body.name,
+              subtitle: body.kind.replace("-", " "),
+              href: `/explorer/bodies/${body.id}`,
+            }}
+          >
+            <div className="mt-4">
+              <AskGraverseButton locale={locale} />
+            </div>
+          </AskGraverseScope>
         </div>
 
         <div

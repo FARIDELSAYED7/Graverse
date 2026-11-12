@@ -364,6 +364,40 @@ async function main() {
       }
     }
 
+    // The Ask GRAVERSE console, open. The assistant is a dialog over the
+    // museum, so it is checked in the state a visitor actually sees.
+    await page.goto(`${BASE_URL}/museum/perseverance`, {
+      waitUntil: "networkidle2",
+      timeout: 30000,
+    });
+    const assistantLauncher = await page.$(
+      'button[aria-label="Open Ask GRAVERSE"]'
+    );
+    if (assistantLauncher) {
+      await assistantLauncher.click();
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      const assistantResult = await new AxePuppeteer(page)
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .analyze();
+      const assistantViolations = assistantResult.violations.map((violation) => ({
+        id: violation.id,
+        impact: violation.impact ?? undefined,
+        nodes: violation.nodes.length,
+      }));
+      axeResults.push({
+        path: "/museum/perseverance (Ask GRAVERSE open)",
+        violations: assistantViolations,
+      });
+      for (const violation of assistantViolations) {
+        if (
+          violation.impact === "serious" ||
+          violation.impact === "critical"
+        ) {
+          serious += 1;
+        }
+      }
+    }
+
     if (consoleErrors.length) {
       failures.push(`console/page errors: ${consoleErrors.slice(0, 5).join(" | ")}`);
     }

@@ -22,6 +22,8 @@ import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { ArtifactVisual } from "@/components/artifacts/ArtifactVisual";
 import { BackButton } from "@/components/artifacts/BackButton";
 import { LessonCard } from "@/components/academy/LessonCard";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { CommunicationBadge } from "@/components/ui/CommunicationBadge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import {
@@ -245,6 +247,20 @@ export default function ArtifactPage({ params }: PageProps) {
               artifactName={artifact.name}
               compareId={compareId}
             />
+
+            <AskGraverseScope
+              context={{
+                kind: "artifact",
+                id: artifact.id,
+                title: artifact.name,
+                subtitle: `${artifact.missionName} · ${artifact.destination}`,
+                href: `/museum/${artifact.id}`,
+              }}
+            >
+              <div className="mt-3">
+                <AskGraverseButton locale={locale} />
+              </div>
+            </AskGraverseScope>
 
             <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:grid-cols-3">
               <div>

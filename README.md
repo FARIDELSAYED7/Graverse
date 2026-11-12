@@ -198,9 +198,14 @@ Two panels carry the project's core idea:
 - **"Two different questions"** — mission status and hardware status side by
   side, each with NASA's original wording beneath the normalized label.
 - **The exhibition hall** — a 3D rotunda that displays real NASA photographs on
-  gallery frames, with a keyboard-accessible exhibit rail, previous/next
-  controls, and a live selected-exhibit panel. The scene is decorative; all
-  meaning lives in the accessible panel and the collection below.
+  gallery frames. The visitor stands inside the room and walks around it as
+  the selection changes; each bay has a lit alcove, a numbered plinth and a
+  shaft of light, and the floor carries a compass inlay that points at every
+  bay. Around the room sits a full interface: a guided tour, a drag-to-look
+  view, zoom and full screen, a floor plan, a chronology axis, a numbered
+  exhibit rail, search and sort, and a live selected-exhibit panel with the
+  record's facts, contributions and actions. The scene is decorative; all
+  meaning lives in the accessible panel, the rails and the collection below.
 
 ### 4.3 Explorer — `/explorer`
 
@@ -275,10 +280,59 @@ agencies, lessons, journeys, and articles.
 sources, bodies, deep-sky objects, lessons, journeys, articles, agencies,
 glossary, engineering topics, stories, and simulations.
 
+### A grounded AI space heritage guide
+
+**Ask GRAVERSE** answers questions from the same records the rest of the
+product reads. The browser sends an entity id; the server resolves it against
+the real datasets, attaches the registered sources, and asks OpenRouter for an
+answer — using free models only. The system prompt separates mission status
+from hardware status, forbids invented NASA facts and fabricated citations,
+and requires the assistant to say *"The available GRAVERSE records do not
+establish this information."* when the records do not answer. It works in
+English and Arabic, in global and contextual modes, and the rest of the
+application is unaffected when the AI service is unavailable.
+
+### Local-first: most questions never reach the API
+
+**Ask GRAVERSE is local-first.** Before anything is sent to a provider, five
+local layers try to answer from the archive itself:
+
+1. **Conversational intents** — greetings, thanks, goodbyes, "what can you do?"
+2. **A curated knowledge base** — 26 entries on the archive and the science it
+   covers, each citing registered sources
+3. **Dynamic record answers** — nineteen aspects (overview, purpose, status,
+   fate, location, dates, science, technical, mission, agency, related…) built
+   from the fields a record actually has, across ten record kinds
+4. **Deterministic matching** — Unicode- and Arabic-aware normalisation,
+   aliases, keyword and phrase matching and a bounded edit distance
+5. **Comparisons and relationships** — two records compared field by field, or
+   what the relation graph links
+
+A local answer needs **no API key, no provider request and no quota**, and it
+is never rate limited. OpenRouter is the fallback for genuine synthesis: an
+argument across records, a calculation, or anything the archive does not hold.
+Every answer is labelled with its origin — *GRAVERSE Knowledge*, *Saved
+answer* or *AI-assisted*.
+
+### A 3D assistant identity
+
+The assistant has a real 3D presence: **the GRAVERSE Astrolabe**, a warm
+faceted core inside a translucent shell, crossed by two orbital rings and
+surrounded by a slow bloom. It is drawn with the project's own Three.js stack
+and appears in three places — the launcher, the console header and the empty
+conversation state — as **one WebGL context**, projected into the page with
+drei's `<View>`.
+
+It is also cheap: the scene is a lazy chunk, it never opens more than one
+context, its render loop only runs while the assistant is in use (0 draw calls
+while idle), it pauses on a hidden tab and under reduced motion, and a device
+without WebGL keeps an honest CSS mark in the same palette.
+
 ### Progressive enhancement as a rule
 
 Every 3D view has an equivalent 2D or textual path: the orrery has an SVG map,
-the exhibition hall has an exhibit rail and panel, and every playground game
+the exhibition hall has a floor plan, a chronology axis, a numbered exhibit
+rail, a searchable room and a written record panel, and every playground game
 keeps its state, controls, and rewards in ordinary HTML outside the canvas.
 Reduced-motion preferences are honoured throughout.
 
@@ -401,6 +455,7 @@ These decisions are recorded in `docs/adr/`.
 /my-universe                   local favourites, collections, recent records
 /compare                       side-by-side artifact comparison
 /api/export                    JSON export of the public dataset
+/api/ask                       Ask GRAVERSE — grounded answers from free OpenRouter models
 /explorer                      timeline / destination / artifact modes
 /explorer/solar-system         3D orrery + accessible 2D map
 /explorer/bodies               destination index
@@ -482,9 +537,42 @@ override any of them.
 | `NEXT_PUBLIC_SITE_URL` | No | Canonical origin used for Open Graph metadata and absolute URLs. Defaults to `http://localhost:3000`. |
 | `CHROME_PATH` | No | Path to a Chrome/Chromium executable used by `test:e2e`, `test:journeys`, `test:links`, and `perf`. The scripts probe common macOS and Linux locations when unset. |
 | `GRAVERSE_DIST_DIR` | No | Overrides the Next.js build directory. `npm run verify` sets it to `.next-prod` internally so browser checks never touch a running dev cache. |
+| `GRAVERSE_VERIFY_PORT` | No | The port `npm run verify` serves the production build on. Defaults to `3100`; change it when that port is already taken. |
+| `OPENROUTER_API_KEY` | No | Server-side key for **Ask GRAVERSE**, the OpenRouter-backed assistant. Read only inside the route handler; never sent to the browser. Without it the assistant reports that it is not configured and the rest of the site is unaffected. |
+| `OPENROUTER_MODEL` | No | The model Ask GRAVERSE calls for the questions its local engine cannot answer. Defaults to `openrouter/free`, OpenRouter's free-model router. A pinned model must end in `:free`; anything else is rejected before a request is made. |
 
 `.env.example` is tracked deliberately. Real `.env*` files are ignored, with an
 explicit negation so the template can never be swept up by the ignore rules.
+
+### Ask GRAVERSE — the AI space heritage guide
+
+**Ask GRAVERSE** is an in-product assistant that answers questions about the
+collection from GRAVERSE's own source-linked records, using OpenRouter's free
+models only. It works in English and Arabic, in two modes — a global guide and
+a contextual guide for the artifact, mission, lesson, engineering explainer,
+simulation, story, destination or agency record the visitor is viewing — and
+it always attaches the registered sources behind the record it used.
+
+- **Endpoint** — `POST /api/ask`, a Node route handler over
+  `POST https://openrouter.ai/api/v1/chat/completions`.
+- **Free models only** — `openrouter/free` by default; a pinned id must end in
+  `:free`. There is no paid fallback, no card requirement and no credit
+  purchase anywhere in the project.
+- **Server-side key** — `OPENROUTER_API_KEY` is never exposed to the browser,
+  never logged and never returned in a response.
+- **Grounded** — the browser sends an entity id; the server resolves it against
+  the real datasets and builds the context. Only registered source links can
+  reach the visitor.
+- **Two modes** — a contextual guide for the record being viewed and a global
+  guide for the collection, switchable from inside the panel.
+- **Quota-aware** — server-side throttling, a client cooldown, bounded prompt,
+  history and output, a request timeout and no retry loop, all set below
+  OpenRouter's published free limits of 20 requests per minute and 50 per day.
+
+Full details — model selection, retrieval, the scientific rules, error
+handling, privacy, deployment and known limitations — are in
+[`docs/ASK_GRAVERSE.md`](docs/ASK_GRAVERSE.md).
+
 
 ---
 
@@ -499,8 +587,9 @@ explicit negation so the template can never be swept up by the ignore rules.
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run validate` | zod schema checks, referential integrity, and provenance validation of the whole dataset |
 | `npm run test:data` | Data, relation, search, provenance, progress, and localisation tests (Node test runner) |
+| `npm run test:ask` | Ask GRAVERSE tests: the free-model rule, retrieval, grounding, throttling and every provider failure mode. The OpenRouter provider is mocked, so no real quota is consumed |
 | `npm run test:e2e` | Browser smoke, redirect, and axe checks against a running server |
-| `npm run test:journeys` | Drives the real interface in a browser: search, Explorer modes and filters, timeline preview, lesson quiz, progress export/reset, compare, favourites, simulations, Arabic RTL, mobile layout, and the no-WebGL fallback |
+| `npm run test:journeys` | Drives the real interface in a browser: search, Explorer modes and filters, timeline preview, lesson quiz, progress export/reset, compare, favourites, simulations, Arabic RTL, mobile layout, the no-WebGL fallback, and the Ask GRAVERSE assistant in English, in Arabic and without WebGL |
 | `npm run test:links` | Crawls the site and confirms every internal link resolves |
 | `npm run verify` | The full gate described above |
 | `npm run perf` | Local LCP/CLS/transfer probe against a running production server |
@@ -526,9 +615,10 @@ afterthought. The same gate runs locally and in CI.
 | Linting | `npm run lint` | `next/core-web-vitals` |
 | Data validation | `npm run validate` | Unique IDs, zod schemas, citation resolution, claim rules, mission ↔ artifact integrity, relation symmetry, media existence, route generation |
 | Data tests | `npm run test:data` | 21 tests over counts, provenance, derived missions, relation symmetry, search coverage, progress import validation, achievements, and localisation dictionaries |
+| Ask GRAVERSE tests | `npm run test:ask` | 81 tests over the free-model rule, the local intelligence engine, grounded retrieval, the scientific rules in the prompt, throttling, every provider failure mode, and the Markdown renderer. The provider is mocked |
 | Build | `npm run build` | Production compilation and static generation |
 | Smoke + axe | `npm run test:e2e` | 50 routes checked for HTTP status, title, a single `h1`, the `main` landmark, and body length; keyboard assertions; a gameplay and badge-persistence assertion; axe across 38 pages |
-| User journeys | `npm run test:journeys` | 24 end-to-end journeys driven in a real browser |
+| User journeys | `npm run test:journeys` | 30 end-to-end journeys driven in a real browser |
 | Link integrity | `npm run test:links` | Every internal link on 40 crawled pages |
 
 ### Last recorded local run
@@ -541,12 +631,13 @@ environment or about field performance.
 | --- | --- |
 | Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky objects, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 relation edges |
 | Data tests | 21 / 21 passed |
+| Ask GRAVERSE tests | 81 / 81 passed — the OpenRouter provider is mocked, so no free-tier quota is spent |
 | ESLint | No errors and no warnings |
 | Typecheck | Passed |
 | Production build | Passed |
 | Smoke | 50 routes checked, 0 failures |
-| axe (WCAG 2.1 A/AA tags) | 0 violations on 38 pages; 0 serious or critical |
-| User journeys | 24 / 24 passed |
+| axe (WCAG 2.1 A/AA tags) | 0 violations on 38 pages and on the open assistant console; 0 serious or critical |
+| User journeys | 30 / 30 passed |
 | Internal links | 192 / 192 resolved |
 
 ### Accessibility
@@ -579,6 +670,7 @@ graverse/
 ├─ components/
 │  ├─ academy/                 Academy UI, lessons, journeys, quizzes, playground games
 │  ├─ artifacts/               Artifact cards, visual, anatomy, actions
+│  ├─ ask/                     Ask GRAVERSE: launcher, panel, provider, contextual scope
 │  ├─ museum/                  Exhibition hall (3D) and gallery sections
 │  ├─ explore/ explorer/       Explorer experience and timeline stage
 │  ├─ explorer/                Orrery, orbit map, fact grid
@@ -592,12 +684,12 @@ graverse/
 │  └─ lessons, journeys, articles, games, engineering, stories, simulations,
 │     glossary, sources, relations
 ├─ lib/                        provenance, status, relations helpers, search index,
-│                              progress, personal state, simulations, i18n
+│                              progress, personal state, simulations, i18n, ask (AI)
 ├─ types/                      Shared TypeScript contracts
 ├─ fonts/                      Self-hosted Inter variable font
 ├─ scripts/                    Validation, browser checks, perf probe, verify,
-│                              and image asset utilities
-├─ tests/                      Data test suite
+│                              image asset utilities, manual OpenRouter check
+├─ tests/                      Data test suite and the Ask GRAVERSE test suite
 ├─ public/images/              NASA imagery, record photographs, gallery textures
 └─ docs/                       Architecture, data and provenance, accessibility,
                                performance, demo guide, ADRs, and project analysis
@@ -663,6 +755,7 @@ oversights.
 | Document | Contents |
 | --- | --- |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Rendering model, route model, data layer, theming, 3D strategy, progress storage, verification pipeline |
+| [`docs/ASK_GRAVERSE.md`](docs/ASK_GRAVERSE.md) | The OpenRouter assistant: endpoint, free-model selection, retrieval, scientific grounding, quota limits, privacy, deployment |
 | [`docs/DATA_AND_PROVENANCE.md`](docs/DATA_AND_PROVENANCE.md) | Claim model, source registry, dataset inventory, validation rules, update procedure |
 | [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) | Standards, automated checks, manual review, known limitations |
 | [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md) | Build characteristics and the local measurement method |

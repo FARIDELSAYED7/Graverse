@@ -6,6 +6,8 @@ import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { ApproximationNote } from "@/components/ui/ApproximationNote";
 import { SourceList } from "@/components/ui/SourceList";
 import { Simulator } from "@/components/simulations/Simulators";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { getSimulation, simulations } from "@/data/simulations";
 import { getArtifacts } from "@/data/artifacts";
 import { getLocale } from "@/lib/locale";
@@ -73,6 +75,20 @@ export default function SimulationPage({ params }: PageProps) {
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-text-secondary">
               {simulation.description}
             </p>
+
+            <AskGraverseScope
+              context={{
+                kind: "simulation",
+                id: simulation.id,
+                title: simulation.title,
+                subtitle: `Educational model ${simulation.number}`,
+                href: `/simulations/${simulation.id}`,
+              }}
+            >
+              <div className="mt-4">
+                <AskGraverseButton locale={locale} />
+              </div>
+            </AskGraverseScope>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">

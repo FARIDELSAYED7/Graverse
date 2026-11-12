@@ -3,11 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Building2, ExternalLink } from "lucide-react";
 import { SourceList } from "@/components/ui/SourceList";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { agencies, getAgency } from "@/data/space/agencies";
 import { missions } from "@/data/missions";
 import { getArtifactsByIds } from "@/data/artifacts";
 import { missionStatusLabels } from "@/lib/status";
 import { formatDate } from "@/lib/format";
+import { getLocale } from "@/lib/locale";
 
 type PageProps = { params: { id: string } };
 
@@ -30,6 +33,7 @@ export default function AgencyPage({ params }: PageProps) {
   const agency = getAgency(params.id);
   if (!agency) notFound();
 
+  const locale = getLocale();
   const agencyMissions = missions.filter(
     (mission) => mission.agencyId === agency.id
   );
@@ -82,6 +86,20 @@ export default function AgencyPage({ params }: PageProps) {
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary">
           {agency.summary}
         </p>
+
+        <AskGraverseScope
+          context={{
+            kind: "agency",
+            id: agency.id,
+            title: agency.name,
+            subtitle: agency.country,
+            href: `/museum/agencies/${agency.id}`,
+          }}
+        >
+          <div className="mt-4">
+            <AskGraverseButton locale={locale} />
+          </div>
+        </AskGraverseScope>
         <a
           href={agency.website}
           target="_blank"

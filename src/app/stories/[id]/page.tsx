@@ -4,8 +4,11 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
 import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { SourceList } from "@/components/ui/SourceList";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { getStoryCollection, storyCollections } from "@/data/stories";
 import { getArtifacts } from "@/data/artifacts";
+import { getLocale } from "@/lib/locale";
 
 type PageProps = { params: { id: string } };
 
@@ -25,6 +28,7 @@ export default function StoryPage({ params }: PageProps) {
   const story = getStoryCollection(params.id);
   if (!story) notFound();
 
+  const locale = getLocale();
   const index = storyCollections.findIndex((entry) => entry.id === story.id);
   const previous = index > 0 ? storyCollections[index - 1] : undefined;
   const next =
@@ -69,6 +73,20 @@ export default function StoryPage({ params }: PageProps) {
           <p className="mt-3 text-sm leading-relaxed text-text-muted">
             {story.summary}
           </p>
+
+          <AskGraverseScope
+            context={{
+              kind: "story",
+              id: story.id,
+              title: story.title,
+              subtitle: story.eyebrow,
+              href: `/stories/${story.id}`,
+            }}
+          >
+            <div className="mt-4">
+              <AskGraverseButton locale={locale} />
+            </div>
+          </AskGraverseScope>
         </div>
       </div>
 

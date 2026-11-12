@@ -19,6 +19,9 @@ import {
   missionStatusLabels,
 } from "@/lib/status";
 import { pluralize } from "@/lib/format";
+import { getLocale } from "@/lib/locale";
+import { t } from "@/lib/i18n";
+import { galleryHardwareLabels } from "@/lib/gallery";
 import type { HardwareStatus, MissionStatus } from "@/types/artifact";
 import type { GalleryItem } from "@/types/gallery";
 
@@ -47,6 +50,7 @@ const hardwareOrder: HardwareStatus[] = [
 ];
 
 export default function MuseumPage() {
+  const locale = getLocale();
   const counts = countByDestination();
   const featuredIds = destinationOrder.flatMap(
     (destination) => museumHighlights[destination]
@@ -55,14 +59,38 @@ export default function MuseumPage() {
     id: artifact.id,
     name: artifact.name,
     missionName: artifact.missionName,
+    programName: artifact.programName,
     destination: artifact.destination,
     destinationGroup: artifact.destinationGroup,
     hardwareType: artifact.hardwareType,
     dateLabel: artifact.primaryMilestone.dateLabel,
     year: artifact.primaryMilestone.date.slice(0, 4),
+    sortDate: artifact.launchDate ?? artifact.primaryMilestone.date,
     missionStatus: artifact.missionStatus,
     hardwareStatus: artifact.hardwareStatus,
     description: artifact.shortDescription,
+    overview: artifact.overview,
+    fate: artifact.fate,
+    contributions: artifact.scientificContributions.map((entry) => ({
+      title: entry.title,
+      summary: entry.summary,
+    })),
+    facts: [
+      {
+        label: t(locale, "gallery.factType"),
+        value: galleryHardwareLabels[artifact.hardwareType],
+      },
+      { label: t(locale, "gallery.factProgram"), value: artifact.programName },
+      { label: t(locale, "gallery.factMission"), value: artifact.missionName },
+      {
+        label: t(locale, "gallery.factDestination"),
+        value: artifact.destination,
+      },
+      ...artifact.technicalDetails.slice(0, 2).map((detail) => ({
+        label: detail.label,
+        value: detail.value,
+      })),
+    ],
     image: artifact.media?.src ?? `/images/gallery/${artifact.id}.webp`,
     alt: artifact.media?.alt ?? `Exhibit image for ${artifact.name}`,
     isIllustration: artifact.media?.isIllustration ?? false,
@@ -228,6 +256,7 @@ export default function MuseumPage() {
       <MuseumGallerySection
         items={galleryItems}
         featuredIds={featuredIds}
+        locale={locale}
       />
 
       <section className="container-content pb-6">

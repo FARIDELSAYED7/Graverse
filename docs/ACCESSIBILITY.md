@@ -23,6 +23,11 @@ Target: **WCAG 2.1 AA**.
 
 - All controls are native buttons, links, inputs or selects.
 - Focus is visible (`:focus-visible` outlines and contrast-safe rings).
+- The museum's exhibition hall is fully keyboard-operable from inside the
+  section: `←`/`→` move between exhibits, `Home`/`End` jump to the first and
+  last, `Space` starts or pauses the guided tour, `R` resets the view, `+`/`−`
+  zoom and `?` opens the shortcut list. The floor plan and the chronology
+  axis are ordinary buttons, and the record panel's scroll area is focusable.
 - The mobile navigation opens with Enter/Space, moves focus to the first link,
   closes on Escape and restores the trigger.
 - The search field can be reached with `/` from anywhere except a text field.
@@ -41,11 +46,20 @@ Target: **WCAG 2.1 AA**.
   reduced motion is requested. Playground scenes also stop decorative motion;
   the rocket jumps to its final launch position instead of animating, and the
   rover moves without bobbing.
+- The museum's exhibition hall stops its decorative motion under reduced
+  motion: the exhibits no longer bob, the dust stops drifting and the camera
+  moves straight to the selected bay instead of gliding. Moving between
+  exhibits still works, because that is navigation rather than decoration.
 
 ### Alternatives
 
 - `/explorer/solar-system` has a full SVG orbit map with real links and a plain
   destination list. The 3D scene is optional and decorative.
+- The museum's 3D exhibition hall has a complete non-canvas equivalent: a
+  searchable room list, a numbered exhibit rail, a floor plan whose every bay
+  is a real button, a chronology axis that places each exhibit by launch date,
+  and a written record panel with the facts, contributions and actions of the
+  selected exhibit. Nothing is only available inside the canvas.
 - Every playground game has a complete no-WebGL path: the same part buttons,
   phase slider and text feedback for the rocket and Moon games, and a flat
   top-down grid map for Rover Quest.
@@ -85,6 +99,38 @@ Target: **WCAG 2.1 AA**.
   `aria-live="polite"` result summary.
 - Progress import errors are announced and explained in text.
 - Empty states explain what to do next.
+
+### Ask GRAVERSE
+
+- The assistant is a `role="dialog"` panel with an accessible name, opened by a
+  real button that carries `aria-expanded` and `aria-controls`.
+- The conversation is a `role="log"` with `aria-live="polite"`, so a new answer
+  is announced without stealing focus. The log is focusable because it
+  scrolls, so a keyboard user can reach the history.
+- Escape closes the panel and returns focus to the launcher. Opening the panel
+  moves focus to the question box. Enter sends, Shift+Enter adds a line break.
+- The question box has a visually hidden label and a hard `maxlength`, and the
+  remaining character budget is shown as text rather than as a colour change.
+- Errors are announced with `role="alert"` and always say what the visitor can
+  still do — the Museum, Academy and Explorer stay available.
+- Verified sources are real links that open in a new tab with
+  `rel="noopener noreferrer"`, and each one is followed by its source id as
+  text, so the evidence is legible without colour.
+- Answers are rendered by a hand-written Markdown renderer that never uses
+  `dangerouslySetInnerHTML`. Model output cannot become markup, and a
+  citation only becomes a link when the server actually returned that source.
+- Answer headings start at `h3`, because the console title is already an `h2`,
+  so the document outline stays in order.
+- The 3D identity is decorative and `aria-hidden`. It is never the only
+  carrier of information: the launcher keeps its accessible name, the console
+  carries the title as text, and a device without WebGL gets an equivalent
+  CSS mark in the same palette.
+- The render loop stops while the assistant is idle, when the tab is hidden
+  and when the visitor asks for reduced motion. The CSS fallback mark obeys
+  the same reduced-motion rules as the rest of the site.
+- The panel uses logical properties throughout, so it mirrors into the
+  right-to-left Arabic layout, and answer blocks use `dir="auto"` so an Arabic
+  answer reads right to left and an English one left to right.
 
 ## Automated checks
 

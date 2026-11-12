@@ -4,12 +4,15 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Cog, Lightbulb, Wrench } from "lucide-react";
 import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { SourceList } from "@/components/ui/SourceList";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import {
   engineeringSystemLabels,
   engineeringTopics,
   getEngineeringTopic,
 } from "@/data/engineering";
 import { getArtifacts } from "@/data/artifacts";
+import { getLocale } from "@/lib/locale";
 
 type PageProps = { params: { id: string } };
 
@@ -32,6 +35,7 @@ export default function EngineeringTopicPage({ params }: PageProps) {
   const topic = getEngineeringTopic(params.id);
   if (!topic) notFound();
 
+  const locale = getLocale();
   const artifacts = getArtifacts(topic.artifactIds);
   const index = engineeringTopics.findIndex((entry) => entry.id === topic.id);
   const previous = index > 0 ? engineeringTopics[index - 1] : undefined;
@@ -69,6 +73,20 @@ export default function EngineeringTopicPage({ params }: PageProps) {
           <p className="mt-3 text-base leading-relaxed text-text-secondary">
             {topic.question}
           </p>
+
+          <AskGraverseScope
+            context={{
+              kind: "engineering",
+              id: topic.id,
+              title: topic.title,
+              subtitle: engineeringSystemLabels[topic.system],
+              href: `/engineering/${topic.id}`,
+            }}
+          >
+            <div className="mt-4">
+              <AskGraverseButton locale={locale} />
+            </div>
+          </AskGraverseScope>
         </div>
       </div>
 

@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowRight, CalendarClock, ExternalLink, MapPin } from "luci
 import { ArtifactCard } from "@/components/artifacts/ArtifactCard";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SourceList } from "@/components/ui/SourceList";
+import { AskGraverseButton } from "@/components/ask/AskGraverseButton";
+import { AskGraverseScope } from "@/components/ask/AskGraverseScope";
 import { getArtifactsByIds } from "@/data/artifacts";
 import { getMission, missions } from "@/data/missions";
 import { getAgencyForMission } from "@/data/space/agencies";
@@ -97,6 +99,19 @@ export default function MissionPage({ params }: PageProps) {
               </Link>
             ) : null}
           </div>
+          <AskGraverseScope
+            context={{
+              kind: "mission",
+              id: mission.id,
+              title: mission.name,
+              subtitle: mission.destinationLabel,
+              href: `/museum/missions/${mission.id}`,
+            }}
+          >
+            <div className="mt-4">
+              <AskGraverseButton locale={locale} />
+            </div>
+          </AskGraverseScope>
         </header>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">

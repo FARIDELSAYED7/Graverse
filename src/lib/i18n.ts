@@ -152,6 +152,187 @@ const en: Dictionary = {
   "sim.power.healthy": "Energy budget is healthy",
   "sim.power.tight": "Energy budget is tight",
   "sim.power.deficit": "Energy deficit",
+
+  "gallery.eyebrow": "The exhibition hall",
+  "gallery.title": "Walk the collection in three dimensions",
+  "gallery.description":
+    "An interactive rotunda of NASA imagery. Move through the hall exhibit by exhibit, or drop into the full collection below — both routes lead to the same source-linked records.",
+  "gallery.skip": "Skip to the collection",
+  "gallery.filters": "Filter the 3D exhibition hall",
+  "gallery.filterFeatured": "Highlights",
+  "gallery.filterMoon": "The Moon",
+  "gallery.filterMars": "Mars",
+  "gallery.filterDeepSpace": "Deep Space",
+  "gallery.filterFeaturedHint": "A cross-section of the collection",
+  "gallery.filterMoonHint": "Everything sent to the Moon",
+  "gallery.filterMarsHint": "Everything sent to Mars",
+  "gallery.filterDeepSpaceHint": "Everything sent beyond Mars",
+  "gallery.search": "Search this hall",
+  "gallery.searchPlaceholder": "Find an exhibit by name",
+  "gallery.searchEmpty":
+    "No exhibit in this room matches that search. Clear the search or choose another room.",
+  "gallery.sort": "Order the room",
+  "gallery.sortCurated": "Curated order",
+  "gallery.sortChronological": "By launch date",
+  "gallery.badge": "3D exhibition hall",
+  "gallery.bay": "Bay",
+  "gallery.plan": "Hall plan",
+  "gallery.planHint": "A plan of the room. Choose a bay to walk to it.",
+  "gallery.chronology": "Chronology",
+  "gallery.chronologyHint":
+    "Every exhibit in this room, placed by launch date.",
+  "gallery.rooms": "Exhibits in this room",
+  "gallery.roomsHint": "Keyboard-accessible exhibit list",
+  "gallery.selected": "Selected exhibit",
+  "gallery.keyFacts": "Key facts",
+  "gallery.factType": "Type",
+  "gallery.factProgram": "Program",
+  "gallery.factMission": "Mission",
+  "gallery.factDestination": "Destination",
+  "gallery.contributions": "What it contributed",
+  "gallery.openRecord": "Open the full record",
+  "gallery.save": "Save to favourites",
+  "gallery.saved": "Saved to favourites",
+  "gallery.allArtifacts": "All artifacts",
+  "gallery.tourStart": "Start the guided tour",
+  "gallery.tourStop": "Pause the guided tour",
+  "gallery.resetView": "Reset the view",
+  "gallery.zoomIn": "Zoom in",
+  "gallery.zoomOut": "Zoom out",
+  "gallery.fullscreen": "Full screen",
+  "gallery.exitFullscreen": "Exit full screen",
+  "gallery.shortcuts": "Keyboard shortcuts",
+  "gallery.shortcutTitle": "Keyboard shortcuts",
+  "gallery.shortcutMove": "Move between exhibits",
+  "gallery.shortcutTour": "Start or pause the guided tour",
+  "gallery.shortcutReset": "Reset the view",
+  "gallery.shortcutZoom": "Zoom in and out",
+  "gallery.previous": "Previous exhibit",
+  "gallery.next": "Next exhibit",
+  "gallery.lookHint": "Drag the room to look around",
+  "gallery.looking": "Looking around — reset to return",
+  "gallery.loading": "Preparing the hall",
+  "gallery.approaching": "Loading the 3D exhibition hall as you approach it.",
+  "gallery.preview": "Exhibit preview",
+  "gallery.unavailable":
+    "The 3D hall is not available in this browser. The exhibit list below remains fully usable.",
+  "gallery.announce": "{name}, bay {index} of {total}",
+  "gallery.foot":
+    "Exhibit imagery: NASA. The 3D hall is decorative; all information is in the accessible panel and the collection below.",
+
+  /* ------------------------------------------------------- Ask GRAVERSE */
+  "ask.title": "Ask GRAVERSE",
+  "ask.tagline": "Your AI space heritage guide",
+  "ask.open": "Open Ask GRAVERSE",
+  "ask.close": "Close Ask GRAVERSE",
+  "ask.reset": "Start a new conversation",
+  "ask.placeholder": "Ask about space heritage…",
+  "ask.placeholderAbout": "Ask about {title}…",
+  "ask.send": "Send question",
+  "ask.loading": "Consulting the GRAVERSE records…",
+  "ask.sources": "Verified sources",
+  "ask.sourcesNote":
+    "Every link below is a registered GRAVERSE source record.",
+  "ask.disclaimer":
+    "Your prompt is processed by OpenRouter and the free model provider it selects. Answers are AI-generated and may contain errors — check the linked original sources before relying on them.",
+  "ask.privacy":
+    "No account, no tracking, and conversations are not stored after the answer is delivered.",
+  "ask.notConfigured":
+    "Ask GRAVERSE is not configured on this deployment. The Museum, Academy and Explorer remain fully available.",
+  "ask.quota":
+    "Ask GRAVERSE has temporarily reached its free AI usage limit. You can continue exploring the Museum, Academy, and Explorer while the service is unavailable.",
+  "ask.error":
+    "The AI service did not answer. You can keep exploring the Museum, Academy, and Explorer.",
+  "ask.timeout":
+    "The AI service took too long to answer. You can keep exploring the Museum, Academy, and Explorer.",
+  "ask.cooldown":
+    "Free-model cooldown. The next question unlocks in {seconds}s.",
+  "ask.emptyTitle": "Ask me anything about space heritage",
+  "ask.emptyBody":
+    "I answer from GRAVERSE's own records — the hardware, the missions, and the sources behind them. I never invent a NASA fact.",
+  "ask.contextBadge": "About this record",
+  "ask.globalBadge": "About the collection",
+  "ask.askAbout": "Ask GRAVERSE about this record",
+  "ask.modeContext": "This record",
+  "ask.modeGlobal": "The collection",
+  "ask.modeLabel": "Ask GRAVERSE mode",
+  "ask.modelNote": "Answered with {model} — a free OpenRouter model.",
+  "ask.followUps": "You could also ask",
+  "ask.provider.local": "GRAVERSE Knowledge",
+  "ask.provider.cache": "Saved answer",
+  "ask.provider.openrouter": "AI-assisted",
+  "ask.characterCount": "{count} of {max} characters",
+  "ask.retry": "Try again",
+  "ask.retryHint": "Your question was kept.",
+  "ask.sourcesExpand": "Show",
+  "ask.scrollLatest": "Jump to the latest message",
+  "ask.scopeCollectionHint": "Every record in the collection",
+  "ask.kind.artifact": "Museum record",
+  "ask.kind.mission": "Mission record",
+  "ask.kind.lesson": "Academy lesson",
+  "ask.kind.engineering": "Engineering explainer",
+  "ask.kind.simulation": "Educational model",
+  "ask.kind.story": "Curated story",
+  "ask.kind.body": "Destination",
+  "ask.kind.agency": "Agency",
+  "ask.kind.deep-sky": "Deep-sky object",
+  "ask.kind.article": "Academy article",
+  "ask.suggest.deepSky.overview": "Explain {title}.",
+  "ask.suggest.deepSky.distance": "How far away is {title}?",
+  "ask.suggest.deepSky.discovery": "How was {title} discovered?",
+  "ask.suggest.article.summary": "Summarise the {title} article.",
+  "ask.suggest.article.records": "Which records does {title} use?",
+
+  "ask.suggest.global.whatIsGraverse":
+    "What is GRAVERSE and what does it cover?",
+  "ask.suggest.global.operatingHardware":
+    "Which hardware in the collection is still operating?",
+  "ask.suggest.global.statusDifference":
+    "What is the difference between mission status and hardware status?",
+  "ask.suggest.global.moonEquipment":
+    "What equipment did NASA leave on the Moon?",
+  "ask.suggest.global.marsDiscovery":
+    "What did the Mars landers discover?",
+  "ask.suggest.global.explainToChild":
+    "Explain space heritage to a 12-year-old.",
+
+  "ask.suggest.artifact.explain": "Explain {title}.",
+  "ask.suggest.artifact.whySent": "Why was {title} sent into space?",
+  "ask.suggest.artifact.discoveries":
+    "What scientific discoveries did {title} contribute to?",
+  "ask.suggest.artifact.hardware": "What happened to the hardware of {title}?",
+  "ask.suggest.artifact.explainToTwelve": "Explain {title} to a 12-year-old.",
+  "ask.suggest.artifact.compare": "Compare {title} with another mission.",
+  "ask.suggest.artifact.statusDifference":
+    "What is the difference between mission status and hardware status?",
+
+  "ask.suggest.mission.overview": "Summarise the {title} mission.",
+  "ask.suggest.mission.hardware": "Which hardware from {title} is still there?",
+  "ask.suggest.mission.engineering":
+    "What engineering made {title} possible?",
+  "ask.suggest.mission.explainToTwelve": "Explain {title} to a 12-year-old.",
+
+  "ask.suggest.lesson.goals": "What does the {title} lesson teach?",
+  "ask.suggest.lesson.records": "Which records does {title} use?",
+  "ask.suggest.lesson.explainToTwelve": "Explain {title} to a 12-year-old.",
+
+  "ask.suggest.engineering.howItWorks": "How does {title} work?",
+  "ask.suggest.engineering.records": "Which records show {title} in practice?",
+  "ask.suggest.engineering.explainToTwelve": "Explain {title} to a 12-year-old.",
+
+  "ask.suggest.simulation.approximation":
+    "How accurate is {title}, and what does it simplify?",
+  "ask.suggest.simulation.records": "Which records does {title} use?",
+  "ask.suggest.simulation.explainToTwelve": "Explain {title} to a 12-year-old.",
+
+  "ask.suggest.body.history": "Tell me the exploration history of {title}.",
+  "ask.suggest.body.explainToTwelve": "Explain {title} to a 12-year-old.",
+
+  "ask.suggest.story.summary": "Summarise the {title} story.",
+  "ask.suggest.story.records": "Which records appear in {title}?",
+
+  "ask.suggest.agency.role": "What does {title} work on?",
+  "ask.suggest.agency.records": "Which records does {title} appear in?",
 };
 
 const ar: Dictionary = {
@@ -279,6 +460,182 @@ const ar: Dictionary = {
   "sim.power.healthy": "ميزانية الطاقة بصحة جيدة",
   "sim.power.tight": "ميزانية الطاقة ضيقة",
   "sim.power.deficit": "عجز في الطاقة",
+
+  "gallery.eyebrow": "قاعة المعرض",
+  "gallery.title": "تجوّل في المجموعة ثلاثية الأبعاد",
+  "gallery.description":
+    "قاعة دائرية تفاعلية بصور من ناسا. تجوّل بين القطع معروضاً بعداً بعد الأخر، أو انتقل إلى المجموعة الكاملة أدناه — كلا الطريقين يقود إلى السجلات نفسها المرتبطة بالمصادر.",
+  "gallery.skip": "تخطَّ إلى المجموعة",
+  "gallery.filters": "رشّح قاعة العرض ثلاثية الأبعاد",
+  "gallery.filterFeatured": "أبرز القطع",
+  "gallery.filterMoon": "القمر",
+  "gallery.filterMars": "المريخ",
+  "gallery.filterDeepSpace": "الفضاء العميق",
+  "gallery.filterFeaturedHint": "مختارات من المجموعة",
+  "gallery.filterMoonHint": "كل ما أُرسل إلى القمر",
+  "gallery.filterMarsHint": "كل ما أُرسل إلى المريخ",
+  "gallery.filterDeepSpaceHint": "كل ما تجاوز المريخ",
+  "gallery.search": "ابحث في هذه القاعة",
+  "gallery.searchPlaceholder": "ابحث عن قطعة بالاسم",
+  "gallery.searchEmpty":
+    "لا توجد قطعة في هذه القاعة تطابق البحث. امسح البحث أو اختر قاعة أخرى.",
+  "gallery.sort": "رتّب القاعة",
+  "gallery.sortCurated": "ترتيب مختار",
+  "gallery.sortChronological": "حسب تاريخ الإطلاق",
+  "gallery.badge": "قاعة عرض ثلاثية الأبعاد",
+  "gallery.bay": "خانة",
+  "gallery.plan": "مخطط القاعة",
+  "gallery.planHint": "مخطط للقاعة. اختر خانة للانتقال إليها.",
+  "gallery.chronology": "التسلسل الزمني",
+  "gallery.chronologyHint": "كل قطعة في هذه القاعة، موضوعة حسب تاريخ الإطلاق.",
+  "gallery.rooms": "القطع في هذه القاعة",
+  "gallery.roomsHint": "قائمة قطع يمكن الوصول إليها بلوحة المفاتيح",
+  "gallery.selected": "القطعة المعروضة",
+  "gallery.keyFacts": "حقائق أساسية",
+  "gallery.factType": "النوع",
+  "gallery.factProgram": "البرنامج",
+  "gallery.factMission": "المهمة",
+  "gallery.factDestination": "الوجهة",
+  "gallery.contributions": "ما قدّمته",
+  "gallery.openRecord": "افتح السجل الكامل",
+  "gallery.save": "احفظ في المفضلة",
+  "gallery.saved": "محفوظ في المفضلة",
+  "gallery.allArtifacts": "كل القطع",
+  "gallery.tourStart": "ابدأ الجولة المصحوبة",
+  "gallery.tourStop": "أوقف الجولة المصحوبة",
+  "gallery.resetView": "أعد ضبط العرض",
+  "gallery.zoomIn": "قرّب",
+  "gallery.zoomOut": "باعد",
+  "gallery.fullscreen": "ملء الشاشة",
+  "gallery.exitFullscreen": "اخرج من ملء الشاشة",
+  "gallery.shortcuts": "اختصارات لوحة المفاتيح",
+  "gallery.shortcutTitle": "اختصارات لوحة المفاتيح",
+  "gallery.shortcutMove": "تنقّل بين القطع",
+  "gallery.shortcutTour": "ابدأ الجولة أو أوقفها",
+  "gallery.shortcutReset": "أعد ضبط العرض",
+  "gallery.shortcutZoom": "التقريب والإبعاد",
+  "gallery.previous": "القطعة السابقة",
+  "gallery.next": "القطعة التالية",
+  "gallery.lookHint": "اسحب القاعة للنظر حولك",
+  "gallery.looking": "تنظر حولك — أعد الضبط للعودة",
+  "gallery.loading": "يجري تجهيز القاعة",
+  "gallery.approaching": "يجري تحميل قاعة العرض ثلاثية الأبعاداقتربت منها.",
+  "gallery.preview": "معاينة القطعة",
+  "gallery.unavailable":
+    "قاعة العرض ثلاثية الأبعاد غير متاحة في هذا المتصفح. تبقى قائمة القطع أدناه قابلة للاستخدام بالكامل.",
+  "gallery.announce": "{name}، الخانة {index} من {total}",
+  "gallery.foot":
+    "صور القطع: ناسا. قاعة العرض ثلاثية الأبعاد زخرفية؛ كل المعلومات في اللوحة المتاحة وفي المجموعة أدناه.",
+
+  /* ------------------------------------------------------- Ask GRAVERSE */
+  "ask.title": "اسأل غريفس",
+  "ask.tagline": "مرشدك الذكي لتراث الفضاء",
+  "ask.open": "فتح Ask GRAVERSE",
+  "ask.close": "إغلاق Ask GRAVERSE",
+  "ask.reset": "بدء محادثة جديدة",
+  "ask.placeholder": "اسأل عن تراث الفضاء…",
+  "ask.placeholderAbout": "اسأل عن {title}…",
+  "ask.send": "أرسل السؤال",
+  "ask.loading": "أراجع سجلات GRAVERSE…",
+  "ask.sources": "مصادر موثّقة",
+  "ask.sourcesNote": "كل رابط أدناه مصدر مسجّل في GRAVERSE.",
+  "ask.disclaimer":
+    "يُعالَج سؤالك عبر OpenRouter ومزوّد النموذج المجاني الذي يختاره. الإجابات مولّدة بالذكاء الاصطناعي وقد تحتوي على أخطاء — تحقّق من المصادر الأصلية المرتبطة قبل الاعتماد عليها.",
+  "ask.privacy":
+    "لا حساب ولا تتبّع، ولا تُخزَّن المحادثات بعد تسليم الإجابة.",
+  "ask.notConfigured":
+    "لم تُهيّأ Ask GRAVERSE في هذا النشر. المتحف والأكاديمية والمستكشف تبقى متاحة بالكامل.",
+  "ask.quota":
+    "بلغت Ask GRAVERSE مؤقتاً حدّها المجاني للاستخدام. يمكنك متابعة استكشاف المتحف والأكاديمية والمستكشف أثناء تعذّر الخدمة.",
+  "ask.error":
+    "لم تجب خدمة الذكاء الاصطناعي. يمكنك متابعة استكشاف المتحف والأكاديمية والمستكشف.",
+  "ask.timeout":
+    "استغرقت خدمة الذكاء الاصطناعي وقتاً طويلاً للإجابة. يمكنك متابعة الاستكشاف.",
+  "ask.cooldown": "تبريد النموذج المجاني. السؤال التالي يُتاح بعد {seconds} ثانية.",
+  "ask.emptyTitle": "اسألني عن أي شيء في تراث الفضاء",
+  "ask.emptyBody":
+    "أجيب من سجلات GRAVERSE نفسها — العتاد والمهام والمصادر التي تقف خلفها. لا أخترع حقيقة من ناسا أبداً.",
+  "ask.contextBadge": "عن هذا السجل",
+  "ask.globalBadge": "عن المجموعة",
+  "ask.askAbout": "اسأل Ask GRAVERSE عن هذا السجل",
+  "ask.modeContext": "هذا السجل",
+  "ask.modeGlobal": "المجموعة",
+  "ask.modeLabel": "نمط Ask GRAVERSE",
+  "ask.modelNote": "أُجيب باستخدام {model} — نموذج مجاني من OpenRouter.",
+  "ask.followUps": "يمكنك أيضاً أن تسأل",
+  "ask.provider.local": "معرفة GRAVERSE",
+  "ask.provider.cache": "إجابة محفوظة",
+  "ask.provider.openrouter": "بمساعدة الذكاء الاصطناعي",
+  "ask.characterCount": "{count} من {max} حرفاً",
+  "ask.retry": "أعد المحاولة",
+  "ask.retryHint": "تم الاحتفاظ بسؤالك.",
+  "ask.sourcesExpand": "اعرض",
+  "ask.scrollLatest": "انتقل إلى أحدث رسالة",
+  "ask.scopeCollectionHint": "كل سجل في المجموعة",
+  "ask.kind.artifact": "سجل المتحف",
+  "ask.kind.mission": "سجل المهمة",
+  "ask.kind.lesson": "درس الأكاديمية",
+  "ask.kind.engineering": "شرح هندسي",
+  "ask.kind.simulation": "نموذج تعليمي",
+  "ask.kind.story": "قصة منسّقة",
+  "ask.kind.body": "الوجهة",
+  "ask.kind.agency": "الوكالة",
+  "ask.kind.deep-sky": "جسم خارج المجموعة الشمسية",
+  "ask.kind.article": "مقال الأكاديمية",
+  "ask.suggest.deepSky.overview": "اشرح {title}.",
+  "ask.suggest.deepSky.distance": "كم تبعد {title} عنا؟",
+  "ask.suggest.deepSky.discovery": "كيف اكتُشف {title}؟",
+  "ask.suggest.article.summary": "لخّص مقال {title}.",
+  "ask.suggest.article.records": "أي السجلات يستخدم {title}؟",
+
+  "ask.suggest.global.whatIsGraverse":
+    "ما هو GRAVERSE وما الذي يغطّيه؟",
+  "ask.suggest.global.operatingHardware":
+    "ما العتاد في المجموعة الذي لا يزال يعمل؟",
+  "ask.suggest.global.statusDifference":
+    "ما الفرق بين حالة المهمة وحالة العتاد؟",
+  "ask.suggest.global.moonEquipment":
+    "ما المعدات التي تركتها ناسا على القمر؟",
+  "ask.suggest.global.marsDiscovery":
+    "ماذا اكتشفت مركبات الهبوط على المريخ؟",
+  "ask.suggest.global.explainToChild":
+    "اشرح تراث الفضاء لطفل في الثانية عشرة.",
+
+  "ask.suggest.artifact.explain": "اشرح {title}.",
+  "ask.suggest.artifact.whySent": "لماذا أُرسل {title} إلى الفضاء؟",
+  "ask.suggest.artifact.discoveries":
+    "ما الاكتشافات العلمية التي أسهمت بها {title}؟",
+  "ask.suggest.artifact.hardware": "ماذا حدث لعتاد {title}؟",
+  "ask.suggest.artifact.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+  "ask.suggest.artifact.compare": "قارن {title} بمهمة أخرى.",
+  "ask.suggest.artifact.statusDifference":
+    "ما الفرق بين حالة المهمة وحالة العتاد؟",
+
+  "ask.suggest.mission.overview": "لخّص مهمة {title}.",
+  "ask.suggest.mission.hardware": "ما عتاد {title} الذي لا يزال هناك؟",
+  "ask.suggest.mission.engineering": "ما الهندسة التي جعلت {title} ممكنة؟",
+  "ask.suggest.mission.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+
+  "ask.suggest.lesson.goals": "ماذا يعلّم درس {title}؟",
+  "ask.suggest.lesson.records": "أي السجلات يستخدم {title}؟",
+  "ask.suggest.lesson.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+
+  "ask.suggest.engineering.howItWorks": "كيف يعمل {title}؟",
+  "ask.suggest.engineering.records": "أي السجلات تُظهر {title} عملياً؟",
+  "ask.suggest.engineering.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+
+  "ask.suggest.simulation.approximation": "ما دقّة {title} وما الذي يُبسّطه؟",
+  "ask.suggest.simulation.records": "أي السجلات يستخدم {title}؟",
+  "ask.suggest.simulation.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+
+  "ask.suggest.body.history": "حدّثني في تاريخ استكشاف {title}.",
+  "ask.suggest.body.explainToTwelve": "اشرح {title} لطفل في الثانية عشرة.",
+
+  "ask.suggest.story.summary": "لخّص قصة {title}.",
+  "ask.suggest.story.records": "أي السجلات تظهر في {title}؟",
+
+  "ask.suggest.agency.role": "ماذا تعمل {title}؟",
+  "ask.suggest.agency.records": "في أي السجلات تظهر {title}؟",
 };
 
 const dictionaries: Record<Locale, Dictionary> = { en, ar };

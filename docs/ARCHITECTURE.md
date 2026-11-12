@@ -12,6 +12,7 @@ islands for interaction only:
 | `SearchExperience` | Debounced query, kind filters, URL synchronisation |
 | `ProgressDashboard`, lesson quizzes, journey steps | `localStorage` state |
 | `Orrery3D` / `OrreryScene` | WebGL canvas, loaded with `next/dynamic` |
+| `MuseumGallerySection` and the hall components | Room selection, guided tour, view controls, floor plan and chronology; the WebGL room itself is a separate `next/dynamic` island |
 | `SiteHeader`, `MotionToggle` | Menus, focus management, motion preference |
 | Academy robot guide | Step state and playback |
 | Playground games (`RocketWorkshop`, `MoonPhases`, `RoverQuest`) | Game state, rewards, `localStorage`; the 3D scene itself is a separate `next/dynamic` island |
@@ -248,6 +249,78 @@ retroreflectors and left-behind descent stages are explicitly `not-applicable`
 because they do not carry an independent transmitter. The derived label is shown
 with a note that it is not live telemetry; no new source claim is created.
 
+## 7b. Ask GRAVERSE — the OpenRouter assistant
+
+`Ask GRAVERSE` is a grounded, source-linked assistant. It is deliberately not
+part of the data layer: it reads the data layer, it never writes to it.
+
+```
+src/app/api/ask/route.ts   route handler (thin adapter)
+  → src/lib/ask/handler.ts       validate → key → model → throttle → retrieve → provider
+    → src/lib/ask/retrieval.ts   resolves entity ids against src/data, builds the context block
+    → src/lib/ask/prompt.ts      the system prompt and the citation filter
+    → src/lib/ask/openrouter.ts  the provider client, timeout and error mapping
+    → src/lib/ask/rate-limit.ts  the in-memory throttle
+```
+
+| Decision | Reason |
+| --- | --- |
+| The browser sends only an entity id | The server resolves the record itself, so a visitor cannot inject a fact, a date or a citation |
+| Free models only | `openrouter/free` by default; a pinned id must end in `:free`. A non-free id is refused before the request |
+| Native `fetch`, no SDK | One less dependency, and the request shape stays visible in the codebase |
+| Retrieval reuses `search-index.ts` | One candidate pool for the whole product, scored with OR semantics for questions |
+| Citations are filtered twice | Only ids the model actually cited **and** that exist in the retrieved set become links |
+| The limiter is in-process | A shared store would be a paid dependency; the upstream free limit remains the backstop |
+| The assistant is never a dependency | The Museum, Academy and Explorer work with no key and no provider |
+
+### The 3D identity
+
+The assistant's visual identity — the GRAVERSE Astrolabe — is a small
+Three.js scene shared by three placements in the page.
+
+| Decision | Reason |
+| --- | --- |
+| One `<Canvas>`, drei `<View>` per placement | Three places to show the assistant, one WebGL context and one bundle chunk |
+| The scene lives in a `next/dynamic` chunk | Three.js never enters the initial bundle |
+| The render loop only runs while the assistant is engaged | A visitor reading the museum pays nothing: 0 draw calls while idle |
+| The loop pauses on a hidden tab and under reduced motion | No background work nobody asked for |
+| The canvas is fixed, transparent and `pointer-events: none` | It never intercepts a click and never shifts the layout |
+| A CSS mark for devices without WebGL | The identity never disappears, and the fallback is honest rather than a broken canvas |
+
+The scene is four meshes, one sprite and 120 points. Its radial-gradient
+texture is drawn on a 2D canvas and disposed with the component, so the
+renderer holds no orphan GPU resource.
+
+### The local intelligence engine
+
+Ask GRAVERSE answers locally whenever it can. The local engine is a set of
+pure, deterministic modules on the server:
+
+| Module | Layer |
+| --- | --- |
+| `local/normalize.ts` | Unicode- and Arabic-aware normalisation, light stemming, tokenising |
+| `local/entities.ts` | The entity index and the alias map |
+| `local/intents.ts` | Conversational intents |
+| `local/faq.ts` | The curated knowledge base |
+| `local/records.ts` | Dynamic record answers |
+| `local/matcher.ts` | Deterministic matching and scoring |
+| `local/relationships.ts` | Comparisons and relationships |
+| `local/cache.ts` | The in-process answer cache |
+| `local/engine.ts` | The router and the confidence evaluation |
+
+| Decision | Reason |
+| --- | --- |
+| The engine runs before the key check | A local answer needs no credential and no provider |
+| The engine runs before the throttle | A local answer costs no quota, so it is never rate limited |
+| A high keyword score never overrides missing evidence | A builder returns nothing when the record does not establish the aspect |
+| An ambiguous subject falls through | A guess is worse than a provider request |
+| The context is used only when the question is about it | A visitor on the Perseverance page asking about quantum chromodynamics must not be answered about Perseverance |
+| Answers are cached only after validation | A failed or unregistered answer is never stored |
+
+The full integration is documented in
+[`docs/ASK_GRAVERSE.md`](ASK_GRAVERSE.md).
+
+
 ## 8. Error and empty states
 
 - `src/app/error.tsx` — client error boundary with a retry path.
@@ -263,12 +336,18 @@ tsc --noEmit
   → next lint
     → tsx scripts/validate-data.ts
       → tsx --test tests/data.test.ts
-        → next build (GRAVERSE_DIST_DIR=.next-prod)
-          → next start -p 3100
-            → puppeteer smoke + redirects + axe
-              → puppeteer user journeys
-                → internal link crawl
+        → tsx --test tests/ask.test.ts
+          → next build (GRAVERSE_DIST_DIR=.next-prod)
+            → next start -p 3100
+              → puppeteer smoke + redirects + axe
+                → puppeteer user journeys
+                  → internal link crawl
 ```
+
+`tests/ask.test.ts` mocks the OpenRouter provider, so the gate never spends
+free-tier quota and never needs an API key. The separate manual check
+`node scripts/ask-openrouter.mjs` is the only script that makes an
+authenticated provider request.
 
 `scripts/verify.mjs` orchestrates the sequence and tears the server down. The
 browser script checks HTTP status, title, `h1`, `main` landmark and body length

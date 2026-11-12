@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ExperienceTheme } from "@/components/layout/ExperienceTheme";
+import { AskGraverseProvider } from "@/components/ask/AskGraverseProvider";
 import { getLocale, localeAttributes } from "@/lib/locale";
 import { t } from "@/lib/i18n";
 
@@ -91,9 +92,11 @@ export default function RootLayout({
           <div className="space-backdrop__veil" />
         </div>
         <SiteHeader locale={locale} />
-        <main id="main-content" className="min-h-[70vh]">
-          {children}
-        </main>
+        <AskGraverseProvider locale={locale}>
+          <main id="main-content" className="min-h-[70vh]">
+            {children}
+          </main>
+        </AskGraverseProvider>
         <SiteFooter locale={locale} />
       </body>
     </html>

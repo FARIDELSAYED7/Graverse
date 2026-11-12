@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "validate": "tsx scripts/validate-data.ts",
     "test:data": "tsx --test tests/data.test.ts",
+    "test:ask": "tsx --test tests/ask.test.ts tests/ask-local.test.ts tests/ask-markdown.test.ts",
     "test:e2e": "node scripts/smoke.mjs",
     "test:journeys": "node scripts/journeys.mjs",
     "test:links": "node scripts/link-check.mjs",
