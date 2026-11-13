@@ -3,6 +3,24 @@
 A judge-facing walkthrough. Total time: about 9 minutes. Nothing depends on a
 network connection except the outbound source links.
 
+## Recording the demo video
+
+The route to record: **Home → Museum → Artifact → Explorer → Academy.**
+
+1. **Home** (0–10 s): the hero explains the project on its own — headline,
+   featured-record telemetry panel, collection counts. Scroll once to show the
+   progress rail.
+2. **Museum** (`/museum`): the collection-at-a-glance panel, then hover an
+   artifact card to reveal its evidence strip.
+3. **Artifact** (`/museum/apollo-11-lm-descent-stage`): Moon atmosphere, the
+   two separate status fields, provenance.
+4. **Explorer** (`/explorer?destination=mars&mode=artifacts`): the rust-red
+   atmosphere following the Mars filter; switch to the timeline.
+5. **Academy** (`/academy`): the warm light surface, one quiz answer, one
+   3D playground game.
+
+Full-screen 1440×900 at 30 fps is enough; every surface also holds at 390×844.
+
 ## Before you start
 
 ```bash
@@ -20,12 +38,18 @@ profile or "Reset progress" if you want a clean slate.
 
 Open `/`.
 
-- Read the two short panels under the hero: **the problem** (records for one
-  machine are scattered across mission pages, image libraries and archives) and
-  **what GRAVERSE adds** (one archive, three ways in, sources attached).
-- Point out the three doors: **Space Academy**, **Museum**, **Explorer**.
+- The first screen explains the project in about ten seconds: the headline, the
+  one-line subtitle, the featured-record telemetry panel on the right (mission
+  status, hardware status, date and destination), and the collection counts.
+- Point out the entrance choreography: the headline, the two actions, the query
+  line and the telemetry tiles arrive in a staggered sequence; the featured
+  panel is framed with corner brackets, an orbit ring and a slow scan line.
 - Say the sentence that frames the whole product: *"One verified collection,
   three different ways in — and every claim says how well it is established."*
+- The three doors (**Space Academy**, **Museum**, **Explorer**) sit directly
+  under the hero, numbered 01–03.
+- The thin gradient rail under the header is scroll progress; it fills as the
+  story scrolls.
 - Show the collection counts and the source-linked featured record.
 
 ## 1. Space Academy and Playground (3 min)
@@ -63,15 +87,18 @@ record.
 Open `/museum`.
 
 1. Show that mission status and hardware status are displayed **separately**.
-2. Open **Apollo 11 Lunar Module Eagle**
+2. Hover an artifact card: an evidence strip slides in from the bottom of the
+   image with the record's legacy line — what the machine left behind.
+3. Open **Apollo 11 Lunar Module Eagle**
    (`/museum/apollo-11-lm-descent-stage`).
+   - The page backdrop turns to the Moon atmosphere (silver-blue).
    - Scroll the narrative: purpose → journey → science → fate.
    - Land on **Provenance**: mission, agency, source count, uncertainty note.
    - Show the original NASA status wording next to the normalized band.
-3. Open `/museum/missions` → **Apollo 11**.
+4. Open `/museum/missions` → **Apollo 11**.
    - Explain that the mission page is *derived* from its artifact records, not
      hand-copied, so dates and status cannot drift.
-4. Open `/museum/agencies/nasa` from the mission page.
+5. Open `/museum/agencies/nasa` from the mission page.
    - Show the mission → agency → artifact chain.
 
 ## 3. Explorer (2 min)
@@ -81,6 +108,9 @@ Open `/explorer`.
 1. Switch between **Timeline**, **By destination** and **By artifact**.
 2. Apply a destination filter and a decade filter.
    - Point at the URL: the filters are in the query string and can be shared.
+   - Filter by the Moon or Mars and point out that the whole backdrop
+     atmosphere follows the destination: silver-blue for the Moon, rust-red for
+     Mars, cyan-indigo for deep space. The same happens on artifact records.
 3. Switch to **List view**.
    - This is the accessible alternative to the visual timeline.
 4. Open `/explorer/solar-system`.
@@ -139,7 +169,7 @@ Last local run of `npm run verify`:
 | Production build | Passed — 47 route patterns, 172 concrete routes |
 | Smoke | 50 routes, 0 failures, including gameplay and badge persistence |
 | Axe | 0 violations on 38 pages |
-| User journeys | 24/24 passed |
+| User journeys | 30/30 passed |
 | Internal links | 192/192 resolved |
 
 Reproduce with:

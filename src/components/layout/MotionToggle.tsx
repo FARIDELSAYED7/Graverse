@@ -58,7 +58,7 @@ export function MotionToggle({ className, showLabel = false }: MotionToggleProps
       aria-pressed={reduced}
       title={label}
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary",
+        "motion-toggle inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] text-text-secondary transition-colors hover:border-accent/40 hover:text-text-primary",
         showLabel ? "px-3 py-2 text-xs" : "h-9 w-9 justify-center",
         className
       )}

@@ -52,7 +52,7 @@ GRAVERSE يختار: **web app** + **أرشيف موثّق** + **ثلاث طرق
 | Production build | 47 route patterns, 172 concrete routes |
 | Smoke | 50 routes, 0 failures (incl. gameplay + badge persistence) |
 | Axe | 0 violations on 38 pages |
-| User journeys | 24/24 passed |
+| User journeys | 30/30 passed |
 | Internal links | 192/192 resolved |
 
 **لا تذكر أرقامًا غير موثّقة.** إن شُغِّل verify في بيئة أخرى، قد تختلف قليلاً (run-to-run variance).

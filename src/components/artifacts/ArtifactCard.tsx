@@ -29,16 +29,32 @@ export function ArtifactCard({
           media={artifact.media}
           priority={priority}
           sizes="(min-width: 1280px) 23vw, (min-width: 768px) 45vw, 100vw"
-          imageClassName="group-hover:scale-[1.04]"
+          imageClassName="group-hover:scale-[1.05]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-        <span className="absolute bottom-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#040a14]/60 via-transparent to-transparent" />
+
+        {/* Record identity sits at the top; the evidence reads from the bottom. */}
+        <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
           <MapPin aria-hidden="true" className="artifact-pin h-3 w-3" />
           {artifact.destination}
         </span>
-        <span className="absolute bottom-3 right-3 z-10 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 font-mono text-[11px] tabular-nums text-white/85 backdrop-blur">
+        <span className="absolute right-3 top-3 z-10 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 font-mono text-[11px] tabular-nums text-white/85 backdrop-blur">
           {formatYear(artifact.primaryMilestone.date)}
         </span>
+
+        {/* Evidence reveal: mission status and what the machine left behind. */}
+        <div className="evidence-reveal">
+          <p className="meta-label text-accent-bright">
+            {artifact.missionStatus === "ongoing" ? "Still active" : "Legacy"}
+          </p>
+          <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-white/90">
+            {artifact.fate}
+          </p>
+          <p className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold text-white">
+            Open the record
+            <ArrowUpRight aria-hidden="true" className="h-3 w-3" />
+          </p>
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">

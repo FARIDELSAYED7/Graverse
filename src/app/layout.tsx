@@ -88,7 +88,11 @@ export default function RootLayout({
         <div className="space-backdrop" aria-hidden="true">
           <div className="space-backdrop__photo" />
           <div className="space-backdrop__aurora" />
-          <div className="space-backdrop__stars" />
+          <div className="space-backdrop__orbit" />
+          <div className="space-backdrop__stars space-backdrop__stars--far" />
+          <div className="space-backdrop__stars space-backdrop__stars--mid" />
+          <div className="space-backdrop__stars space-backdrop__stars--near" />
+          <div className="space-backdrop__grain" />
           <div className="space-backdrop__veil" />
         </div>
         <SiteHeader locale={locale} />

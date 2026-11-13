@@ -22,7 +22,7 @@
 - **Problem (30s):** Since 1960s NASA left hardware across solar system. School-age enthusiasts hear only active missions. One machine's story scattered across mission pages, image libraries, archives. Finished missions—great teaching material—written for adults.
 - **Record (45s):** One artifact example: Apollo 11 LRRR. Mission completed 1969; hardware still operating today, measuring lunar recession. Two statuses, one record.
 - **Three experiences (60s):** Academy (age-banded lessons, journeys, quizzes, playground) teaches; Museum (identity, narrative, sources) exhibits; Explorer (timeline, filters, 3D+2D) discovers. Same data, different reading modes.
-- **Proof (30s):** Sources with access dates; original NASA wording preserved; claim labels; verification gates (21 tests, 50 smoke, 38 axe, 24 journeys, 192 links).
+- **Proof (30s):** Sources with access dates; original NASA wording preserved; claim labels; verification gates (21 tests, 50 smoke, 38 axe, 30 journeys, 192 links).
 - **Limits + distinction (15s):** Curated 30, not exhaustive; no live telemetry; no measured outcomes. Mission ending is not object disappearance.
 
 ---

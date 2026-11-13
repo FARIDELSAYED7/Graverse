@@ -77,7 +77,47 @@ body {
   border-radius: 4px;
 }
 
-/* NASA image backdrop ---------------------------------------------------- */
+/* Living deep-space backdrop ----------------------------------------------
+   Seven stacked layers, painted once and then only composited:
+   1. base gradient        — depth, tinted by the route destination
+   2. photo                — a NASA photograph, slowly drifting
+   3. aurora wash          — a soft atmospheric glow in the route accent
+   4. orbital paths        — two hairline arcs, the "mission map" detail
+   5-7. star fields        — far / mid / near, drifting at different speeds
+   8. grain                — archival film texture
+   9. readability veil     — strong enough that text never fights the sky
+
+   The route destination is advertised as <html data-atmosphere="..."> by
+   ExperienceTheme (and pre-paint scripts on artifact pages). Cards keep
+   their local accents via data-destination and never move the whole sky. */
+
+:root {
+  --atmo-accent: #7dd3fc;
+  --atmo-accent-soft: rgba(125, 211, 252, 0.32);
+  --atmo-deep: rgba(43, 90, 148, 0.3);
+  --atmo-floor: rgba(24, 63, 92, 0.34);
+}
+
+html[data-atmosphere="deep-space"] {
+  --atmo-accent: #7dd3fc;
+  --atmo-accent-soft: rgba(125, 211, 252, 0.32);
+  --atmo-deep: rgba(43, 90, 148, 0.3);
+  --atmo-floor: rgba(24, 63, 92, 0.34);
+}
+
+html[data-atmosphere="moon"] {
+  --atmo-accent: #9cc7ee;
+  --atmo-accent-soft: rgba(156, 199, 238, 0.3);
+  --atmo-deep: rgba(70, 104, 148, 0.32);
+  --atmo-floor: rgba(38, 62, 96, 0.36);
+}
+
+html[data-atmosphere="mars"] {
+  --atmo-accent: #f0a58a;
+  --atmo-accent-soft: rgba(240, 138, 106, 0.28);
+  --atmo-deep: rgba(122, 62, 40, 0.34);
+  --atmo-floor: rgba(64, 34, 34, 0.36);
+}
 
 .space-backdrop {
   position: fixed;
@@ -86,22 +126,62 @@ body {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 70% 55% at 78% -8%, rgba(43, 90, 148, 0.3), transparent 62%),
-    radial-gradient(ellipse 90% 60% at 50% 108%, rgba(24, 63, 92, 0.34), transparent 68%),
-    linear-gradient(180deg, #090f1c 0%, #0b1222 46%, #0d1526 100%);
+    radial-gradient(ellipse 80% 62% at 82% -12%, var(--atmo-deep), transparent 62%),
+    radial-gradient(ellipse 95% 64% at 50% 114%, var(--atmo-floor), transparent 70%),
+    linear-gradient(180deg, #070e1c 0%, #0a1222 46%, #0b1626 100%);
 }
 
-/* A single-hue teal wash replaces the old rainbow aurora. It sits below the
+/* NASA photograph layer — destination-aware, drifting one slow cycle. The
+   brighter archive image keeps its detail instead of reading as flat black;
+   the veil below is what protects legibility, not the photograph. */
+.space-backdrop__photo {
+  position: absolute;
+  inset: -6%;
+  background-image: url("/images/backdrop-deep-space.webp");
+  background-position: center 42%;
+  background-size: cover;
+  opacity: 0.56;
+  filter: saturate(1.22) contrast(1.06) brightness(1.02);
+  transform: scale(1.06);
+  animation: backdrop-drift 64s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* A gentle grade inside the photo layer: cool blue above, deeper indigo
+   below, so the sky has depth without turning into a second image. */
+.space-backdrop__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 58% 46% at 76% 16%, rgba(76, 156, 200, 0.2), transparent 70%),
+    linear-gradient(160deg, rgba(11, 34, 64, 0.34), transparent 48%, rgba(8, 24, 42, 0.44));
+}
+
+html[data-atmosphere="moon"] .space-backdrop__photo {
+  background-image: url("/images/moon.webp");
+  opacity: 0.62;
+  filter: saturate(1.04) contrast(1.08) brightness(1.12);
+}
+
+html[data-atmosphere="mars"] .space-backdrop__photo {
+  background-image: url("/images/mars.webp");
+  opacity: 0.5;
+  filter: saturate(1.2) contrast(1.05) brightness(1.1);
+}
+
+/* A single-hue atmospheric wash in the route accent. Sits below the
    readability veil so the dark photography never reads as flat black. */
 .space-backdrop__aurora {
   position: absolute;
   inset: -22%;
   background:
-    radial-gradient(ellipse 52% 42% at 24% 24%, rgba(94, 234, 212, 0.24), transparent 70%),
-    radial-gradient(ellipse 46% 38% at 78% 74%, rgba(43, 108, 145, 0.32), transparent 72%);
-  filter: blur(46px) saturate(1.05);
-  opacity: 0.8;
-  animation: aurora-drift 34s ease-in-out infinite alternate;
+    radial-gradient(ellipse 50% 40% at 21% 20%, var(--atmo-accent-soft), transparent 70%),
+    radial-gradient(ellipse 46% 38% at 80% 74%, var(--atmo-floor), transparent 72%),
+    radial-gradient(ellipse 64% 36% at 50% 108%, var(--atmo-accent-soft), transparent 74%);
+  filter: blur(50px) saturate(1.1);
+  opacity: 0.85;
+  animation: aurora-drift 38s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -114,55 +194,92 @@ body {
   }
 }
 
-/* The photograph is a separate layer so it can drift slowly without moving
-   the star field or the readability veil. */
-.space-backdrop__photo {
+/* Hairline orbital arcs — the mission-map detail of the command center. */
+.space-backdrop__orbit {
   position: absolute;
-  inset: -5%;
-  background-image: url("/images/deep-space.webp");
-  background-position: center;
-  background-size: cover;
-  opacity: 0.45;
-  filter: saturate(1.12) contrast(1.04);
-  transform: scale(1.06);
-  animation: backdrop-drift 52s ease-in-out infinite alternate;
+  inset: 0;
+  background:
+    radial-gradient(circle 640px at 84% 12%, transparent 356px, rgba(125, 211, 252, 0.07) 357px, transparent 359px),
+    radial-gradient(circle 640px at 84% 12%, transparent 474px, rgba(94, 234, 212, 0.055) 475px, transparent 477px),
+    radial-gradient(circle 900px at -8% 108%, transparent 560px, rgba(125, 211, 252, 0.05) 561px, transparent 563px);
+}
+
+/* Three parallax star layers, each an SVG tile that repeats seamlessly and
+   drifts by exactly one tile size per cycle. */
+.space-backdrop__stars {
+  position: absolute;
+  inset: -2%;
+  background-repeat: repeat;
   will-change: transform;
 }
 
-body:has([data-destination="moon"]) .space-backdrop__photo {
-  background-image: url("/images/moon.webp");
+.space-backdrop__stars--far {
+  background-image: url("/images/sky/stars-far.svg");
+  background-size: 760px 760px;
+  opacity: 0.6;
+  animation: star-drift-far 320s linear infinite;
 }
 
-body:has([data-destination="mars"]) .space-backdrop__photo {
-  background-image: url("/images/mars.webp");
+.space-backdrop__stars--mid {
+  background-image: url("/images/sky/stars-mid.svg");
+  background-size: 640px 640px;
+  opacity: 0.75;
+  animation: star-drift-mid 220s linear infinite;
 }
 
-body:has([data-destination="deep-space"]) .space-backdrop__photo {
-  background-image: url("/images/deep-space.webp");
+.space-backdrop__stars--near {
+  background-image: url("/images/sky/stars-near.svg");
+  background-size: 520px 520px;
+  opacity: 0.95;
+  animation: star-drift-near 150s linear infinite;
 }
 
+@keyframes star-drift-far {
+  to { transform: translate3d(-76px, -380px, 0); }
+}
+
+@keyframes star-drift-mid {
+  to { transform: translate3d(-320px, -160px, 0); }
+}
+
+@keyframes star-drift-near {
+  to { transform: translate3d(-260px, -260px, 0); }
+}
+
+/* Archival film grain — a fractal-noise SVG at very low opacity. */
+.space-backdrop__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/sky/grain.svg");
+  background-size: 180px 180px;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+
+/* Readability veil: beauty must never cost legibility. The centre opens up
+   enough for the photograph to breathe; the edges and the lower third stay
+   dark so long-form text and the footer keep their contrast. */
 .space-backdrop__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 85% 65% at 50% 30%, transparent 10%, rgba(4, 8, 20, 0.38) 72%, rgba(4, 8, 20, 0.82) 100%),
-    linear-gradient(180deg, rgba(4, 8, 20, 0.26) 0%, rgba(5, 11, 24, 0.64) 48%, rgba(5, 11, 24, 0.9) 100%);
+    radial-gradient(ellipse 90% 68% at 50% 24%, rgba(4, 8, 20, 0.06) 0%, rgba(4, 8, 20, 0.4) 64%, rgba(4, 8, 20, 0.8) 100%),
+    linear-gradient(180deg, rgba(4, 8, 20, 0.24) 0%, rgba(5, 11, 24, 0.52) 44%, rgba(4, 9, 20, 0.88) 100%);
 }
 
-.space-backdrop__stars {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.75), transparent),
-    radial-gradient(1px 1px at 62% 12%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.5px 1.5px at 84% 42%, rgba(190, 226, 255, 0.8), transparent),
-    radial-gradient(1px 1px at 38% 68%, rgba(255, 255, 255, 0.45), transparent),
-    radial-gradient(1px 1px at 8% 82%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.5px 1.5px at 92% 78%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1px 1px at 50% 45%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1px 1px at 72% 92%, rgba(255, 255, 255, 0.4), transparent);
-  background-size: 620px 620px, 480px 480px, 760px 760px, 540px 540px, 700px 700px, 660px 660px, 420px 420px, 580px 580px;
-  opacity: 0.7;
+/* Narrow screens put more text directly on the sky, so the photograph is
+   calmer and the veil holds a little more weight. */
+@media (max-width: 767px) {
+  .space-backdrop__photo {
+    opacity: 0.46;
+    background-position: center 32%;
+  }
+
+  .space-backdrop__veil {
+    background:
+      radial-gradient(ellipse 120% 80% at 50% 20%, rgba(4, 8, 20, 0.16) 0%, rgba(4, 8, 20, 0.52) 70%, rgba(4, 8, 20, 0.84) 100%),
+      linear-gradient(180deg, rgba(4, 8, 20, 0.34) 0%, rgba(5, 11, 24, 0.6) 46%, rgba(4, 9, 20, 0.9) 100%);
+  }
 }
 
 @keyframes backdrop-drift {
@@ -174,43 +291,196 @@ body:has([data-destination="deep-space"]) .space-backdrop__photo {
   }
 }
 
-/* Route-level atmosphere for the home and museum heroes. */
+/* Route-level atmosphere for the home, museum and explorer heroes. */
 .hero-photo,
-.museum-hero-photo {
+.museum-hero-photo,
+.explorer-hero-photo {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
+.hero-photo img,
+.museum-hero-photo img,
+.explorer-hero-photo img {
+  object-fit: cover;
+}
+
+/* Home hero — a brighter deep-space photograph, graded rather than simply
+   dimmed. The copy column sits in the darkest part of the left-to-right ramp
+   while the image stays open on the right, behind the featured record. */
 .hero-photo {
-  opacity: 0.52;
+  background-color: #060c18;
   transform: scale(1.02);
 }
 
+.hero-photo img {
+  opacity: 0.84;
+  object-position: center;
+  filter: saturate(1.08) contrast(1.04) brightness(0.96);
+}
+
 .hero-photo::after,
-.museum-hero-photo::after {
+.museum-hero-photo::after,
+.explorer-hero-photo::after {
   content: "";
   position: absolute;
   inset: 0;
 }
 
 .hero-photo::after {
-  background: linear-gradient(180deg, rgba(4, 10, 22, 0.28), rgba(4, 10, 22, 0.72));
+  background:
+    linear-gradient(
+      96deg,
+      rgba(5, 10, 21, 0.95) 0%,
+      rgba(5, 10, 21, 0.88) 24%,
+      rgba(5, 10, 21, 0.62) 46%,
+      rgba(5, 10, 21, 0.26) 68%,
+      rgba(5, 10, 21, 0.18) 82%,
+      rgba(5, 10, 21, 0.38) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.78) 0%,
+      rgba(4, 9, 19, 0.2) 18%,
+      rgba(4, 9, 19, 0.04) 56%,
+      rgba(5, 10, 21, 0.3) 84%
+    );
 }
 
-.hero-photo img,
-.museum-hero-photo img {
-  object-fit: cover;
+/* On narrow screens the copy sits over the whole photograph, so the grade
+   becomes vertical and the image is calmer. */
+@media (max-width: 1023px) {
+  .hero-photo img {
+    opacity: 0.62;
+    object-position: 62% center;
+  }
+
+  .hero-photo::after {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.86) 0%,
+      rgba(4, 9, 19, 0.72) 28%,
+      rgba(5, 10, 21, 0.78) 68%,
+      rgba(5, 10, 21, 0.92) 100%
+    );
+  }
 }
 
+/* Museum hero — the lunar photograph is graded the same way as the home
+   hero: dark under the copy, open on the right, then a soft landing into the
+   page. The moon's bright limb sits low, so the image is nudged down. */
 .museum-hero-photo {
-  opacity: 0.42;
+  background-color: #060c18;
   transform: scale(1.03);
 }
 
+.museum-hero-photo img {
+  opacity: 0.68;
+  object-position: center 62%;
+  filter: saturate(1.05) contrast(1.06) brightness(1.04);
+}
+
 .museum-hero-photo::after {
-  background: linear-gradient(180deg, rgba(4, 10, 22, 0.2), rgba(4, 10, 22, 0.82));
+  background:
+    linear-gradient(
+      100deg,
+      rgba(5, 10, 21, 0.92) 0%,
+      rgba(5, 10, 21, 0.78) 30%,
+      rgba(5, 10, 21, 0.38) 62%,
+      rgba(5, 10, 21, 0.22) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.55) 0%,
+      rgba(4, 9, 19, 0.08) 42%,
+      rgba(5, 10, 21, 0.42) 100%
+    );
+}
+
+@media (max-width: 1023px) {
+  .museum-hero-photo img {
+    opacity: 0.5;
+    object-position: center 58%;
+  }
+
+  .museum-hero-photo::after {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.78) 0%,
+      rgba(4, 9, 19, 0.5) 38%,
+      rgba(5, 10, 21, 0.72) 100%
+    );
+  }
+}
+
+/* Explorer hero — a shallow band of the same deep-space archive photograph
+   behind the page title. It ends in a fade so the dense explorer controls sit
+   on the calm page surface rather than on photography. */
+.explorer-hero-photo {
+  background-color: #060c18;
+}
+
+.explorer-hero-photo img {
+  opacity: 0.64;
+  object-position: 68% center;
+  filter: saturate(1.16) contrast(1.05) brightness(0.98);
+}
+
+.explorer-hero-photo::after {
+  background:
+    linear-gradient(
+      95deg,
+      rgba(5, 10, 21, 0.94) 0%,
+      rgba(5, 10, 21, 0.82) 40%,
+      rgba(5, 10, 21, 0.44) 72%,
+      rgba(5, 10, 21, 0.3) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.42) 0%,
+      rgba(4, 9, 19, 0.12) 50%,
+      rgba(5, 10, 21, 0.36) 100%
+    );
+}
+
+/* The destination filter also tints the shallow hero band, so a Moon or Mars
+   investigation does not open on a deep-space sky. */
+.explorer-hero-photo[data-destination="moon"] img {
+  opacity: 0.56;
+  object-position: center 62%;
+  filter: saturate(1.04) contrast(1.06) brightness(1.06);
+}
+
+.explorer-hero-photo[data-destination="mars"] img {
+  opacity: 0.42;
+  object-position: 62% center;
+  filter: saturate(1.12) contrast(1.04) brightness(0.86);
+}
+
+@media (max-width: 767px) {
+  .explorer-hero-photo img {
+    opacity: 0.44;
+    object-position: 64% center;
+  }
+
+  .explorer-hero-photo[data-destination="moon"] img {
+    opacity: 0.42;
+  }
+
+  .explorer-hero-photo[data-destination="mars"] img {
+    opacity: 0.32;
+  }
+
+  .explorer-hero-photo::after {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 9, 19, 0.78) 0%,
+      rgba(4, 9, 19, 0.58) 46%,
+      rgba(5, 10, 21, 0.8) 100%
+    );
+  }
 }
 
 /* Horizon glow used on hero sections */
@@ -282,6 +552,249 @@ body:has([data-destination="deep-space"]) .space-backdrop__photo {
   box-shadow:
     0 24px 60px -24px rgba(0, 0, 0, 0.9),
     0 0 0 1px color-mix(in srgb, var(--card-accent, #5eead4) 22%, transparent);
+}
+
+/* ==========================================================================
+   Design system primitives
+   --------------------------------------------------------------------------
+   Fewer styles, each deliberate: panel, data tile, meta label, index number,
+   fine rule, utility button, telemetry chip, corner frame, scan line.
+   ========================================================================== */
+
+/* Content panel — the standard dense-data surface. */
+.panel {
+  background: linear-gradient(180deg, rgba(21, 32, 55, 0.72), rgba(13, 21, 38, 0.64));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 60px -40px rgba(0, 0, 0, 0.9);
+}
+
+/* Data tile — a small factual unit in a telemetry grid. */
+.data-tile {
+  border: 1px solid rgba(125, 211, 252, 0.14);
+  background: rgba(8, 16, 30, 0.55);
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Monospaced metadata: labels, values, references. */
+.meta-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.meta-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+/* Index numbers — "01 / 02 / 03" section markers. */
+.index-number {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* Fine rules that separate without shouting. */
+.rule-fine {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, rgba(148, 190, 224, 0.3), transparent);
+}
+
+/* Utility button — the quiet secondary action next to a primary CTA. */
+.btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+/* Telemetry chip — monospaced live-data pill used on heroes and panels. */
+.telemetry-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  background: rgba(6, 14, 28, 0.72);
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.telemetry-chip__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--telemetry-accent, var(--accent));
+  box-shadow: 0 0 8px var(--telemetry-accent, var(--accent));
+}
+
+/* Corner frame — cinematic HUD brackets around a featured panel. The default
+   positioning is zero-specificity so position utilities always win. */
+:where(.corner-frame) {
+  position: relative;
+}
+
+.corner-frame::before,
+.corner-frame::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid rgba(125, 211, 252, 0.55);
+  pointer-events: none;
+  z-index: 2;
+  transition: border-color 0.3s ease;
+}
+
+.corner-frame::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.corner-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.corner-frame:hover::before,
+.corner-frame:hover::after {
+  border-color: var(--accent);
+}
+
+/* Scan line — a slow sweeping read across a featured panel. */
+.scan-line {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(94, 234, 212, 0.55), transparent);
+  animation: scan-sweep 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes scan-sweep {
+  0% {
+    top: 6%;
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.6;
+  }
+  50% {
+    top: 92%;
+    opacity: 0.6;
+  }
+  64% {
+    opacity: 0;
+  }
+  100% {
+    top: 6%;
+    opacity: 0;
+  }
+}
+
+/* Entrance choreography — staggered hero arrivals. Elements animate once on
+   load; the delay index is set per element with --enter-i. */
+.enter {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: enter-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--enter-i, 0) * 95ms + var(--enter-base, 0ms));
+}
+
+@keyframes enter-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll progress rail — lives at the bottom edge of the header. */
+.scroll-progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--brand-teal), var(--brand-cyan) 55%, var(--brand-amber));
+  border-radius: 999px;
+  z-index: 60;
+  will-change: transform;
+}
+
+/* Route identity pill — where in GRAVERSE am I. Display is zero-specificity
+   so responsive visibility utilities (hidden / lg:inline-flex) still win. */
+:where(.route-pill) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  background: rgba(6, 14, 28, 0.6);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.route-pill__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* The route pill follows the Academy's light surface. */
+html[data-experience="academy"] .route-pill {
+  border-color: rgba(20, 33, 59, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+  color: #b4532a;
+}
+
+html[data-experience="academy"] .route-pill__dot {
+  box-shadow: none;
 }
 
 /* Brand ------------------------------------------------------------------ */
@@ -420,6 +933,30 @@ body:has([data-destination="deep-space"]) .space-backdrop__photo {
 .artifact-card .artifact-cta,
 .artifact-card .artifact-pin {
   color: var(--card-accent);
+}
+
+/* Evidence reveal — the story behind the record slides in on hover, focus
+   or tap. Touch devices show it statically so no information is hover-gated. */
+.evidence-reveal {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 5;
+  padding: 0.75rem 0.875rem 0.875rem;
+  background: linear-gradient(180deg, transparent, rgba(4, 9, 18, 0.55) 30%, rgba(4, 9, 18, 0.92) 78%);
+  transform: translateY(102%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .evidence-reveal,
+.group:focus-within .evidence-reveal {
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .evidence-reveal {
+    display: none;
+  }
 }
 
 .section-kicker {
@@ -839,6 +1376,21 @@ html[data-motion="reduced"] *::after {
   scroll-behavior: auto !important;
 }
 
+/* The hero entrance choreography is skipped entirely, not just accelerated. */
+html[data-motion="reduced"] .enter {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 
 /* Skeleton --------------------------------------------------------------- */
 
@@ -1160,10 +1712,40 @@ html[data-experience="academy"] header button[aria-label] {
   background: rgba(255, 255, 255, 0.8);
 }
 
+/* The motion toggle carries its label in a title, not an aria-label, so it
+   needs the light surface treatment on its own. */
+html[data-experience="academy"] header .motion-toggle {
+  color: #46536b;
+  border-color: rgba(20, 33, 59, 0.16);
+  background: rgba(255, 255, 255, 0.8);
+}
+
 /* The mobile menu panel. */
 html[data-experience="academy"] header > div:last-child {
   background: rgba(255, 250, 240, 0.98);
   border-color: rgba(20, 33, 59, 0.12);
+}
+
+/* The "More" dropdown trigger and its desktop panel. The panel is a dark
+   glass sheet on the main surface, so on the light Academy surface it needs
+   its own paper background or the links lose all contrast. */
+html[data-experience="academy"] header .nav-more-trigger {
+  color: #46536b;
+}
+
+html[data-experience="academy"] header .nav-more-trigger:hover,
+html[data-experience="academy"] header .nav-more-trigger[aria-expanded="true"] {
+  color: #14213b;
+}
+
+html[data-experience="academy"] header .nav-more-panel {
+  background: rgba(255, 253, 247, 0.98);
+  border-color: rgba(20, 33, 59, 0.12);
+}
+
+html[data-experience="academy"] header .nav-more-panel a:hover {
+  background: rgba(20, 33, 59, 0.05);
+  color: #14213b;
 }
 
 /* Shared footer on the light surface. */

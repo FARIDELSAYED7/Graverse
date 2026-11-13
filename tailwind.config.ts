@@ -4,6 +4,20 @@ const config: Config = {
   content: ["./src/**/*.{ts,tsx,mdx}"],
   theme: {
     extend: {
+      // The `/NN` opacity modifier resolves against this scale. Tailwind's
+      // default scale stops at 5-step increments, so utilities like
+      // `bg-[#07111f]/98` or `border-white/12` silently generate no CSS at
+      // all (the element ends up with no background/border). These are the
+      // extra steps the codebase actually authors.
+      opacity: {
+        3: "0.03",
+        4: "0.04",
+        6: "0.06",
+        8: "0.08",
+        12: "0.12",
+        94: "0.94",
+        98: "0.98",
+      },
       colors: {
         // Token colours are driven by CSS variables so the Academy can switch
         // to a light surface without overriding every utility class. The RGB
@@ -73,6 +87,10 @@ const config: Config = {
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
+        "spin-reverse": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(-360deg)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
@@ -80,6 +98,7 @@ const config: Config = {
         "pulse-ring": "pulse-ring 3.5s ease-in-out infinite",
         drift: "drift 7s ease-in-out infinite alternate",
         shimmer: "shimmer 1.8s infinite",
+        "spin-reverse": "spin-reverse 120s linear infinite",
       },
     },
   },

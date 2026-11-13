@@ -604,7 +604,7 @@
 ### Q65. What is the verification pipeline?
 **A.** What is the verification pipeline?
 **B.** ما verification pipeline؟
-**C.** `scripts/verify.mjs` orchestrates: tsc → lint → validate → test:data → build (.next-prod) → start (3100) → smoke (50 routes, redirects, axe 38 pages, keyboard, gameplay, reduced motion) → journeys (24) → link-check (192). CI runs same. Last recorded: all pass.
+**C.** `scripts/verify.mjs` orchestrates: tsc → lint → validate → test:data → build (.next-prod) → start (3100) → smoke (50 routes, redirects, axe 38 pages, keyboard, gameplay, reduced motion) → journeys (30) → link-check (192). CI runs same. Last recorded: all pass.
 **D.** "One script runs typecheck, lint, data validation, data tests, production build, smoke on 50 routes with axe on 38, 24 user journeys and 192 internal links. CI runs the same sequence."
 **E.** `docs/ARCHITECTURE.md` §9; `scripts/verify.mjs`; `.github/workflows/ci.yml`.
 **F.** "Did you run it now?" → results are from recorded run 2026-11-11; not re-run in this session.
@@ -1083,7 +1083,7 @@
 ### Q116. What is the single most defensible technical claim?
 **A.** What is the single most defensible technical claim?
 **B.** ما أقوى ادعاء تقني؟
-**C.** "Mission and hardware status are disjoint types; impossible to write missionStatus:'operating'." + verified gates (21 tests, 50 smoke, 38 axe, 24 journeys, 192 links). Evidence-based, reproducible.
+**C.** "Mission and hardware status are disjoint types; impossible to write missionStatus:'operating'." + verified gates (21 tests, 50 smoke, 38 axe, 30 journeys, 192 links). Evidence-based, reproducible.
 **D.** "That mission and hardware status are disjoint types—so the confusion is impossible to express—and that every claim is backed by a reproducible verification gate."
 **E.** `types/artifact.ts`, `scripts/verify.mjs`.
 **F.** "Show me the type." → MissionStatus vs HardwareStatus.
@@ -1378,8 +1378,8 @@
 ### Q147. How is reliability verified?
 **A.** How is reliability verified?
 **B.** كيف reliability؟
-**C.** CI pipeline: validate, test:data, lint, build, smoke (50 routes), journeys (24), link-check (192). Last recorded all pass. But results local to recorded run. (docs)
-**D.** "A full CI gate—data validation, 21 tests, lint, build, smoke on 50 routes, 24 journeys, 192 links—last recorded all passing locally. We haven't run it in this session."
+**C.** CI pipeline: validate, test:data, lint, build, smoke (50 routes), journeys (30), link-check (192). Last recorded all pass. But results local to recorded run. (docs)
+**D.** "A full CI gate—data validation, 21 tests, lint, build, smoke on 50 routes, 30 journeys, 192 links—last recorded all passing locally. We haven't run it in this session."
 **E.** `.github/workflows/ci.yml`, `scripts/verify.mjs`.
 **F.** "Production deployed?" → no deployment URL in repo.
 **G.** Do not claim deployment.

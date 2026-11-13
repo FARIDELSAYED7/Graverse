@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Orbit, Telescope } from "lucide-react";
 import {
@@ -7,6 +8,7 @@ import {
   type ExploreMode,
   type ExploreView,
 } from "@/components/explore/ExploreExperience";
+import { destinationMeta } from "@/data/artifacts";
 import {
   defaultFilters,
   getFilterOptions,
@@ -109,38 +111,69 @@ export default function ExplorerPage({
     artifactId: first(searchParams.artifact),
   };
 
+  // Match the shallow hero band to the destination being investigated. When
+  // the filter is "all", the band uses the deep-space archive image.
+  const heroImage =
+    filters.destination === "all"
+      ? destinationMeta["deep-space"].image
+      : destinationMeta[filters.destination].image;
+
   return (
-    <div className="container-content pb-16 pt-8 sm:pt-10">
-      <header className="mb-8 max-w-3xl">
-        <p className="eyebrow">Explorer</p>
-        <h1 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
-          The archive, arranged three ways
-        </h1>
-        <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
-          Move through time, sort by destination, or compare artifact types. The
-          same records power the museum; this is the investigative view. Every
-          record states what is confirmed, estimated or unknown.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          <Link
-            href="/explorer/solar-system"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-text-secondary transition-colors hover:border-brand-cyan/40 hover:text-white"
-          >
-            <Orbit aria-hidden="true" className="h-3.5 w-3.5 text-brand-cyan" />
-            Solar system orrery
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-          </Link>
-          <Link
-            href="/explorer/bodies"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-text-secondary transition-colors hover:border-brand-cyan/40 hover:text-white"
-          >
-            <Telescope aria-hidden="true" className="h-3.5 w-3.5 text-brand-cyan" />
-            Destinations and deep sky
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-          </Link>
+    <>
+      <section className="relative overflow-hidden">
+        <div
+          className="explorer-hero-photo"
+          data-destination={filters.destination}
+          aria-hidden="true"
+        >
+          <Image
+            src={heroImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
         </div>
-      </header>
-      <ExploreExperience initial={initial} />
-    </div>
+        {/* Soft landing into the page so the photograph has no hard edge. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent via-bg/50 to-bg"
+        />
+        <div className="container-content relative pb-10 pt-8 sm:pt-10">
+          <header className="max-w-3xl">
+            <p className="eyebrow">Explorer</p>
+            <h1 className="mt-2 text-balance text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
+              The archive, arranged three ways
+            </h1>
+            <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
+              Move through time, sort by destination, or compare artifact types.
+              The same records power the museum; this is the investigative view.
+              Every record states what is confirmed, estimated or unknown.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Link
+                href="/explorer/solar-system"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-text-secondary transition-colors hover:border-brand-cyan/40 hover:text-white"
+              >
+                <Orbit aria-hidden="true" className="h-3.5 w-3.5 text-brand-cyan" />
+                Solar system orrery
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/explorer/bodies"
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-text-secondary transition-colors hover:border-brand-cyan/40 hover:text-white"
+              >
+                <Telescope aria-hidden="true" className="h-3.5 w-3.5 text-brand-cyan" />
+                Destinations and deep sky
+                <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </header>
+        </div>
+      </section>
+      <div className="container-content pb-16 pt-6">
+        <ExploreExperience initial={initial} />
+      </div>
+    </>
   );
 }

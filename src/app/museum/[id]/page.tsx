@@ -163,7 +163,20 @@ export default function ArtifactPage({ params }: PageProps) {
   ].filter((fact): fact is { label: string; value: string } => Boolean(fact));
 
   return (
-    <article className="pb-16" data-destination={artifact.destinationGroup}>
+    <article
+      className="pb-16"
+      data-destination={artifact.destinationGroup}
+      data-artifact-atmosphere={artifact.destinationGroup}
+    >
+      {/* Pre-paint route atmosphere: the backdrop photograph follows the
+          artifact's destination before first paint on direct loads. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `try{document.documentElement.dataset.atmosphere=${JSON.stringify(
+            artifact.destinationGroup
+          )}}catch(e){}`,
+        }}
+      />
       <div className="brand-rule" />
       <div className="container-content pt-6">
         <div className="flex flex-wrap items-center justify-between gap-3">

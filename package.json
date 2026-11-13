@@ -15,6 +15,7 @@
     "test:journeys": "node scripts/journeys.mjs",
     "test:links": "node scripts/link-check.mjs",
     "perf": "node scripts/perf.mjs",
+    "perf:mobile": "node scripts/perf-mobile.mjs",
     "verify": "node scripts/verify.mjs"
   },
   "engines": {

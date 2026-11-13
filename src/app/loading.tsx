@@ -1,7 +1,18 @@
 export default function Loading() {
   return (
     <div className="container-content pb-20 pt-12">
+      {/* Mission-control header: the system is acquiring telemetry. */}
       <div className="max-w-2xl space-y-4">
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className="telemetry-chip__dot motion-safe:animate-pulse"
+            style={{ display: "inline-block", background: "var(--accent)" }}
+          />
+          <p className="meta-label" role="status">
+            Acquiring telemetry…
+          </p>
+        </div>
         <div className="skeleton h-3 w-24 rounded-full" />
         <div className="skeleton h-10 w-full max-w-xl rounded-lg" />
         <div className="skeleton h-4 w-full max-w-lg rounded-full" />

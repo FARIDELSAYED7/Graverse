@@ -157,7 +157,7 @@ Target: **WCAG 2.1 AA**.
 - Keyboard checks: **passed**, including the rover move.
 - Gameplay/badge persistence check: **passed**.
 - Reduced-motion check: **passed**.
-- User journeys: **24/24 passed** (`npm run test:journeys`), including the
+- User journeys: **30/30 passed** (`npm run test:journeys`), including the
   Arabic right-to-left pass, the 390px phone layout with its working menu, and
   the Explorer and playground still serving records and controls with WebGL
   disabled.

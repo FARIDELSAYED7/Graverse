@@ -129,7 +129,7 @@ export default function MuseumPage() {
         </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-bg/50 to-bg"
         />
         <div className="container-content relative">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
@@ -155,7 +155,7 @@ export default function MuseumPage() {
               </Link>
               <Link
                 href="/about"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-sm font-semibold text-text-primary transition-colors hover:border-accent/50 hover:bg-white/5"
+                className="btn-secondary inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
               >
                 <BookOpen aria-hidden="true" className="h-4 w-4" />
                 How the data works
@@ -170,7 +170,7 @@ export default function MuseumPage() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:border-brand-teal/40 hover:text-white"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-text-secondary transition-colors hover:border-brand-teal/40 hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -178,13 +178,13 @@ export default function MuseumPage() {
             </nav>
           </div>
 
-          <div className="glass relative overflow-hidden rounded-2xl p-5">
+          <div className="glass corner-frame relative overflow-hidden rounded-2xl p-5">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(94,234,212,0.16),transparent_68%)]"
             />
             <div className="relative flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold text-white">
+              <p className="meta-label text-text-secondary">
                 Collection at a glance
               </p>
               <span className="rounded-full border border-brand-violet/30 bg-brand-violet/10 px-2.5 py-1 font-mono text-xs text-brand-violet">
@@ -193,8 +193,8 @@ export default function MuseumPage() {
             </div>
             <dl className="mt-5 grid grid-cols-3 gap-3 border-b border-white/10 pb-5">
               {destinationOrder.map((destination) => (
-                <div key={destination}>
-                  <dt className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                <div key={destination} className="data-tile">
+                  <dt className="meta-label flex items-center gap-1.5">
                     <span
                       aria-hidden="true"
                       className="h-1.5 w-1.5 rounded-full"

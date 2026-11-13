@@ -7,6 +7,7 @@ import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { MotionToggle } from "./MotionToggle";
 import { LanguageToggle } from "./LanguageToggle";
+import { ScrollProgress } from "./ScrollProgress";
 import { cn } from "@/lib/cn";
 import { t, type Locale } from "@/lib/i18n";
 
@@ -32,6 +33,18 @@ function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
   if (href === "/museum") return pathname.startsWith("/museum");
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/** Which part of GRAVERSE the visitor is in, for the route identity pill. */
+function routeIdentity(pathname: string): Parameters<typeof t>[1] | null {
+  if (pathname === "/") return "nav.home";
+  if (pathname.startsWith("/academy")) return "nav.academy";
+  if (pathname.startsWith("/museum")) return "nav.museum";
+  if (pathname.startsWith("/explorer")) return "nav.explorer";
+  const more = moreNav.find((item) => isActive(pathname, item.href));
+  if (more) return more.label;
+  if (pathname.startsWith("/about")) return "nav.about";
+  return null;
 }
 
 export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
@@ -81,17 +94,26 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
   }, [menuOpen]);
 
   const moreActive = moreNav.some((item) => isActive(pathname, item.href));
+  const routeLabel = routeIdentity(pathname);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#040a16]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#040a16]/75 backdrop-blur-xl">
       <div className="brand-rule pointer-events-none absolute inset-x-0 top-0" />
       <div className="container-content flex h-16 items-center justify-between gap-3">
-        <Logo
-          idPrefix="header"
-          asLink
-          markClassName="h-9 w-9"
-          className="shrink-0 rounded-md focus-visible:outline-none"
-        />
+        <div className="flex min-w-0 items-center gap-3">
+          <Logo
+            idPrefix="header"
+            asLink
+            markClassName="h-9 w-9"
+            className="shrink-0 rounded-md focus-visible:outline-none"
+          />
+          {routeLabel ? (
+            <span aria-hidden="true" className="route-pill hidden lg:inline-flex">
+              <span className="route-pill__dot" />
+              {t(locale, routeLabel)}
+            </span>
+          ) : null}
+        </div>
 
         <nav aria-label={t(locale, "nav.primary")} className="hidden xl:block">
           <ul className="flex items-center gap-0.5">
@@ -111,7 +133,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
                     {active ? (
                       <span
                         aria-hidden="true"
-                        className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-brand-teal"
+                        className="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-brand-teal shadow-[0_0_10px_rgba(94,234,212,0.8)]"
                       />
                     ) : null}
                   </Link>
@@ -125,7 +147,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
                 aria-expanded={moreOpen}
                 aria-controls={morePanelId}
                 className={cn(
-                  "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium transition-colors",
+                  "nav-more-trigger inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium transition-colors",
                   moreActive || moreOpen
                     ? "text-white"
                     : "text-text-secondary hover:text-white"
@@ -143,7 +165,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
               {moreOpen ? (
                 <div
                   id={morePanelId}
-                  className="absolute end-0 top-full mt-2 w-52 rounded-2xl border border-white/10 bg-[#07111f]/98 p-1.5 shadow-2xl backdrop-blur-xl"
+                  className="nav-more-panel absolute end-0 top-full mt-2 w-52 rounded-2xl border border-white/10 bg-[#07111f]/98 p-1.5 shadow-2xl backdrop-blur-xl"
                 >
                   <ul>
                     {moreNav.map((item) => (
@@ -283,12 +305,15 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
       {menuOpen ? (
         <div
           id={menuPanelId}
-          className="border-t border-white/10 bg-[#050d1b]/98 xl:hidden"
+          className="border-t border-white/10 bg-[#050d1b]/98 shadow-[0_32px_60px_-30px_rgba(0,0,0,0.9)] xl:hidden"
         >
           <div className="container-content py-4">
             <nav aria-label={t(locale, "nav.mobilePrimary")}>
-              <ul className="grid gap-1">
-                {[...primaryNav, ...moreNav].map((item, index) => {
+              <p className="meta-label px-3 pb-2">
+                {t(locale, "nav.primary")}
+              </p>
+              <ul className="grid grid-cols-2 gap-1">
+                {primaryNav.map((item, index) => {
                   const active = isActive(pathname, item.href);
                   return (
                     <li key={item.href}>
@@ -297,7 +322,7 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "flex items-center justify-between rounded-xl px-3 py-2.5 text-base font-medium",
+                          "flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-base font-medium",
                           active
                             ? "bg-accent/10 text-white"
                             : "text-text-secondary hover:bg-white/5 hover:text-white"
@@ -305,7 +330,41 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
                       >
                         {t(locale, item.label)}
                         {active ? (
-                          <span className="h-1.5 w-1.5 rounded-full bg-brand-violet shadow-[0_0_10px_rgba(167,139,250,0.8)]" />
+                          <span
+                            aria-hidden="true"
+                            className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-teal shadow-[0_0_10px_rgba(94,234,212,0.8)]"
+                          />
+                        ) : null}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <p className="meta-label px-3 pb-2 pt-4">
+                {t(locale, "nav.more")}
+              </p>
+              <ul className="grid grid-cols-2 gap-1">
+                {moreNav.map((item) => {
+                  const active = isActive(pathname, item.href);
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-sm font-medium",
+                          active
+                            ? "bg-accent/10 text-white"
+                            : "text-text-secondary hover:bg-white/5 hover:text-white"
+                        )}
+                      >
+                        {t(locale, item.label)}
+                        {active ? (
+                          <span
+                            aria-hidden="true"
+                            className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-amber shadow-[0_0_10px_rgba(242,179,61,0.8)]"
+                          />
                         ) : null}
                       </Link>
                     </li>
@@ -330,6 +389,8 @@ export function SiteHeader({ locale = "en" }: { locale?: Locale }) {
           </div>
         </div>
       ) : null}
+
+      <ScrollProgress />
     </header>
   );
 }
