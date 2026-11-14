@@ -33,6 +33,7 @@ import {
   hardwareTypeSingular,
 } from "@/data/artifacts";
 import { getSources, sourceTypeLabels } from "@/data/sources";
+import { getEchoStoryForArtifact } from "@/data/echoes";
 import { getMissionByName } from "@/data/missions";
 import { getAgency } from "@/data/space/agencies";
 import { lessons } from "@/data/lessons";
@@ -122,6 +123,7 @@ export default function ArtifactPage({ params }: PageProps) {
 
   const sources = getSources(artifact.sourceIds);
   const related = getArtifacts(artifact.relatedIds);
+  const echoStory = getEchoStoryForArtifact(artifact.id);
   const mission = getMissionByName(artifact.missionName);
   const agency = mission ? getAgency(mission.agencyId) : undefined;
   const artifactIndex = artifacts.findIndex((entry) => entry.id === artifact.id);
@@ -274,6 +276,27 @@ export default function ArtifactPage({ params }: PageProps) {
                 <AskGraverseButton locale={locale} />
               </div>
             </AskGraverseScope>
+
+            {echoStory ? (
+              <div className="mt-4 rounded-2xl border border-[#6d4aff]/35 bg-[#6d4aff]/10 p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#a99bff]">
+                  ECHOES · Stories Beyond Earth
+                </p>
+                <p className="mt-1.5 text-sm font-semibold text-text-primary">
+                  {echoStory.storyTitle.en}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-text-secondary">
+                  {echoStory.dek.en}
+                </p>
+                <Link
+                  href={`/stories/${echoStory.slug}`}
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#6d4aff] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#5b3fe0]"
+                >
+                  Discover its story
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+              </div>
+            ) : null}
 
             <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:grid-cols-3">
               <div>

@@ -1,0 +1,421 @@
+{
+  "$comment": "Supplementary ECHOES imagery. A cinematic presentation needs more frames than the four or five in `echo-media-plan.json`, so this plan adds further NASA Image and Video Library assets that are directly relevant to each mission. `scripts/fetch-echo-extra-media.mjs` downloads them into `public/images/echoes/extra/` and writes `src/data/echoes/extra-media-manifest.json`. Bilingual alt text and captions live in `src/data/echoes/extra-media.ts`.",
+  "images": [
+    {
+      "id": "PIA04318",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA00621",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA00921",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA00623",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA00627",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA00632",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA11431",
+      "story": "sojourner"
+    },
+    {
+      "id": "PIA19109",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA16559",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA13372",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA20750",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA18595",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA21493",
+      "story": "opportunity"
+    },
+    {
+      "id": "PIA03250",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA16440",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA07262",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA07257",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA17760",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA03274",
+      "story": "spirit"
+    },
+    {
+      "id": "PIA10732",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA09207",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA10793",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA10760",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA10902",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA11000",
+      "story": "phoenix"
+    },
+    {
+      "id": "PIA19664",
+      "story": "insight"
+    },
+    {
+      "id": "PIA21847",
+      "story": "insight"
+    },
+    {
+      "id": "PIA22647",
+      "story": "insight"
+    },
+    {
+      "id": "PIA22226",
+      "story": "insight"
+    },
+    {
+      "id": "PIA19811",
+      "story": "insight"
+    },
+    {
+      "id": "PIA22810",
+      "story": "insight"
+    },
+    {
+      "id": "PIA24810",
+      "story": "ingenuity"
+    },
+    {
+      "id": "PIA23882",
+      "story": "ingenuity"
+    },
+    {
+      "id": "PIA24466",
+      "story": "ingenuity"
+    },
+    {
+      "id": "PIA23720",
+      "story": "ingenuity"
+    },
+    {
+      "id": "PIA24043",
+      "story": "ingenuity"
+    },
+    {
+      "id": "PIA24440",
+      "story": "ingenuity"
+    },
+    {
+      "id": "as11-40-5902",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "S69-44464",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "as11-44-6550",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "as11-40-5880",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "as11-36-5355",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "jsc2007e045375",
+      "story": "apollo-11-lm-descent-stage"
+    },
+    {
+      "id": "as12-47-6918",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as14-67-09361",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as14-67-09364",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as14-67-09362",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as16-114-18388",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as12-46-6807",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "S70-50764",
+      "story": "apollo-lunar-surface-experiments"
+    },
+    {
+      "id": "as15-88-11901",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "S71-16722",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "as15-86-11602",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "S71-43943",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "as15-85-11437",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "S71-33433",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "S71-39867",
+      "story": "lunar-roving-vehicle"
+    },
+    {
+      "id": "LRC-1967-B701_P-04028",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "as12-48-7110",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "PIA23553",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "S69-55553",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "PIA12903",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "AS12-47-6949",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "PIA23520",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "PIA02975",
+      "story": "surveyor-landers"
+    },
+    {
+      "id": "PIA00383",
+      "story": "viking-1-lander"
+    },
+    {
+      "id": "PIA00386",
+      "story": "viking-1-lander"
+    },
+    {
+      "id": "PIA01443",
+      "story": "viking-1-lander"
+    },
+    {
+      "id": "101-KSC-75P-110",
+      "story": "viking-1-lander"
+    },
+    {
+      "id": "PIA03902",
+      "story": "viking-1-lander"
+    },
+    {
+      "id": "PIA04023",
+      "story": "viking-2-lander"
+    },
+    {
+      "id": "PIA04029",
+      "story": "viking-2-lander"
+    },
+    {
+      "id": "PIA04930",
+      "story": "viking-2-lander"
+    },
+    {
+      "id": "101-ksc-76pc-303",
+      "story": "viking-2-lander"
+    },
+    {
+      "id": "PIA12033",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA19167",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA20349",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA20187",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA14125",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA20919",
+      "story": "dawn"
+    },
+    {
+      "id": "PIA13855",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA13858",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA02122",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA02119",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA02132",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA02114",
+      "story": "near-shoemaker"
+    },
+    {
+      "id": "PIA17445",
+      "story": "kepler"
+    },
+    {
+      "id": "PIA18463",
+      "story": "kepler"
+    },
+    {
+      "id": "PIA23002",
+      "story": "kepler"
+    },
+    {
+      "id": "PIA23003",
+      "story": "kepler"
+    },
+    {
+      "id": "PIA14446",
+      "story": "kepler"
+    },
+    {
+      "id": "PIA15423",
+      "story": "kepler"
+    },
+    {
+      "id": "ARC-1973-AC73-9019",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1972-AC72-2134",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1972-A72-2137",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1973-AC73-9341",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1972-AC72-1354",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1972-AC72-2140",
+      "story": "pioneer-10"
+    },
+    {
+      "id": "ARC-1982-AC82-0178",
+      "story": "pioneer-11"
+    },
+    {
+      "id": "ARC-1974-AC74-9032-234",
+      "story": "pioneer-11"
+    },
+    {
+      "id": "ARC-1978-A78-0077-12",
+      "story": "pioneer-11"
+    },
+    {
+      "id": "ARC-1974-AC74-9036-28",
+      "story": "pioneer-11"
+    },
+    {
+      "id": "ARC-1972-AC72-2140",
+      "story": "pioneer-11"
+    },
+    {
+      "id": "ARC-1983-AC83-0351",
+      "story": "pioneer-11"
+    }
+  ]
+}

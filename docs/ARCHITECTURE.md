@@ -74,7 +74,7 @@ parsed in `src/app/explorer/page.tsx` and mirrored back to the URL by
 `src/data` is the single source of truth:
 
 ```
-artifacts/       30 artifact records split across six source files
+artifacts/       33 artifact records split across seven source files
 space/bodies     20 solar-system records
 space/deep-sky   8 deep-sky records
 space/agencies   8 agencies

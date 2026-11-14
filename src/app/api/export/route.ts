@@ -11,6 +11,7 @@ import { celestialBodies } from "@/data/space/bodies";
 import { deepSkyObjects } from "@/data/space/deep-sky";
 import { engineeringTopics } from "@/data/engineering";
 import { storyCollections } from "@/data/stories";
+import { echoStories } from "@/data/echoes";
 import { simulations } from "@/data/simulations";
 
 export const dynamic = "force-static";
@@ -28,6 +29,7 @@ const datasets = {
   glossary,
   engineering: engineeringTopics,
   stories: storyCollections,
+  echoes: echoStories,
   simulations,
 } as const;
 

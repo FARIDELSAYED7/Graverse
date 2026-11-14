@@ -16,13 +16,13 @@ const primaryNav = [
   { href: "/explorer", label: "nav.explorer" },
   { href: "/museum", label: "nav.museum" },
   { href: "/academy", label: "nav.academy" },
+  { href: "/stories", label: "nav.stories" },
   { href: "/about", label: "nav.about" },
 ] as const;
 
 const moreNav = [
   { href: "/mission-control", label: "nav.missionControl" },
   { href: "/engineering", label: "nav.engineering" },
-  { href: "/stories", label: "nav.stories" },
   { href: "/research", label: "nav.research" },
   { href: "/simulations", label: "nav.simulations" },
   { href: "/my-universe", label: "nav.myUniverse" },

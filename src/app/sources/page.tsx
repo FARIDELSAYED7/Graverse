@@ -9,6 +9,14 @@ import { deepSkyObjects } from "@/data/space/deep-sky";
 import { agencies } from "@/data/space/agencies";
 import { missions } from "@/data/missions";
 import { articles } from "@/data/articles";
+import {
+  challengeResourceCategoryMeta,
+  challengeResourceCoverage,
+  challengeResourceMeta,
+  challengeResources,
+  challengeSupportingResources,
+  type ChallengeResourceCategory,
+} from "@/data/challenge-resources";
 
 export const metadata: Metadata = {
   title: "Source registry and methodology",
@@ -16,7 +24,13 @@ export const metadata: Metadata = {
     "Every public record GRAVERSE cites, with the date it was accessed. The registry is the audit trail for the museum, Explorer and Academy datasets.",
 };
 
-const accessDate = "2026-11-10";
+const accessDate = "2026-11-13";
+
+const challengeCategoryOrder: ChallengeResourceCategory[] = [
+  "nasa-data",
+  "moon",
+  "mars-deep-space",
+];
 
 export default function SourcesPage() {
   const byType = new Map<string, typeof sources>();
@@ -25,6 +39,10 @@ export default function SourcesPage() {
     list.push(source);
     byType.set(source.type, list);
   }
+
+  const artifactNameById = new Map(
+    allArtifacts.map((artifact) => [artifact.id, artifact.name])
+  );
 
   const recordCount =
     allArtifacts.length +
@@ -57,6 +75,144 @@ export default function SourcesPage() {
           value={`${byType.size} source types`}
         />
       </div>
+
+      <section aria-labelledby="challenge-resources-heading" className="mt-10">
+        <div className="max-w-3xl">
+          <p className="eyebrow">NASA Space Apps 2026</p>
+          <h2
+            id="challenge-resources-heading"
+            className="mt-2 text-lg font-semibold tracking-tight text-text-primary"
+          >
+            Official challenge resources
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+            The challenge published its Resources tab on 13 November 2026.
+            GRAVERSE links all {challengeResourceCoverage.total} official
+            resources below; {challengeResourceCoverage.linked} of them now have
+            at least one source-linked record in the collection, covering{" "}
+            {challengeResourceCoverage.artifactCount} artifacts.
+          </p>
+          <a
+            href={challengeResourceMeta.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-accent-bright hover:text-white"
+          >
+            Open the official Resources tab
+            <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </div>
+
+        <div className="mt-6 space-y-7">
+          {challengeCategoryOrder.map((category) => {
+            const meta = challengeResourceCategoryMeta[category];
+            const entries = challengeResources.filter(
+              (resource) => resource.category === category
+            );
+            return (
+              <div key={category}>
+                <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                  {meta.label} · {entries.length}
+                </h3>
+                <p className="mt-1 text-xs leading-relaxed text-text-muted">
+                  {meta.description}
+                </p>
+                <ol className="mt-3 space-y-2">
+                  {entries.map((resource) => (
+                    <li
+                      key={resource.id}
+                      className="rounded-xl border border-white/10 bg-white/[0.02] p-3.5"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 shrink-0 font-mono text-[11px] text-text-muted"
+                        >
+                          {String(resource.number).padStart(2, "0")}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-text-muted">
+                            <span>{resource.organization}</span>
+                            <span aria-hidden="true">·</span>
+                            <span>{resource.destination}</span>
+                          </div>
+                          <a
+                            href={resource.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-1.5 inline-flex items-start gap-1.5 text-sm font-medium text-accent-bright hover:text-white"
+                          >
+                            {resource.title}
+                            <ExternalLink
+                              aria-hidden="true"
+                              className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                            />
+                            <span className="sr-only">
+                              (opens in a new tab)
+                            </span>
+                          </a>
+                          <p className="mt-1 text-xs leading-relaxed text-text-secondary">
+                            {resource.summary}
+                          </p>
+                          {resource.artifactIds.length > 0 ? (
+                            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                              <span className="text-[10px] uppercase tracking-[0.14em] text-text-muted">
+                                In the collection
+                              </span>
+                              {resource.artifactIds.map((artifactId) => (
+                                <Link
+                                  key={artifactId}
+                                  href={`/museum/${artifactId}`}
+                                  className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[11px] text-text-secondary hover:border-accent/40 hover:text-white"
+                                >
+                                  {artifactNameById.get(artifactId) ?? artifactId}
+                                </Link>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="mt-2 text-[11px] text-text-muted">
+                              Reference catalogue — no single artifact record.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-7 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+          <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+            Further NASA research · {challengeSupportingResources.length}
+          </h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {challengeSupportingResources.map((resource) => (
+              <li key={resource.id}>
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-start gap-1.5 text-xs font-medium text-accent-bright hover:text-white"
+                >
+                  {resource.title}
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="mt-0.5 h-3 w-3 shrink-0"
+                  />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+                <p className="mt-0.5 text-[11px] leading-relaxed text-text-muted">
+                  {resource.summary}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section aria-labelledby="method-heading" className="mt-10 max-w-3xl">
         <h2

@@ -418,7 +418,7 @@ export const LOCAL_ASPECTS: LocalAspectDefinition[] = [
     ],
     triggersAr: [
       ["أبرز"],
-      ["مثير", "للا兴趣"],
+      ["مثير", "للاهتمام"],
       ["أشهر"],
       ["مميز"],
     ],

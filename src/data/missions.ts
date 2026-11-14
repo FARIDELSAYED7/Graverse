@@ -37,6 +37,9 @@ const missionSlugs: Record<string, string> = {
   "Mars Science Laboratory": "msl-curiosity",
   InSight: "insight",
   "Mars 2020": "mars-2020",
+  Dawn: "dawn",
+  "NEAR Shoemaker": "near-shoemaker",
+  Kepler: "kepler",
 };
 
 const statusPrecedence: MissionStatus[] = [

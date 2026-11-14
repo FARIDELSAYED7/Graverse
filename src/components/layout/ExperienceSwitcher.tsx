@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, BookOpen, Compass, Telescope } from "lucide-react";
+import { ArrowUpRight, BookOpen, Compass, Sparkles, Telescope } from "lucide-react";
 import { experiences, type ExperienceId } from "@/lib/experience";
 import { cn } from "@/lib/cn";
 
@@ -7,6 +7,7 @@ const icons = {
   academy: BookOpen,
   museum: Telescope,
   explorer: Compass,
+  stories: Sparkles,
 } as const;
 
 export function ExperienceSwitcher({
@@ -19,7 +20,7 @@ export function ExperienceSwitcher({
   className?: string;
 }) {
   return (
-    <nav aria-label="Choose an experience" className={cn("grid gap-3 sm:grid-cols-3", className)}>
+    <nav aria-label="Choose an experience" className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-4", className)}>
       {experiences.map((experience) => {
         const Icon = icons[experience.id];
         const active = current === experience.id;

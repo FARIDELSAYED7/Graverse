@@ -6,6 +6,7 @@ import { marsArtifactsA } from "./mars-a";
 import { marsArtifactsB } from "./mars-b";
 import { deepSpaceArtifactsA } from "./deep-a";
 import { deepSpaceArtifactsB } from "./deep-b";
+import { deepSpaceArtifactsC } from "./deep-c";
 
 export const allArtifacts: Artifact[] = [
   ...moonArtifactsA,
@@ -14,6 +15,7 @@ export const allArtifacts: Artifact[] = [
   ...marsArtifactsB,
   ...deepSpaceArtifactsA,
   ...deepSpaceArtifactsB,
+  ...deepSpaceArtifactsC,
 ].sort((a, b) => {
   const aDate = a.launchDate ?? a.primaryMilestone.date;
   const bDate = b.launchDate ?? b.primaryMilestone.date;
@@ -173,7 +175,7 @@ export const datasetStats = {
   operating: allArtifacts.filter(
     (artifact) => artifact.hardwareStatus === "operating"
   ).length,
-  lastVerified: "2026-11-10",
+  lastVerified: "2026-11-13",
 };
 
 /* Compatibility aliases used by the UI layer. */

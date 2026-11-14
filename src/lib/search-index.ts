@@ -8,6 +8,7 @@ import { missions } from "@/data/missions";
 import { methodSections } from "@/data/research";
 import { simulations } from "@/data/simulations";
 import { storyCollections } from "@/data/stories";
+import { echoStories } from "@/data/echoes";
 import { agencies } from "@/data/space/agencies";
 import { celestialBodies } from "@/data/space/bodies";
 import { deepSkyObjects } from "@/data/space/deep-sky";
@@ -188,6 +189,32 @@ const docs: SearchDoc[] = [
         story.dek,
         story.summary,
         story.sections.map((section) => section.heading).join(" "),
+      ].join(" ")
+    ),
+  })),
+  ...echoStories.map((story) => ({
+    id: `echo:${story.slug}`,
+    kind: "story" as const,
+    title: `${story.title.en} — ${story.storyTitle.en}`,
+    description: story.dek.en,
+    href: `/stories/${story.slug}`,
+    meta: "ECHOES · Stories Beyond Earth",
+    keywords: normalize(
+      [
+        story.title.en,
+        story.title.ar,
+        story.storyTitle.en,
+        story.storyTitle.ar,
+        story.dek.en,
+        story.dek.ar,
+        story.summary.en,
+        story.summary.ar,
+        story.location.en,
+        story.location.ar,
+        story.equipmentType.en,
+        story.equipmentType.ar,
+        story.chapters.map((chapter) => chapter.title.en).join(" "),
+        story.chapters.map((chapter) => chapter.title.ar).join(" "),
       ].join(" ")
     ),
   })),

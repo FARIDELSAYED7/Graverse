@@ -1,4 +1,4 @@
-export type ExperienceId = "academy" | "museum" | "explorer";
+export type ExperienceId = "academy" | "museum" | "explorer" | "stories";
 
 export interface ExperienceDefinition {
   id: ExperienceId;
@@ -10,6 +10,8 @@ export interface ExperienceDefinition {
   accent: string;
   surface: string;
   ink: string;
+  /** A darker-surface-safe tint of the accent, for small link text. */
+  linkColor?: string;
 }
 
 export const experiences: ExperienceDefinition[] = [
@@ -49,6 +51,19 @@ export const experiences: ExperienceDefinition[] = [
     surface: "#0B1222",
     ink: "#F7F2E7",
   },
+  {
+    id: "stories",
+    name: "Stories",
+    href: "/stories",
+    eyebrow: "Experience",
+    tagline: "ECHOES — Stories Beyond Earth",
+    description:
+      "An interactive storytelling experience with a 3D companion, real NASA imagery and bilingual narration.",
+    accent: "#6D4AFF",
+    linkColor: "#c9bfff",
+    surface: "#FBF6EC",
+    ink: "#1A1338",
+  },
 ];
 
 export const experienceMap = new Map(
@@ -59,6 +74,7 @@ export function experienceForPath(pathname: string): ExperienceId | "home" {
   if (pathname === "/academy" || pathname.startsWith("/academy/")) return "academy";
   if (pathname === "/museum" || pathname.startsWith("/museum/")) return "museum";
   if (pathname === "/explorer" || pathname.startsWith("/explorer/")) return "explorer";
+  if (pathname === "/stories" || pathname.startsWith("/stories/")) return "stories";
   return "home";
 }
 

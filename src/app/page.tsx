@@ -319,18 +319,20 @@ export default function HomePage() {
 
       <section className="container-content pt-14 sm:pt-16">
         <SectionHeading
-          eyebrow="Three experiences, one collection"
+          eyebrow="Four experiences, one collection"
           title="Choose how you want to explore"
           description="The same verified records, arranged for different questions. Learn the basics, read the full story, or investigate the data."
         />
-        <ul className="mt-6 grid gap-4 lg:grid-cols-3">
+        <ul className="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
           {experiences.map((experience, index) => {
             const Icon =
               experience.id === "academy"
                 ? BookOpen
                 : experience.id === "museum"
                   ? Landmark
-                  : Compass;
+                  : experience.id === "stories"
+                    ? Sparkles
+                    : Compass;
             return (
               <li key={experience.id}>
                 <Link
@@ -375,7 +377,7 @@ export default function HomePage() {
                   </p>
                   <span
                     className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium"
-                    style={{ color: experience.accent }}
+                    style={{ color: experience.linkColor ?? experience.accent }}
                   >
                     Open {experience.name}
                     <ArrowRight

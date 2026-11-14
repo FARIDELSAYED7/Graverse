@@ -461,8 +461,8 @@ export function AskGraverse({ locale }: { locale: Locale }) {
         aria-controls={panelId}
         aria-label={isOpen ? t(locale, "ask.close") : t(locale, "ask.open")}
         className={cn(
-          "group fixed bottom-5 end-5 z-50 inline-flex items-center gap-2.5 rounded-full border border-accent/30 bg-[#06101d]/95 py-1.5 ps-1.5 pe-4 text-sm font-semibold text-[#d7f7ef] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:shadow-[0_24px_60px_-20px_rgba(94,234,212,0.35)]",
-          isOpen && "hidden sm:inline-flex"
+          "ask-launcher group fixed bottom-4 end-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full border border-accent/30 bg-[#06101d]/95 text-sm font-semibold text-[#d7f7ef] shadow-[0_16px_40px_-18px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:shadow-[0_20px_48px_-16px_rgba(94,234,212,0.35)]",
+          isOpen && "hidden"
         )}
       >
         <span
@@ -474,8 +474,15 @@ export function AskGraverse({ locale }: { locale: Locale }) {
             thinking={pending}
           />
         </span>
-        <span className="hidden sm:inline">{t(locale, "ask.title")}</span>
-        <span className="sr-only sm:hidden">{t(locale, "ask.title")}</span>
+        {/* Compact collapsed state: the name appears as a quiet tooltip on
+            hover or keyboard focus instead of crowding the page corner. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute end-full me-2 hidden whitespace-nowrap rounded-full border border-accent/25 bg-[#06101d]/95 px-3 py-1 text-xs font-semibold text-[#d7f7ef] opacity-0 shadow-lg backdrop-blur transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block"
+        >
+          {t(locale, "ask.title")}
+        </span>
+        <span className="sr-only">{t(locale, "ask.title")}</span>
       </button>
 
       {/* ------------------------------------------------------------- console */}

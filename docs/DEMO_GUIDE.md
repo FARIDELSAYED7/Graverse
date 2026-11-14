@@ -162,7 +162,7 @@ Last local run of `npm run verify`:
 
 | Gate | Result |
 | --- | --- |
-| Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 edges |
+| Data validation | Passed — 33 artifacts, 20 bodies, 8 deep-sky, 27 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 111 sources, 605 edges |
 | Data tests | 21/21 passed |
 | ESLint | No errors and no warnings |
 | Typecheck | Passed |

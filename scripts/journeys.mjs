@@ -485,7 +485,7 @@ check("dataset-export", "The open dataset endpoint returns the verified records"
   assert(response.status === 200, `Dataset export returned ${response.status}`);
   const parsed = JSON.parse(response.body);
   assert(
-    Array.isArray(parsed.artifacts) && parsed.artifacts.length === 30,
+    Array.isArray(parsed.artifacts) && parsed.artifacts.length === 33,
     `Dataset export returned ${parsed.artifacts?.length ?? "no"} artifacts`
   );
   assert(

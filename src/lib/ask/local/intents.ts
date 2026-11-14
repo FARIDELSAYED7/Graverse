@@ -218,7 +218,7 @@ export const LOCAL_INTENTS: LocalIntent[] = [
       ["ساعدني", "أجد", "جهة"],
     ],
     answers: [
-      "Explorer is the data side of GRAVERSE.\n\n- **Timeline mode** puts 118 mission events in launch order, and selecting one opens the matching museum record.\n- **Destination mode** opens the twenty Solar System bodies — eight planets, Pluto, the Sun and ten moons — each with claim-labelled facts and a source list.\n- **Filters** narrow the collection by destination, hardware type, status, decade and milestone type, and the filtered view can be shared as a link.\n\nThe orrery at `/explorer/solar-system` is decorative; an accessible orbit map carries the same information.",
+      "Explorer is the data side of GRAVERSE.\n\n- **Timeline mode** puts 136 mission events in launch order, and selecting one opens the matching museum record.\n- **Destination mode** opens the twenty Solar System bodies — eight planets, Pluto, the Sun and ten moons — each with claim-labelled facts and a source list.\n- **Filters** narrow the collection by destination, hardware type, status, decade and milestone type, and the filtered view can be shared as a link.\n\nThe orrery at `/explorer/solar-system` is decorative; an accessible orbit map carries the same information.",
     ],
     contextualAnswers: [
       "Explorer is the data side of GRAVERSE, and this record is one of the entries in it.\n\n- Switch Explorer to **destination** mode to see this object's destination and its neighbours.\n- Use the filters to narrow the collection by destination, hardware type, status or decade.\n\nThe record you are on lists every related machine at the bottom of the page.",

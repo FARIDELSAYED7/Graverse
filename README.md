@@ -56,7 +56,7 @@ visitor or a school-age learner struggles to answer even the basic questions:
 
 ### The response
 
-GRAVERSE compiles **30 source-linked hardware records** into one collection and
+GRAVERSE compiles **33 source-linked hardware records** into one collection and
 gives them three different ways in:
 
 | Experience | Route | Audience | Character |
@@ -71,7 +71,7 @@ Around those three doors sit six additional source-linked surfaces:
 | --- | --- | --- |
 | **Mission Control** | `/mission-control` | A status board that keeps mission, hardware, and derived communication status separate |
 | **Engineering Lab** | `/engineering` | Seven explainers on power, mobility, landing, communication, instruments, materials, and engineering evolution |
-| **Space Stories** | `/stories` | Eight curated reading paths through records that already exist |
+| **Space Stories** | `/stories` | Seventeen cinematic reading paths — one per mission — composed scene by scene from the records that already exist |
 | **Research Archive** | `/research` | Method, source hierarchy, claim labels, coverage, an honest changelog, and declared limits |
 | **Mission Experience Lab** | `/simulations` | Eight interactive educational models, each labelled as an approximation |
 | **My Universe** | `/my-universe` | Local favourites, collections, recently viewed records, and completed simulations |
@@ -111,10 +111,10 @@ active, ongoing missions", and that "accuracy is important throughout".
 
 | Challenge requirement | Response in GRAVERSE |
 | --- | --- |
-| Show what types of equipment reside on the Moon, Mars and elsewhere | 30 records across 7 hardware types and 3 destination groups, browsable in Explorer and Museum |
-| Connect equipment to the missions that enabled it | `missionName` and `programName` on every record, plus 24 mission pages derived from those records |
+| Show what types of equipment reside on the Moon, Mars and elsewhere | 33 records across 7 hardware types and 3 destination groups, browsable in Explorer and Museum |
+| Connect equipment to the missions that enabled it | `missionName` and `programName` on every record, plus 27 mission pages derived from those records |
 | Show how each object's status varies | A separate hardware-status field with 7 defined bands, plus per-record "fate" prose |
-| Translate complex historical and scientific data into an engaging narrative | Three experiences, eight curated stories, eight engineering explainers, and a 3D exhibition hall |
+| Translate complex historical and scientific data into an engaging narrative | Three experiences, seventeen cinematic stories, eight engineering explainers, and a 3D exhibition hall |
 | Teach school-age and casual space enthusiasts | The Academy: 4 learning journeys, 12 lessons across 3 age bands, 8 long-form articles, 24 quiz questions, 3 3D games |
 | Explain what the hardware was, why it was sent, and what it discovered | Sections A, B and D of the single museum record template |
 | Connect engineering to scientific knowledge | The Engineering Lab, plus per-record contributions tagged `science` or `engineering` |
@@ -177,7 +177,7 @@ The knowledge experience, designed for ages 5–12 in three bands.
 - **Rover engineering exercise** at `/academy/build-rover` — a trade-off
   builder with 15 parts across mobility, power, instruments, communication, and
   thermal control.
-- **Scripted robot guide** at `/academy/robot-lab` — a 30-artifact guide that
+- **Scripted robot guide** at `/academy/robot-lab` — a 33-artifact guide that
   answers from the record and says so when the record does not cover a question.
   It is explicitly *not* an AI chat.
 - **Progress, achievements, and a printable learning record** — stored locally
@@ -185,7 +185,7 @@ The knowledge experience, designed for ages 5–12 in three bands.
 
 ### 4.2 Museum — `/museum`
 
-The heritage experience: 30 artifact records on one reusable template.
+The heritage experience: 33 artifact records on one reusable template.
 
 Each record is organised as **A.** what it is · **B.** why it was sent ·
 **C.** the journey · **D.** what we learned · **E.** what happened to the
@@ -211,7 +211,7 @@ Two panels carry the project's core idea:
 
 The discovery experience.
 
-- **Three modes** — a chronological **timeline** of 118 mission events, a
+- **Three modes** — a chronological **timeline** of 136 mission events, a
   **by destination** view, and a **by artifact** view.
 - **Six filters plus scope and sort** — destination, hardware type, mission
   status, hardware status, decade, milestone type, primary/all event scope, and
@@ -270,9 +270,27 @@ value.
 
 ### A typed, bidirectional relation graph
 
-581 directed edges across 12 relation types, with symmetric inverses asserted
+605 directed edges across 12 relation types, with symmetric inverses asserted
 by the test suite, linking artifacts, missions, bodies, deep-sky objects,
 agencies, lessons, journeys, and articles.
+
+### A cinematic story director
+
+**Space Stories is not one template repeated seventeen times.** A presentation
+engine (`src/lib/echo/cinematic.ts`) reads each story's own chapters,
+photographs, timelines, discoveries, 3D model and archival video, then composes
+a scene sequence for that mission — one engine, different journeys. Each of the
+17 stories (Sojourner, Opportunity, Spirit, Viking 1 & 2, Apollo 11 LM, the
+lunar rover, ALSEP, Surveyor, Phoenix, InSight, Ingenuity, NEAR Shoemaker, Dawn,
+Pioneer 10 & 11, Kepler) follows its own recipe across ten layouts — opening,
+statement, editorial, annotated, artifact, diagram, stages, science, signal,
+finale — in one of seven families (rover, flight, crew-rover, lander, voyager,
+telescope, instrument). Scenes alternate between a dark cinematic register and a
+warm paper register so a long story reads as distinct slides, never one long
+dark page. Sourced chapter narration is never dropped when a discoveries
+chapter expands into one scene per investigation, and every chapter keeps its
+quiz, timeline, challenge, diagram and video attached to its own scenes —
+asserted by `tests/cinematic.test.ts`.
 
 ### An open dataset
 
@@ -586,7 +604,9 @@ handling, privacy, deployment and known limitations — are in
 | `npm run lint` | ESLint via `next lint` (`next/core-web-vitals`) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run validate` | zod schema checks, referential integrity, and provenance validation of the whole dataset |
+| `npm run validate:echoes` | Story schema, Arabic/CJK corruption checks, media-manifest and source-registry resolution, and chapter coverage for all 17 stories |
 | `npm run test:data` | Data, relation, search, provenance, progress, and localisation tests (Node test runner) |
+| `npm run test:echoes` | Story integrity plus cinematic-director tests (one engine, distinct journeys, no dropped narration) |
 | `npm run test:ask` | Ask GRAVERSE tests: the free-model rule, retrieval, grounding, throttling and every provider failure mode. The OpenRouter provider is mocked, so no real quota is consumed |
 | `npm run test:e2e` | Browser smoke, redirect, and axe checks against a running server |
 | `npm run test:journeys` | Drives the real interface in a browser: search, Explorer modes and filters, timeline preview, lesson quiz, progress export/reset, compare, favourites, simulations, Arabic RTL, mobile layout, the no-WebGL fallback, and the Ask GRAVERSE assistant in English, in Arabic and without WebGL |
@@ -614,7 +634,9 @@ afterthought. The same gate runs locally and in CI.
 | Type checking | `npm run typecheck` | TypeScript strict mode across the whole project |
 | Linting | `npm run lint` | `next/core-web-vitals` |
 | Data validation | `npm run validate` | Unique IDs, zod schemas, citation resolution, claim rules, mission ↔ artifact integrity, relation symmetry, media existence, route generation |
+| Echoes validation | `npm run validate:echoes` | Story schema, Arabic quality and CJK-corruption checks over story and ask-local sources, media-manifest resolution, source-registry resolution, chapter coverage (17 stories, 102 chapters, 40 discoveries) |
 | Data tests | `npm run test:data` | 21 tests over counts, provenance, derived missions, relation symmetry, search coverage, progress import validation, achievements, and localisation dictionaries |
+| Echoes + cinematic tests | `npm run test:echoes` | Story integrity plus cinematic-director tests: opening/finale framing, full chapter coverage, distinct per-story sequences, single model mount, no dropped narration, quiz/video/timeline/challenge attachment |
 | Ask GRAVERSE tests | `npm run test:ask` | 81 tests over the free-model rule, the local intelligence engine, grounded retrieval, the scientific rules in the prompt, throttling, every provider failure mode, and the Markdown renderer. The provider is mocked |
 | Build | `npm run build` | Production compilation and static generation |
 | Smoke + axe | `npm run test:e2e` | 50 routes checked for HTTP status, title, a single `h1`, the `main` landmark, and body length; keyboard assertions; a gameplay and badge-persistence assertion; axe across 38 pages |
@@ -629,7 +651,7 @@ environment or about field performance.
 
 | Gate | Result |
 | --- | --- |
-| Data validation | Passed — 30 artifacts, 20 bodies, 8 deep-sky objects, 24 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 96 sources, 581 relation edges |
+| Data validation | Passed — 33 artifacts, 20 bodies, 8 deep-sky objects, 27 missions, 12 lessons, 4 journeys, 3 playground games, 8 articles, 111 sources, 605 relation edges |
 | Data tests | 21 / 21 passed |
 | Ask GRAVERSE tests | 81 / 81 passed — the OpenRouter provider is mocked, so no free-tier quota is spent |
 | ESLint | No errors and no warnings |
@@ -639,6 +661,11 @@ environment or about field performance.
 | axe (WCAG 2.1 A/AA tags) | 0 violations on 38 pages and on the open assistant console; 0 serious or critical |
 | User journeys | 30 / 30 passed |
 | Internal links | 192 / 192 resolved |
+
+> Echoes stories change faster than the full gate, so they carry their own
+> line: `npm run validate:echoes` passed on 2026-11-14 —
+> **17 stories, 102 chapters, 40 discoveries**, with every story opening on a
+> cinematic plate and closing on a finale.
 
 ### Accessibility
 
@@ -664,7 +691,8 @@ graverse/
 │  ├─ academy/                 Academy: journeys, lessons, articles, playground, progress
 │  ├─ museum/                  Museum: artifacts, missions, agencies
 │  ├─ explorer/                Explorer: timeline, destinations, deep sky, orrery
-│  ├─ engineering/ stories/ simulations/ mission-control/ research/ my-universe/
+│  ├─ stories/                 Space Stories: 17 cinematic mission stories
+│  ├─ engineering/ simulations/ mission-control/ research/ my-universe/
 │  ├─ compare/ search/ sources/ about/
 │  └─ api/export/              JSON dataset endpoint
 ├─ components/
@@ -672,6 +700,7 @@ graverse/
 │  ├─ artifacts/               Artifact cards, visual, anatomy, actions
 │  ├─ ask/                     Ask GRAVERSE: launcher, panel, provider, contextual scope
 │  ├─ museum/                  Exhibition hall (3D) and gallery sections
+│  ├─ stories/                 Cinematic engine (`cinematic/`), story pages, companion, quizzes, diagrams
 │  ├─ explore/ explorer/       Explorer experience and timeline stage
 │  ├─ explorer/                Orrery, orbit map, fact grid
 │  ├─ three/                   Shared WebGL canvas and scene
@@ -679,17 +708,19 @@ graverse/
 │  ├─ layout/                  Header, footer, theme, language and motion toggles
 │  ├─ compare/ mission-control/ personal/ search/ simulations/ kids/
 ├─ data/                       Typed, source-linked datasets (the source of truth)
-│  ├─ artifacts/               30 artifact records across six files
+│  ├─ artifacts/               33 artifact records across seven files
+│  ├─ echoes/                  17 cinematic mission stories, media manifests, extra archive frames
 │  ├─ space/                   Bodies, deep-sky objects, agencies
 │  └─ lessons, journeys, articles, games, engineering, stories, simulations,
 │     glossary, sources, relations
 ├─ lib/                        provenance, status, relations helpers, search index,
-│                              progress, personal state, simulations, i18n, ask (AI)
+│                              progress, personal state, simulations, i18n, ask (AI),
+│                              echo cinematic director
 ├─ types/                      Shared TypeScript contracts
 ├─ fonts/                      Self-hosted Inter variable font
-├─ scripts/                    Validation, browser checks, perf probe, verify,
-│                              image asset utilities, manual OpenRouter check
-├─ tests/                      Data test suite and the Ask GRAVERSE test suite
+├─ scripts/                    Validation (incl. echoes), browser checks, perf probe, verify,
+│                              story QA (`qa-stories.mjs`), media fetchers, manual OpenRouter check
+├─ tests/                      Data, echoes/cinematic, and Ask GRAVERSE test suites
 ├─ public/images/              NASA imagery, record photographs, gallery textures
 └─ docs/                       Architecture, data and provenance, accessibility,
                                performance, demo guide, ADRs, and project analysis

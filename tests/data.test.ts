@@ -59,10 +59,10 @@ import {
 const sourceIds = new Set(sources.map((source) => source.id));
 
 test("the collection has the expected size and unique ids", () => {
-  assert.equal(allArtifacts.length, 30);
+  assert.equal(allArtifacts.length, 33);
   assert.equal(celestialBodies.length, 20);
   assert.equal(deepSkyObjects.length, 8);
-  assert.equal(missions.length, 24);
+  assert.equal(missions.length, 27);
   assert.equal(lessons.length, 12);
   assert.equal(journeys.length, 4);
   assert.equal(articles.length, 8);

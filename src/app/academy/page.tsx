@@ -238,6 +238,11 @@ export default function AcademyPage() {
             <p className="mt-2 text-base font-semibold text-[#14213B]">Explainers</p>
             <p className="mt-0.5 text-xs text-[#5F6B83]">Short reads about real missions.</p>
           </Link>
+          <Link href="/stories" className="academy-card group rounded-2xl p-4">
+            <Sparkles aria-hidden="true" className="h-5 w-5 text-[#6D4AFF]" />
+            <p className="mt-2 text-base font-semibold text-[#14213B]">ECHOES stories</p>
+            <p className="mt-0.5 text-xs text-[#5F6B83]">Interactive journeys with a 3D robot guide.</p>
+          </Link>
           <Link href="/museum" className="academy-card group rounded-2xl p-4">
             <Telescope aria-hidden="true" className="h-5 w-5 text-[#3E5C8A]" />
             <p className="mt-2 text-base font-semibold text-[#14213B]">Museum</p>

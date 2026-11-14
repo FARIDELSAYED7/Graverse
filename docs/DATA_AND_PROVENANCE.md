@@ -25,7 +25,7 @@ the test suite and the build-time validator.
 
 ## Source registry
 
-`src/data/sources.ts` holds 96 records. Each record has:
+`src/data/sources.ts` holds 111 records. Each record has:
 
 ```ts
 {
@@ -34,7 +34,7 @@ the test suite and the build-time validator.
   organization: string,
   url: string,
   type: "nasa-mission" | "nasa-science" | "nasa-data" | …,
-  accessedAt: "2026-11-10",
+  accessedAt: "2026-11-13",
   notes?: string
 }
 ```
@@ -55,14 +55,19 @@ bodies, deep-sky objects, agencies, lessons, journeys and articles.
 The exact title, URL and access date for every one is in `/sources`; this
 document does not duplicate the list because duplication is how registries drift.
 
+The official 2026 NASA Space Apps challenge list is kept separately in
+`src/data/challenge-resources.ts` and rendered on `/sources`. It is a reading
+list: its entries point back to registry sources and artifact records rather
+than creating a second place where facts can drift.
+
 ## Datasets
 
 | Dataset | File(s) | Count | Notes |
 | --- | --- | --- | --- |
-| Artifacts | `src/data/artifacts/*` | 30 | Museum objects with mission and hardware status kept separate |
+| Artifacts | `src/data/artifacts/*` | 33 | Museum objects with mission and hardware status kept separate |
 | Bodies | `src/data/space/bodies.ts` | 20 | Sun, planets, dwarf planets, featured moons |
 | Deep sky | `src/data/space/deep-sky.ts` | 8 | Curated nebulae, galaxies and remnants |
-| Missions | `src/data/missions.ts` | 24 | Derived from artifact records |
+| Missions | `src/data/missions.ts` | 27 | Derived from artifact records |
 | Agencies | `src/data/space/agencies.ts` | 8 | Linked via mission-derived `agencyId` |
 | Lessons | `src/data/lessons.ts` | 12 | Three age bands |
 | Journeys | `src/data/journeys.ts` | 4 | First Flight, Moon Detectives, Mission Engineer, Rock to Rover |
@@ -72,8 +77,8 @@ document does not duplicate the list because duplication is how registries drift
 | Simulations | `src/data/simulations.ts` | 8 | Definitions plus mandatory approximation notes |
 | Research | `src/data/research.ts` | 7 method sections | Method, coverage, changelog and API notes |
 | Glossary | `src/data/glossary.ts` | 40 | Plain-language definitions |
-| Sources | `src/data/sources.ts` | 96 | Registry |
-| Relations | `src/data/relations.ts` | 581 directed edges | Symmetric inverses |
+| Sources | `src/data/sources.ts` | 111 | Registry |
+| Relations | `src/data/relations.ts` | 605 directed edges | Symmetric inverses |
 
 Counts are ceilings that were deliberately kept small. A smaller, checked set is
 more useful than a large unchecked one.

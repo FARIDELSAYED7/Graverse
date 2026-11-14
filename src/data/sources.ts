@@ -18,10 +18,18 @@ function source(
   title: string,
   url: string,
   type: SourceRecord["type"],
-  notes: string
+  notes: string,
+  accessedAt = ACCESSED
 ): SourceRecord {
-  return { id, organization, title, url, type, accessedAt: ACCESSED, notes };
+  return { id, organization, title, url, type, accessedAt, notes };
 }
+
+/**
+ * The official 2026 NASA Space Apps Challenge resource list was published on
+ * 13 November 2026. Records added from that list carry the date they were
+ * checked rather than the original collection access date.
+ */
+const CHALLENGE_ACCESSED = "2026-11-13";
 
 export const sources: SourceRecord[] = [
   /* ------------------------------------------------------------------ Moon */
@@ -162,6 +170,15 @@ export const sources: SourceRecord[] = [
     "Lunar Roving Vehicle specifications, deployment and traverse distances."
   ),
   source(
+    "SRC-NSSDCA-LRV",
+    "NASA NSSDCA",
+    "Apollo 15 Lunar Roving Vehicle",
+    "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+    "technical-archive",
+    "Spacecraft record for the lunar roving vehicle left on the Moon after Apollo 15.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
     "SRC-ALSJ-A15-LRV",
     "NASA Apollo Lunar Surface Journal",
     "Apollo 15 Lunar Roving Vehicle",
@@ -252,6 +269,15 @@ export const sources: SourceRecord[] = [
     "Lander identifier, launch and landing dates, mass and last contact."
   ),
   source(
+    "SRC-NASA-VIKING-1",
+    "NASA Science",
+    "Viking 1",
+    "https://science.nasa.gov/mission/viking-1/",
+    "mission-page",
+    "Viking 1 lander overview, landing date, experiments and mission results.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
     "SRC-NSSDCA-VIKING-2",
     "NASA NSSDCA",
     "Viking 2 Lander",
@@ -298,6 +324,15 @@ export const sources: SourceRecord[] = [
     "https://science.nasa.gov/mission/mer-opportunity/",
     "mission-page",
     "Mission overview, landing, distance record, last contact and mission end."
+  ),
+  source(
+    "SRC-NASA-MER",
+    "NASA Science",
+    "Mars Exploration Rovers: Spirit and Opportunity",
+    "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+    "mission-page",
+    "Combined Spirit and Opportunity mission overview, science results and mission endings.",
+    CHALLENGE_ACCESSED
   ),
   source(
     "SRC-NSSDCA-OPPORTUNITY",
@@ -476,6 +511,60 @@ export const sources: SourceRecord[] = [
     "https://science.nasa.gov/mission/cassini/",
     "mission-page",
     "Launch, Saturn arrival, Huygens landing, discoveries and end of mission."
+  ),
+  source(
+    "SRC-NASA-DAWN",
+    "NASA Science",
+    "Dawn",
+    "https://science.nasa.gov/mission/dawn/",
+    "mission-page",
+    "Mission overview, launch date, targets Vesta and Ceres, and successful mission status.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NSSDCA-DAWN",
+    "NASA NSSDCA",
+    "Dawn",
+    "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2007-043A",
+    "technical-archive",
+    "Spacecraft mass, ion propulsion, Vesta and Ceres arrival dates, and the end of communications on 31 October 2018.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NASA-NEAR-SHOEMAKER",
+    "NASA Science",
+    "NEAR Shoemaker",
+    "https://science.nasa.gov/mission/near-shoemaker/",
+    "mission-page",
+    "Launch, Mathilde flyby, Eros orbit insertion, landing and last contact.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NSSDCA-NEAR-SHOEMAKER",
+    "NASA NSSDCA",
+    "NEAR Shoemaker",
+    "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-008A",
+    "technical-archive",
+    "Spacecraft mass, power, instrument complement and the 12 February 2001 touchdown.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NASA-KEPLER",
+    "NASA Science",
+    "Kepler / K2",
+    "https://science.nasa.gov/mission/kepler/",
+    "mission-page",
+    "Mission overview, launch, reaction-wheel failure, K2 extension, retirement and exoplanet legacy.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NSSDCA-KEPLER",
+    "NASA NSSDCA",
+    "Kepler",
+    "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2009-011A",
+    "technical-archive",
+    "Launch date, launch vehicle, mass and Earth-trailing heliocentric orbit.",
+    CHALLENGE_ACCESSED
   ),
 
   /* --------------------------------------------- Solar system fact sheets */
@@ -738,6 +827,62 @@ export const sources: SourceRecord[] = [
     "https://science.nasa.gov/mission/cassini/",
     "mission-page",
     "Saturn orbital mission, Huygens and Grand Finale."
+  ),
+
+  /* ---------------------------------------------- Catalogues and indexes */
+  source(
+    "SRC-NSSDCA",
+    "NASA NSSDCA",
+    "NASA Space Science Data Coordinated Archive",
+    "https://nssdc.gsfc.nasa.gov/",
+    "technical-archive",
+    "Master catalogue for spacecraft, experiments, personnel and data collections. The starting point for checking an object's identity and disposition.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NSSDCA-PLANETARY-CATALOG",
+    "NASA NSSDCA",
+    "Planetary Mission Catalog",
+    "https://nssdc.gsfc.nasa.gov/planetary/projects.html",
+    "technical-archive",
+    "Index of planetary missions by project, used to cross-check destination and mission context.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NASA-MISSIONS",
+    "NASA Science",
+    "NASA Science Missions",
+    "https://science.nasa.gov/mission/",
+    "reference",
+    "Mission descriptions, science objectives, imagery and historical information.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NASA-MISSIONS-AZ",
+    "NASA",
+    "A to Z of NASA Missions",
+    "https://www.nasa.gov/a-to-z-of-nasa-missions/",
+    "reference",
+    "Broad agency index of past, present and future NASA missions.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-LPI-APOLLO-DOCUMENTS",
+    "Lunar and Planetary Institute",
+    "Apollo Documents",
+    "https://www.lpi.usra.edu/lunar/documents/",
+    "technical-archive",
+    "Apollo-era technical reports, mission documents and historical research.",
+    CHALLENGE_ACCESSED
+  ),
+  source(
+    "SRC-NASA-RPS-MISSIONS",
+    "NASA Science",
+    "Radioisotope Power Systems — Missions",
+    "https://science.nasa.gov/planetary-science/programs/radioisotope-power-systems/missions/",
+    "reference",
+    "Missions that use radioisotope power systems, with links to their power-system context.",
+    CHALLENGE_ACCESSED
   ),
 
   /* ----------------------------------------------------------- Agencies */

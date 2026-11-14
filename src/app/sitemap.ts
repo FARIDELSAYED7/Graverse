@@ -7,6 +7,7 @@ import { lessons } from "@/data/lessons";
 import { missions } from "@/data/missions";
 import { simulations } from "@/data/simulations";
 import { storyCollections } from "@/data/stories";
+import { echoStories } from "@/data/echoes";
 import { agencies } from "@/data/space/agencies";
 import { celestialBodies } from "@/data/space/bodies";
 import { deepSkyObjects } from "@/data/space/deep-sky";
@@ -123,6 +124,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/stories",
       storyCollections.map((story) => story.id),
       0.7
+    ),
+    ...recordRoutes(
+      "/stories",
+      echoStories.map((story) => story.slug),
+      0.8
     ),
     ...recordRoutes(
       "/simulations",

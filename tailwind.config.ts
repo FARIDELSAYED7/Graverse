@@ -10,12 +10,18 @@ const config: Config = {
       // all (the element ends up with no background/border). These are the
       // extra steps the codebase actually authors.
       opacity: {
+        2: "0.02",
         3: "0.03",
         4: "0.04",
         6: "0.06",
         8: "0.08",
+        9: "0.09",
+        11: "0.11",
         12: "0.12",
+        13: "0.13",
+        92: "0.92",
         94: "0.94",
+        96: "0.96",
         98: "0.98",
       },
       colors: {

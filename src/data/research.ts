@@ -70,7 +70,9 @@ export const methodSections: MethodSection[] = [
     heading: "Images and models",
     paragraphs: [
       "Images are used only when a NASA image record provides the source, credit and caption. Artist's concepts are labelled as illustrations, not photographs.",
-      "No photoreal 3D model of a specific spacecraft is included. The 3D experiences use clearly labelled schematic geometry built from primitives, and the artifact pages say so. A schematic can teach a layout; it is not a reconstruction.",
+      "The ECHOES stories add real 3D models from NASA 3D Resources, which are free to download and use under the NASA media usage guidelines. Every model panel names the source and the credit, and says when the rendering differs from the flight article.",
+      "Where no NASA model exists — as for the Sojourner rover — the story uses a clearly labelled GRAVERSE reconstruction built from primitives and the published dimensions. A schematic can teach a layout; it is not a reconstruction.",
+      "The ECHO robot is an original GRAVERSE character. It carries no NASA insignia and is never presented as a NASA robot.",
     ],
   },
   {
@@ -84,6 +86,17 @@ export const methodSections: MethodSection[] = [
 ];
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "1.2.0",
+    date: "2026-11-13",
+    title: "Official 2026 challenge resources and three deep-space records",
+    changes: [
+      "Reproduced the official 14-resource list from the NASA Space Apps 2026 Resources tab, with links to the records that document each entry.",
+      "Added Dawn, NEAR Shoemaker and Kepler, closing the three gaps in that resource list.",
+      "Added the NSSDCA catalogue, the combined Mars Exploration Rover page, the Viking 1 page and further NASA research indexes to the source registry.",
+      "Recorded the 13 November 2026 access date on sources checked from the challenge list.",
+    ],
+  },
   {
     version: "1.1.0",
     date: "2026-11-11",

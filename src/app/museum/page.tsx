@@ -28,7 +28,7 @@ import type { GalleryItem } from "@/types/gallery";
 export const metadata: Metadata = {
   title: "The museum collection",
   description:
-    "Browse all 30 source-linked NASA artifacts in the GRAVERSE museum, grouped by destination and with mission and hardware status shown separately.",
+    "Browse all 33 source-linked NASA artifacts in the GRAVERSE museum, grouped by destination and with mission and hardware status shown separately.",
 };
 
 const missionOrder: MissionStatus[] = [

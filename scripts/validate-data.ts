@@ -262,7 +262,7 @@ for (const relation of relations) {
 }
 
 check("glossary", glossary.length <= 40, "glossary exceeds the approved ceiling of 40 entries");
-check("artifacts", allArtifacts.length <= 30, "artifact count exceeds the approved ceiling of 30");
+check("artifacts", allArtifacts.length <= 33, "artifact count exceeds the approved ceiling of 33");
 check("lessons", lessons.length <= 12, "lesson count exceeds the approved ceiling of 12");
 
 if (warnings.length > 0) {

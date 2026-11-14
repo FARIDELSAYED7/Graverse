@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./cine.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ExperienceTheme } from "@/components/layout/ExperienceTheme";
@@ -61,7 +62,7 @@ export const viewport: Viewport = {
 const motionScript = `try{var m=localStorage.getItem("graverse-motion");if(m==="reduced"){document.documentElement.dataset.motion="reduced"}else if(m==="full"){document.documentElement.dataset.motion="full"}}catch(e){}`;
 
 // Runs before paint so the Academy never flashes the dark Museum theme.
-const experienceScript = `try{var p=location.pathname;var e=p==="/academy"||p.indexOf("/academy/")===0?"academy":p==="/museum"||p.indexOf("/museum/")===0?"museum":p==="/explorer"||p.indexOf("/explorer/")===0?"explorer":"home";document.documentElement.dataset.experience=e}catch(e){}`;
+const experienceScript = `try{var p=location.pathname;var e=p==="/academy"||p.indexOf("/academy/")===0?"academy":p==="/museum"||p.indexOf("/museum/")===0?"museum":p==="/explorer"||p.indexOf("/explorer/")===0?"explorer":p==="/stories"||p.indexOf("/stories/")===0?"stories":"home";document.documentElement.dataset.experience=e}catch(e){}`;
 
 export default function RootLayout({
   children,
