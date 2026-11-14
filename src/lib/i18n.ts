@@ -65,7 +65,6 @@ const en: Dictionary = {
   "common.localOnly": "Saved only on this device",
   "common.none": "Not recorded",
 
-  "home.eyebrow": "A NASA Space Apps Challenge experience",
   "home.titleLead": "Discover the machines that",
   "home.titleAccent": "shaped our understanding",
   "home.titleTail": "of space.",
@@ -511,7 +510,6 @@ const ar: Dictionary = {
   "common.localOnly": "محفوظ على هذا الجهاز فقط",
   "common.none": "غير مسجل",
 
-  "home.eyebrow": "تجربة من تحدي ناسا لتطبيقات الفضاء",
   "home.titleLead": "اكتشف الآلات التي",
   "home.titleAccent": "شكّلت فهمنا",
   "home.titleTail": "للفضاء.",

@@ -92,13 +92,6 @@ export default function HomePage() {
 
         <div className="container-content relative grid gap-12 pb-24 pt-14 sm:pt-20 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-16 lg:pb-28 lg:pt-24">
           <div className="max-w-2xl">
-            <p
-              className="eyebrow enter flex items-center gap-2"
-              style={enter(0)}
-            >
-              <Sparkles aria-hidden="true" className="h-3.5 w-3.5" />
-              {t(locale, "home.eyebrow")}
-            </p>
             <h1
               className="enter mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-text-primary sm:text-5xl lg:text-6xl"
               style={enter(1)}

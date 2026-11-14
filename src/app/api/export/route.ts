@@ -14,7 +14,17 @@ import { storyCollections } from "@/data/stories";
 import { echoStories } from "@/data/echoes";
 import { simulations } from "@/data/simulations";
 
-export const dynamic = "force-static";
+/**
+ * The route is evaluated per request.
+ *
+ * It used to be `force-static`, which froze the response at build time and
+ * made `?dataset=…` meaningless: every query returned the whole collection
+ * and the documented 400 for an unknown dataset could never fire. The
+ * underlying data is static, but the *selection* is a request parameter, so
+ * the handler has to run at request time. Caching is kept at the edge via the
+ * `Cache-Control` header below.
+ */
+export const dynamic = "force-dynamic";
 
 const datasets = {
   artifacts: allArtifacts,
