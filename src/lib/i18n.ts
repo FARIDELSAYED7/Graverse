@@ -109,7 +109,7 @@ const en: Dictionary = {
     "GRAVERSE — a NASA Space Apps Challenge project. Not an official NASA website.",
   "footer.imagery":
     "Imagery: NASA. Data verified against public NASA records on 10 November 2026.",
-  "footer.madeFor": "Made with ❤️ for طثنيم",
+  "footer.madeFor": "Made by Spark for The every astronomer",
 
   "sections.missionControl.eyebrow": "Status board",
   "sections.missionControl.title": "Mission Control",
@@ -555,7 +555,7 @@ const ar: Dictionary = {
     "GRAVERSE — مشروع في تحدي ناسا لتطبيقات الفضاء. ليس موقعاً رسمياً لناسا.",
   "footer.imagery":
     "الصور: ناسا. تم التحقق من البيانات مقابل سجلات ناسا العامة في 10 نوفمبر 2026.",
-  "footer.madeFor": "صُنع بحب ❤️ من أجل طثنيم",
+  "footer.madeFor": "Made by Spark for The every astronomer",
 
   "sections.missionControl.eyebrow": "لوحة الحالة",
   "sections.missionControl.title": "مركز التحكم",
