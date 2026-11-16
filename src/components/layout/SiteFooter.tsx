@@ -136,6 +136,7 @@ export function SiteFooter({ locale = "en" }: { locale?: Locale }) {
         <div className="mt-6 flex flex-col gap-3 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>{t(locale, "footer.notNasa")}</p>
           <p>{t(locale, "footer.imagery")}</p>
+          <p>{t(locale, "footer.madeFor")}</p>
         </div>
       </div>
     </footer>
